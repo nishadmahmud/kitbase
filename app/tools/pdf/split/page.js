@@ -34,13 +34,13 @@ export default function SplitPdfPage() {
     };
 
     return (
-        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "40px 24px" }}>
+        <div className="max-w-[1280px] mx-auto px-6 py-10">
             <ToolHeader
                 title="Split PDF"
                 description="Separate one page or a whole set for easy conversion and organization."
                 breadcrumbs={[{ label: "PDF Tools", href: "/category/pdf" }, { label: "Split PDF" }]}
             />
-            <div style={{ maxWidth: "720px", margin: "0 auto" }}>
+            <div className="max-w-3xl mx-auto">
                 {!file ? (
                     <ToolDropzone
                         onFiles={handleFiles}
@@ -52,12 +52,12 @@ export default function SplitPdfPage() {
                     />
                 ) : (
                     <div>
-                        <div style={{ backgroundColor: "#171a21", border: "1px solid #2a2f3a", borderRadius: "16px", padding: "20px", marginBottom: "24px" }}>
-                            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                                <FileText style={{ width: "20px", height: "20px", color: "#4f8cff" }} />
+                        <div className="bg-[#171a21] border border-gray-800 rounded-2xl p-5 mb-6">
+                            <div className="flex items-center gap-3">
+                                <FileText className="w-5 h-5 text-blue-500" />
                                 <div>
-                                    <p style={{ fontSize: "14px", fontWeight: 500, color: "#e6e8ee", margin: 0 }}>{file.name}</p>
-                                    <p style={{ fontSize: "12px", color: "#6b7280", margin: 0 }}>{(file.size / 1024 / 1024).toFixed(2)} MB</p>
+                                    <p className="text-sm font-medium text-gray-200 m-0">{file.name}</p>
+                                    <p className="text-xs text-gray-500 m-0">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
                                 </div>
                             </div>
                         </div>
@@ -74,22 +74,17 @@ export default function SplitPdfPage() {
                         {error && <ToolResult success={false} message={error} />}
 
                         {resultFiles.length > 0 && (
-                            <div style={{ marginTop: "24px" }}>
+                            <div className="mt-6">
                                 <ToolResult success message={`Split into ${resultFiles.length} pages`} />
-                                <div style={{ marginTop: "16px", display: "flex", flexDirection: "column", gap: "8px" }}>
+                                <div className="mt-4 flex flex-col gap-2">
                                     {resultFiles.map((f, i) => (
-                                        <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 16px", backgroundColor: "#171a21", border: "1px solid #2a2f3a", borderRadius: "12px" }}>
-                                            <span style={{ fontSize: "14px", color: "#e6e8ee" }}>{f.name}</span>
+                                        <div key={i} className="flex items-center justify-between px-4 py-3 bg-[#171a21] border border-gray-800 rounded-xl">
+                                            <span className="text-sm text-gray-200">{f.name}</span>
                                             <button
                                                 onClick={() => downloadBlob(f.blob, f.name)}
-                                                style={{
-                                                    display: "inline-flex", alignItems: "center", gap: "6px",
-                                                    padding: "6px 12px", backgroundColor: "#1a1e27", color: "#4f8cff",
-                                                    fontSize: "13px", fontWeight: 500, borderRadius: "8px",
-                                                    border: "1px solid #2a2f3a", cursor: "pointer",
-                                                }}
+                                                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#1a1e27] text-blue-500 text-[13px] font-medium rounded-lg border border-gray-800 cursor-pointer hover:bg-[#1e2230] hover:border-gray-700 transition-colors"
                                             >
-                                                <Download style={{ width: "14px", height: "14px" }} /> Download
+                                                <Download className="w-3.5 h-3.5" /> Download
                                             </button>
                                         </div>
                                     ))}

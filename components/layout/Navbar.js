@@ -53,83 +53,53 @@ export default function Navbar() {
     ];
 
     return (
-        <nav style={{ position: "sticky", top: 0, zIndex: 50, borderBottom: "1px solid #2a2f3a", backgroundColor: "rgba(15,17,21,0.85)", backdropFilter: "blur(20px)" }}>
-            <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 24px" }}>
-                <div style={{ display: "flex", height: "64px", alignItems: "center", justifyContent: "space-between", gap: "16px" }}>
+        <nav className="sticky top-0 z-50 border-b border-gray-800 bg-[#0f1115]/85 backdrop-blur-xl">
+            <div className="max-w-7xl mx-auto px-6">
+                <div className="flex h-16 items-center justify-between gap-4">
                     {/* Logo */}
-                    <Link href="/" style={{ display: "flex", alignItems: "center", gap: "10px", textDecoration: "none", flexShrink: 0 }}>
-                        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "32px", height: "32px", backgroundColor: "#4f8cff", borderRadius: "8px" }}>
-                            <LayoutGrid style={{ width: "16px", height: "16px", color: "white" }} />
+                    <Link href="/" className="flex items-center gap-2.5 no-underline flex-shrink-0 group">
+                        <div className="flex items-center justify-center w-8 h-8 bg-blue-500 rounded-lg group-hover:scale-105 transition-transform">
+                            <LayoutGrid className="w-4 h-4 text-white" />
                         </div>
-                        <span style={{ fontSize: "18px", fontWeight: 700, color: "#e6e8ee" }}>Kitbase</span>
+                        <span className="text-lg font-bold text-gray-100">Kitbase</span>
                     </Link>
 
                     {/* Nav links */}
-                    <div style={{ display: "flex", alignItems: "center", gap: "4px" }} className="hidden md:flex">
+                    <div className="hidden md:flex items-center gap-1">
                         {navLinks.map((link) => (
                             <div
                                 key={link.href}
-                                style={{ position: "relative" }}
+                                className="relative"
                                 onMouseEnter={() => link.isCategory && setHoveredCategory(link.slug)}
                                 onMouseLeave={() => setHoveredCategory(null)}
                             >
                                 <Link
                                     href={link.href}
-                                    style={{
-                                        display: "block",
-                                        padding: "8px 14px",
-                                        fontSize: "14px",
-                                        borderRadius: "8px",
-                                        textDecoration: "none",
-                                        transition: "all 0.2s",
-                                        color: pathname === link.href || hoveredCategory === link.slug ? "#4f8cff" : "#9aa0aa",
-                                        backgroundColor: pathname === link.href || hoveredCategory === link.slug ? "rgba(79,140,255,0.1)" : "transparent",
-                                    }}
+                                    className={`block px-3.5 py-2 text-sm rounded-lg no-underline transition-all duration-200 ${pathname === link.href || hoveredCategory === link.slug
+                                            ? "text-blue-500 bg-blue-500/10"
+                                            : "text-gray-400 hover:text-gray-200 hover:bg-gray-800/50"
+                                        }`}
                                 >
                                     {link.label}
                                 </Link>
 
                                 {/* Dropdown */}
                                 {link.isCategory && hoveredCategory === link.slug && (
-                                    <div style={{
-                                        position: "absolute",
-                                        top: "100%",
-                                        left: "50%",
-                                        transform: "translateX(-50%)",
-                                        marginTop: "4px",
-                                        width: "280px",
-                                        backgroundColor: "#171a21",
-                                        border: "1px solid #2a2f3a",
-                                        borderRadius: "12px",
-                                        boxShadow: "0 10px 40px rgba(0,0,0,0.5)",
-                                        padding: "8px",
-                                        zIndex: 100,
-                                    }}>
+                                    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 w-[280px] bg-[#171a21] border border-gray-800 rounded-xl shadow-2xl shadow-black/50 p-2 z-[100]">
                                         {getToolsByCategory(link.slug).map((tool) => {
                                             const Icon = tool.icon;
                                             return (
                                                 <Link
                                                     key={tool.href}
                                                     href={tool.href}
-                                                    style={{
-                                                        display: "flex", alignItems: "center", gap: "12px",
-                                                        padding: "10px", borderRadius: "8px",
-                                                        textDecoration: "none", transition: "background 0.2s",
-                                                    }}
-                                                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "#1e2230"}
-                                                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = "transparent"}
+                                                    className="flex items-center gap-3 p-2.5 rounded-lg no-underline transition-colors hover:bg-[#1e2230] group"
                                                 >
-                                                    <div style={{
-                                                        display: "flex", alignItems: "center", justifyContent: "center",
-                                                        width: "32px", height: "32px",
-                                                        backgroundColor: "rgba(79,140,255,0.1)", borderRadius: "8px",
-                                                        flexShrink: 0
-                                                    }}>
-                                                        <Icon style={{ width: "16px", height: "16px", color: "#4f8cff" }} />
+                                                    <div className="flex items-center justify-center w-8 h-8 bg-blue-500/10 rounded-lg flex-shrink-0 group-hover:bg-blue-500/20 transition-colors">
+                                                        <Icon className="w-4 h-4 text-blue-500" />
                                                     </div>
                                                     <div>
-                                                        <div style={{ fontSize: "14px", fontWeight: 500, color: "#e6e8ee" }}>{tool.name}</div>
-                                                        <div style={{ fontSize: "12px", color: "#6b7280", lineHeight: 1.2, marginTop: "2px" }}>
+                                                        <div className="text-sm font-medium text-gray-200">{tool.name}</div>
+                                                        <div className="text-xs text-gray-500 leading-tight mt-0.5">
                                                             {tool.description.slice(0, 40)}...
                                                         </div>
                                                     </div>
@@ -143,57 +113,32 @@ export default function Navbar() {
                     </div>
 
                     {/* Search */}
-                    <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                        <div ref={searchRef} style={{ position: "relative" }} className="hidden sm:block">
-                            <div style={{ position: "relative" }}>
-                                <Search style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", width: "16px", height: "16px", color: "#6b7280" }} />
+                    <div className="flex items-center gap-3">
+                        <div ref={searchRef} className="relative hidden sm:block">
+                            <div className="relative">
+                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
                                 <input
                                     type="text"
                                     placeholder="Quick search..."
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                     onFocus={() => searchQuery.trim() && setShowSearch(true)}
-                                    style={{
-                                        width: "240px",
-                                        paddingLeft: "36px",
-                                        paddingRight: "32px",
-                                        paddingTop: "8px",
-                                        paddingBottom: "8px",
-                                        fontSize: "14px",
-                                        backgroundColor: "#1a1e27",
-                                        border: "1px solid #2a2f3a",
-                                        borderRadius: "8px",
-                                        color: "#e6e8ee",
-                                        outline: "none",
-                                        transition: "all 0.2s",
-                                    }}
+                                    className="w-60 pl-9 pr-8 py-2 text-sm bg-[#1a1e27] border border-gray-800 rounded-lg text-gray-200 outline-none focus:border-blue-500/50 focus:bg-[#1a1e27] transition-all"
                                 />
                                 {searchQuery && (
                                     <button
                                         onClick={() => setSearchQuery("")}
-                                        style={{ position: "absolute", right: "8px", top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: "#6b7280" }}
+                                        className="absolute right-2 top-1/2 -translate-y-1/2 bg-transparent border-none cursor-pointer text-gray-500 hover:text-gray-300"
                                     >
-                                        <X style={{ width: "16px", height: "16px" }} />
+                                        <X className="w-4 h-4" />
                                     </button>
                                 )}
                             </div>
 
                             {showSearch && (
-                                <div style={{
-                                    position: "absolute",
-                                    top: "100%",
-                                    marginTop: "8px",
-                                    right: 0,
-                                    width: "320px",
-                                    backgroundColor: "#171a21",
-                                    border: "1px solid #2a2f3a",
-                                    borderRadius: "12px",
-                                    boxShadow: "0 25px 50px rgba(0,0,0,0.5)",
-                                    overflow: "hidden",
-                                    zIndex: 100,
-                                }}>
+                                <div className="absolute top-full mt-2 right-0 w-80 bg-[#171a21] border border-gray-800 rounded-xl shadow-2xl shadow-black/50 overflow-hidden z-[100]">
                                     {searchResults.length > 0 ? (
-                                        <div style={{ padding: "8px 0" }}>
+                                        <div className="py-2">
                                             {searchResults.slice(0, 6).map((tool) => {
                                                 const Icon = tool.icon;
                                                 return (
@@ -201,23 +146,21 @@ export default function Navbar() {
                                                         key={tool.href}
                                                         href={tool.href}
                                                         onClick={() => setShowSearch(false)}
-                                                        style={{ display: "flex", alignItems: "center", gap: "12px", padding: "10px 16px", textDecoration: "none", transition: "background 0.2s" }}
-                                                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "#1e2230"}
-                                                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = "transparent"}
+                                                        className="flex items-center gap-3 px-4 py-2.5 no-underline transition-colors hover:bg-[#1e2230] group"
                                                     >
-                                                        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "32px", height: "32px", borderRadius: "8px", backgroundColor: "rgba(79,140,255,0.1)" }}>
-                                                            <Icon style={{ width: "16px", height: "16px", color: "#4f8cff" }} />
+                                                        <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-500/10 flex-shrink-0 group-hover:bg-blue-500/20 transition-colors">
+                                                            <Icon className="w-4 h-4 text-blue-500" />
                                                         </div>
                                                         <div>
-                                                            <p style={{ fontSize: "14px", fontWeight: 500, color: "#e6e8ee", margin: 0 }}>{tool.name}</p>
-                                                            <p style={{ fontSize: "12px", color: "#6b7280", margin: 0 }}>{tool.category}</p>
+                                                            <p className="text-sm font-medium text-gray-200 m-0">{tool.name}</p>
+                                                            <p className="text-xs text-gray-500 m-0">{tool.category}</p>
                                                         </div>
                                                     </Link>
                                                 );
                                             })}
                                         </div>
                                     ) : (
-                                        <div style={{ padding: "24px 16px", textAlign: "center", fontSize: "14px", color: "#6b7280" }}>
+                                        <div className="py-6 px-4 text-center text-sm text-gray-500">
                                             No tools found for &quot;{searchQuery}&quot;
                                         </div>
                                     )}
@@ -227,28 +170,23 @@ export default function Navbar() {
 
                         <button
                             onClick={() => setMobileMenu(!mobileMenu)}
-                            className="md:hidden"
-                            style={{ padding: "8px", color: "#9aa0aa", background: "none", border: "none", cursor: "pointer", borderRadius: "8px" }}
+                            className="md:hidden p-2 text-gray-400 bg-transparent border-none cursor-pointer rounded-lg hover:bg-gray-800 hover:text-gray-200 transition-colors"
                         >
-                            {mobileMenu ? <X style={{ width: "20px", height: "20px" }} /> : <Menu style={{ width: "20px", height: "20px" }} />}
+                            {mobileMenu ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
                         </button>
                     </div>
                 </div>
 
                 {mobileMenu && (
-                    <div className="md:hidden" style={{ paddingBottom: "16px", borderTop: "1px solid #2a2f3a", paddingTop: "16px", marginTop: "8px" }}>
+                    <div className="md:hidden py-4 border-t border-gray-800 mt-2 space-y-1">
                         {navLinks.map((link) => (
                             <Link
                                 key={link.href}
                                 href={link.href}
-                                style={{
-                                    display: "block",
-                                    padding: "10px 12px",
-                                    fontSize: "14px",
-                                    borderRadius: "8px",
-                                    textDecoration: "none",
-                                    color: pathname === link.href ? "#4f8cff" : "#9aa0aa",
-                                }}
+                                className={`block px-3 py-2.5 text-sm rounded-lg no-underline ${pathname === link.href
+                                        ? "text-blue-500 bg-blue-500/10"
+                                        : "text-gray-400 hover:text-gray-200 hover:bg-gray-800"
+                                    }`}
                             >
                                 {link.label}
                             </Link>

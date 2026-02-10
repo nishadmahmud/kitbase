@@ -6,8 +6,8 @@ import { Loader2 } from "lucide-react";
 const ImageToPdfClient = dynamic(() => import("./ImageToPdfClient"), {
     ssr: false,
     loading: () => (
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "400px", color: "#9aa0aa" }}>
-            <Loader2 style={{ width: "24px", height: "24px", animation: "spin 1s linear infinite", marginRight: "8px" }} />
+        <div className="flex justify-center items-center min-h-[400px] text-gray-400">
+            <Loader2 className="w-6 h-6 animate-spin mr-2" />
             Loading Image Tools...
         </div>
     )

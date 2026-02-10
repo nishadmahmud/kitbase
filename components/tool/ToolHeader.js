@@ -3,26 +3,26 @@ import { Shield, ChevronRight } from "lucide-react";
 
 export default function ToolHeader({ title, description, breadcrumbs = [] }) {
     return (
-        <div style={{ marginBottom: "32px" }}>
+        <div className="mb-8">
             {breadcrumbs.length > 0 && (
-                <nav style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "14px", marginBottom: "16px" }}>
-                    <Link href="/" style={{ color: "#6b7280", textDecoration: "none" }}>Home</Link>
+                <nav className="flex items-center gap-1.5 text-sm mb-4">
+                    <Link href="/" className="text-gray-500 hover:text-gray-300 transition-colors no-underline">Home</Link>
                     {breadcrumbs.map((crumb, i) => (
-                        <span key={i} style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                            <ChevronRight style={{ width: "14px", height: "14px", color: "#4b5563" }} />
+                        <span key={i} className="flex items-center gap-1.5">
+                            <ChevronRight className="w-3.5 h-3.5 text-gray-600" />
                             {crumb.href ? (
-                                <Link href={crumb.href} style={{ color: "#6b7280", textDecoration: "none" }}>{crumb.label}</Link>
+                                <Link href={crumb.href} className="text-gray-500 hover:text-gray-300 transition-colors no-underline">{crumb.label}</Link>
                             ) : (
-                                <span style={{ color: "#4f8cff" }}>{crumb.label}</span>
+                                <span className="text-blue-500 font-medium">{crumb.label}</span>
                             )}
                         </span>
                     ))}
                 </nav>
             )}
-            <h1 style={{ fontSize: "28px", fontWeight: 800, color: "#e6e8ee", margin: "0 0 8px" }}>{title}</h1>
-            <p style={{ fontSize: "15px", color: "#9aa0aa", margin: "0 0 12px", lineHeight: 1.6 }}>{description}</p>
-            <p style={{ display: "inline-flex", alignItems: "center", gap: "6px", fontSize: "13px", color: "#34d399", margin: 0 }}>
-                <Shield style={{ width: "14px", height: "14px" }} />
+            <h1 className="text-3xl font-extrabold text-gray-100 mb-2">{title}</h1>
+            <p className="text-[15px] text-gray-400 mb-3 leading-relaxed">{description}</p>
+            <p className="inline-flex items-center gap-1.5 text-[13px] text-emerald-400 m-0 font-medium">
+                <Shield className="w-3.5 h-3.5" />
                 Files are processed locally. Nothing leaves your browser.
             </p>
         </div>

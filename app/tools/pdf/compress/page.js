@@ -34,13 +34,13 @@ export default function CompressPdfPage() {
     };
 
     return (
-        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "40px 24px" }}>
+        <div className="max-w-[1280px] mx-auto px-6 py-10">
             <ToolHeader
                 title="Compress PDF"
                 description="Optimize and reduce the file size of your PDF documents."
                 breadcrumbs={[{ label: "PDF Tools", href: "/category/pdf" }, { label: "Compress PDF" }]}
             />
-            <div style={{ maxWidth: "720px", margin: "0 auto" }}>
+            <div className="max-w-3xl mx-auto">
                 {!file ? (
                     <ToolDropzone
                         onFiles={handleFiles}
@@ -53,12 +53,12 @@ export default function CompressPdfPage() {
                     />
                 ) : (
                     <div>
-                        <div style={{ backgroundColor: "#171a21", border: "1px solid #2a2f3a", borderRadius: "16px", padding: "20px", marginBottom: "24px" }}>
-                            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                                <FileText style={{ width: "20px", height: "20px", color: "#4f8cff" }} />
+                        <div className="bg-[#171a21] border border-gray-800 rounded-2xl p-5 mb-6">
+                            <div className="flex items-center gap-3">
+                                <FileText className="w-5 h-5 text-blue-500" />
                                 <div>
-                                    <p style={{ fontSize: "14px", fontWeight: 500, color: "#e6e8ee", margin: 0 }}>{file.name}</p>
-                                    <p style={{ fontSize: "12px", color: "#6b7280", margin: 0 }}>{(file.size / 1024 / 1024).toFixed(2)} MB</p>
+                                    <p className="text-sm font-medium text-gray-200 m-0">{file.name}</p>
+                                    <p className="text-xs text-gray-500 m-0">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
                                 </div>
                             </div>
                         </div>
@@ -72,14 +72,14 @@ export default function CompressPdfPage() {
                             </ActionButton>
                         </ToolActions>
 
-                        <div style={{ marginTop: "16px", padding: "12px", backgroundColor: "rgba(251, 191, 36, 0.1)", border: "1px solid rgba(251, 191, 36, 0.2)", borderRadius: "8px", fontSize: "13px", color: "#fbbf24" }}>
+                        <div className="mt-4 p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg text-sm text-amber-500">
                             <strong>Note:</strong> This tool performs structural optimization. If your PDF contains large images, the size reduction might be minimal as we prioritize document integrity.
                         </div>
 
                         {error && <ToolResult success={false} message={error} />}
 
                         {resultBlob && (
-                            <div style={{ marginTop: "24px" }}>
+                            <div className="mt-6">
                                 <ToolResult
                                     success
                                     message={`Optimized to ${(resultBlob.size / 1024 / 1024).toFixed(2)} MB`}
@@ -89,17 +89,12 @@ export default function CompressPdfPage() {
                                             : "Already optimized."
                                     }
                                 />
-                                <div style={{ marginTop: "16px", textAlign: "center" }}>
+                                <div className="mt-4 text-center">
                                     <button
                                         onClick={() => downloadBlob(resultBlob, `kitbase-optimized-${file.name}`)}
-                                        style={{
-                                            display: "inline-flex", alignItems: "center", gap: "8px",
-                                            padding: "14px 28px", backgroundColor: "#34d399", color: "#0f1115",
-                                            fontWeight: 600, fontSize: "15px", borderRadius: "12px",
-                                            border: "none", cursor: "pointer",
-                                        }}
+                                        className="inline-flex items-center gap-2 px-7 py-3.5 bg-emerald-500 text-gray-950 font-semibold text-[15px] rounded-xl border-none cursor-pointer hover:bg-emerald-400 transition-colors"
                                     >
-                                        <Download style={{ width: "18px", height: "18px" }} /> Download Optimized PDF
+                                        <Download className="w-[18px] h-[18px]" /> Download Optimized PDF
                                     </button>
                                 </div>
                             </div>

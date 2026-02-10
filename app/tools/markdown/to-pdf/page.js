@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Script from "next/script";
-import { FileDown, Settings, ChevronDown, Minus, Plus, Search } from "lucide-react";
+import { FileDown, Minus, Plus, ChevronDown } from "lucide-react";
 import ToolHeader from "@/components/tool/ToolHeader";
 import { ActionButton } from "@/components/tool/ToolActions";
 import { parseMarkdown } from "@/lib/markdown/parse";
@@ -100,7 +100,7 @@ console.log("Hello, World!");
     const currentPaper = PAPER_SIZES[paperSize];
 
     return (
-        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "40px 24px" }}>
+        <div className="max-w-[1280px] mx-auto px-6 py-10">
             <Script
                 src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
                 strategy="lazyOnload"
@@ -112,84 +112,78 @@ console.log("Hello, World!");
                 breadcrumbs={[{ label: "Dev Tools", href: "/category/dev" }, { label: "Markdown to PDF" }]}
             />
 
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))", gap: "24px", minHeight: "800px" }}>
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-6 min-h-[800px]">
                 {/* Editor */}
-                <div style={{ display: "flex", flexDirection: "column", backgroundColor: "#171a21", border: "1px solid #2a2f3a", borderRadius: "16px", overflow: "hidden", height: "800px" }}>
-                    <div style={{ padding: "12px 20px", borderBottom: "1px solid #2a2f3a", backgroundColor: "#1a1e27" }}>
-                        <span style={{ fontSize: "12px", fontWeight: 600, color: "#9aa0aa", textTransform: "uppercase", letterSpacing: "0.05em" }}>Editor (Markdown)</span>
+                <div className="flex flex-col bg-[#171a21] border border-gray-800 rounded-2xl overflow-hidden h-[800px]">
+                    <div className="px-5 py-3 border-b border-gray-800 bg-[#1a1e27]">
+                        <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Editor (Markdown)</span>
                     </div>
                     <textarea
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
-                        style={{
-                            flex: 1, width: "100%", resize: "none", backgroundColor: "transparent", border: "none",
-                            padding: "20px", color: "#e6e8ee", fontSize: "14px", fontFamily: "var(--font-jetbrains-mono), monospace", outline: "none",
-                        }}
+                        className="flex-1 w-full bg-transparent border-none p-5 text-gray-200 text-sm font-mono outline-none resize-none"
                         placeholder="# Start writing..."
                     />
                 </div>
 
                 {/* Preview / PDF Target */}
-                <div style={{ display: "flex", flexDirection: "column", gap: "16px", height: "800px" }}>
-                    <div style={{
-                        flex: 1, backgroundColor: "#52565e", borderRadius: "16px", overflow: "hidden",
-                        display: "flex", flexDirection: "column", position: "relative", border: "1px solid #2a2f3a"
-                    }}>
+                <div className="flex flex-col gap-4 h-[800px]">
+                    <div className="flex-1 bg-[#52565e] rounded-2xl overflow-hidden flex flex-col relative border border-gray-800">
                         {/* Preview Toolbar */}
-                        <div style={{
-                            padding: "12px 20px", backgroundColor: "#1a1e27", borderBottom: "1px solid #2a2f3a",
-                            display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: "12px",
-                            zIndex: 10, position: "relative"
-                        }}>
-                            <span style={{ fontSize: "12px", fontWeight: 600, color: "#9aa0aa", textTransform: "uppercase", letterSpacing: "0.05em" }}>PDF Preview</span>
+                        <div className="px-5 py-3 bg-[#1a1e27] border-b border-gray-800 flex flex-wrap justify-between items-center gap-3 z-10 relative">
+                            <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">PDF Preview</span>
 
-                            <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+                            <div className="flex gap-3 items-center">
                                 {/* Zoom Controls */}
-                                <div style={{ display: "flex", alignItems: "center", backgroundColor: "#2a2f3a", borderRadius: "6px", border: "1px solid #3f4451", padding: "2px 8px" }}>
-                                    <button onClick={() => setZoom(z => Math.max(0.3, z - 0.1))} style={{ color: "#e6e8ee", background: "none", border: "none", cursor: "pointer", padding: "4px" }} title="Zoom Out"><Minus size={14} /></button>
-                                    <span style={{ fontSize: "12px", fontWeight: 500, color: "#e6e8ee", width: "40px", textAlign: "center" }}>{Math.round(zoom * 100)}%</span>
-                                    <button onClick={() => setZoom(z => Math.min(2, z + 0.1))} style={{ color: "#e6e8ee", background: "none", border: "none", cursor: "pointer", padding: "4px" }} title="Zoom In"><Plus size={14} /></button>
+                                <div className="flex items-center bg-[#2a2f3a] rounded-md border border-[#3f4451] px-2 py-0.5">
+                                    <button
+                                        onClick={() => setZoom(z => Math.max(0.3, z - 0.1))}
+                                        className="text-gray-200 bg-transparent border-none cursor-pointer p-1 hover:text-white"
+                                        title="Zoom Out"
+                                    >
+                                        <Minus size={14} />
+                                    </button>
+                                    <span className="text-xs font-medium text-gray-200 w-10 text-center">{Math.round(zoom * 100)}%</span>
+                                    <button
+                                        onClick={() => setZoom(z => Math.min(2, z + 0.1))}
+                                        className="text-gray-200 bg-transparent border-none cursor-pointer p-1 hover:text-white"
+                                        title="Zoom In"
+                                    >
+                                        <Plus size={14} />
+                                    </button>
                                 </div>
 
                                 {/* Paper Size Selector */}
-                                <div style={{ position: "relative" }}>
+                                <div className="relative">
                                     <select
                                         value={paperSize}
                                         onChange={(e) => setPaperSize(e.target.value)}
-                                        style={{
-                                            appearance: "none", backgroundColor: "#2a2f3a", color: "#e6e8ee",
-                                            border: "1px solid #3f4451", borderRadius: "6px", padding: "4px 24px 4px 8px",
-                                            fontSize: "12px", fontWeight: 500, cursor: "pointer", outline: "none"
-                                        }}
+                                        className="appearance-none bg-[#2a2f3a] text-gray-200 border border-[#3f4451] rounded-md py-1 pl-2 pr-6 text-xs font-medium cursor-pointer outline-none hover:bg-[#323846]"
                                     >
                                         {Object.entries(PAPER_SIZES).map(([key, size]) => (
                                             <option key={key} value={key}>{size.name}</option>
                                         ))}
                                     </select>
-                                    <ChevronDown style={{ width: "12px", height: "12px", position: "absolute", right: "8px", top: "50%", transform: "translateY(-50%)", color: "#9aa0aa", pointerEvents: "none" }} />
+                                    <ChevronDown className="w-3 h-3 absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
                                 </div>
 
                                 {/* Margin Selector */}
-                                <div style={{ position: "relative" }}>
+                                <div className="relative">
                                     <select
                                         value={marginSize}
                                         onChange={(e) => setMarginSize(e.target.value)}
-                                        style={{
-                                            appearance: "none", backgroundColor: "#2a2f3a", color: "#e6e8ee",
-                                            border: "1px solid #3f4451", borderRadius: "6px", padding: "4px 24px 4px 8px",
-                                            fontSize: "12px", fontWeight: 500, cursor: "pointer", outline: "none"
-                                        }}
+                                        className="appearance-none bg-[#2a2f3a] text-gray-200 border border-[#3f4451] rounded-md py-1 pl-2 pr-6 text-xs font-medium cursor-pointer outline-none hover:bg-[#323846]"
                                     >
                                         {Object.entries(MARGINS).map(([key, margin]) => (
                                             <option key={key} value={key}>Margin: {margin.name}</option>
                                         ))}
                                     </select>
-                                    <ChevronDown style={{ width: "12px", height: "12px", position: "absolute", right: "8px", top: "50%", transform: "translateY(-50%)", color: "#9aa0aa", pointerEvents: "none" }} />
+                                    <ChevronDown className="w-3 h-3 absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
                                 </div>
                             </div>
                         </div>
 
-                        <div style={{ flex: 1, overflow: "auto", position: "relative", backgroundColor: "#52565e", display: "flex", padding: "40px" }}>
+                        <div className="flex-1 overflow-auto relative bg-[#52565e] flex p-10">
                             {/* 
                                 Scaled Wrapper Pattern with 'margin: auto' for safe centering
                                 If content < container => centered.
@@ -199,30 +193,18 @@ console.log("Hello, World!");
                                 style={{
                                     width: `${currentPaper.width * zoom}mm`, // Explicit visual width
                                     height: `${currentPaper.height * zoom}mm`, // Explicit visual height
-                                    position: "relative",
-                                    flexShrink: 0,
-                                    margin: "auto" // This is the key fix for centering + scrolling
                                 }}
+                                className="relative flex-shrink-0 m-auto"
                             >
                                 <div
                                     ref={contentRef}
-                                    className="pdf-content"
+                                    className="pdf-content absolute top-0 left-0 bg-white shadow-[0_0_15px_rgba(0,0,0,0.3)] text-black box-border origin-top-left transition-all duration-200"
                                     dangerouslySetInnerHTML={{ __html: html }}
                                     style={{
                                         width: `${currentPaper.width}mm`,
                                         minHeight: `${currentPaper.height}mm`,
-                                        backgroundColor: "white",
                                         padding: MARGINS[marginSize].value,
-                                        boxShadow: "0 0 15px rgba(0,0,0,0.3)",
-                                        color: "black",
-                                        boxSizing: "border-box",
-                                        // Scaling logic
                                         transform: `scale(${zoom})`,
-                                        transformOrigin: "top left",
-                                        position: "absolute",
-                                        top: 0,
-                                        left: 0,
-                                        transition: "transform 0.2s ease, width 0.3s ease, min-height 0.3s ease, padding 0.3s ease"
                                     }}
                                 />
                             </div>

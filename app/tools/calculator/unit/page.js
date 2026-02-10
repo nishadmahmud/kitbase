@@ -110,29 +110,24 @@ export default function UnitConverterPage() {
     };
 
     return (
-        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "40px 24px" }}>
+        <div className="container mx-auto py-10 px-6 max-w-7xl">
             <ToolHeader
                 title="Unit Converter"
                 description="Convert values between different units of measurement easily."
                 breadcrumbs={[{ label: "Calculators", href: "/category/calculator" }, { label: "Unit Converter" }]}
             />
 
-            <div style={{ maxWidth: "800px", margin: "0 auto" }}>
+            <div className="max-w-3xl mx-auto">
                 {/* Category Selector */}
-                <div style={{ display: "flex", gap: "12px", marginBottom: "32px", overflowX: "auto", paddingBottom: "4px" }}>
+                <div className="flex gap-3 mb-8 overflow-x-auto pb-1">
                     {Object.entries(UNITS).map(([key, data]) => (
                         <button
                             key={key}
                             onClick={() => setCategory(key)}
-                            style={{
-                                display: "flex", alignItems: "center", gap: "8px",
-                                padding: "12px 20px", borderRadius: "12px", border: "1px solid",
-                                borderColor: category === key ? "#4f8cff" : "#2a2f3a",
-                                backgroundColor: category === key ? "rgba(79, 140, 255, 0.1)" : "#171a21",
-                                color: category === key ? "#4f8cff" : "#9aa0aa",
-                                cursor: "pointer", fontSize: "14px", fontWeight: 600, whiteSpace: "nowrap",
-                                flex: "1 0 auto", justifyContent: "center"
-                            }}
+                            className={`flex items-center gap-2 px-5 py-3 rounded-xl border text-sm font-semibold whitespace-nowrap flex-none justify-center transition-colors ${category === key
+                                    ? "border-blue-500 bg-blue-500/10 text-blue-500"
+                                    : "border-gray-800 bg-gray-900 text-gray-400 hover:text-gray-200 hover:bg-gray-800"
+                                }`}
                         >
                             <data.icon size={18} /> {data.label}
                         </button>
@@ -140,29 +135,23 @@ export default function UnitConverterPage() {
                 </div>
 
                 {/* Conversion Card */}
-                <div style={{ backgroundColor: "#171a21", border: "1px solid #2a2f3a", borderRadius: "24px", padding: "40px" }}>
-                    <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+                <div className="bg-gray-900 border border-gray-800 rounded-3xl p-10">
+                    <div className="flex flex-col gap-8">
 
-                        <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: "24px", alignItems: "center" }}>
+                        <div className="grid grid-cols-1 md:grid-cols-[1fr,auto,1fr] gap-6 items-center">
                             {/* FROM */}
-                            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                                <label style={{ fontSize: "14px", fontWeight: 600, color: "#9aa0aa", textTransform: "uppercase" }}>From</label>
+                            <div className="flex flex-col gap-3">
+                                <label className="text-sm font-semibold text-gray-400 uppercase tracking-wide">From</label>
                                 <input
                                     type="number"
                                     value={amount}
                                     onChange={(e) => setAmount(Number(e.target.value))}
-                                    style={{
-                                        width: "100%", padding: "16px", borderRadius: "12px", border: "1px solid #3f4451",
-                                        backgroundColor: "#0f1115", color: "#e6e8ee", outline: "none", fontSize: "24px", fontWeight: 700
-                                    }}
+                                    className="w-full p-4 rounded-xl border border-gray-700 bg-gray-950 text-gray-200 outline-none text-2xl font-bold focus:border-blue-500 transition-colors"
                                 />
                                 <select
                                     value={fromUnit}
                                     onChange={(e) => setFromUnit(e.target.value)}
-                                    style={{
-                                        width: "100%", padding: "12px", borderRadius: "8px", border: "1px solid #3f4451",
-                                        backgroundColor: "#2a2f3a", color: "#e6e8ee", outline: "none", fontSize: "14px", cursor: "pointer"
-                                    }}
+                                    className="w-full p-3 rounded-lg border border-gray-700 bg-gray-800 text-gray-200 outline-none text-sm cursor-pointer hover:border-blue-500 transition-colors"
                                 >
                                     {UNITS[category].units.map(u => (
                                         <option key={u.id} value={u.id}>{u.label}</option>
@@ -171,17 +160,14 @@ export default function UnitConverterPage() {
                             </div>
 
                             {/* SWAP */}
-                            <div style={{ marginTop: "24px" }}>
+                            <div className="mt-6">
                                 <button
                                     onClick={() => {
                                         const temp = fromUnit;
                                         setFromUnit(toUnit);
                                         setToUnit(temp);
                                     }}
-                                    style={{
-                                        width: "48px", height: "48px", borderRadius: "50%", backgroundColor: "#2a2f3a", border: "1px solid #3f4451",
-                                        color: "#4f8cff", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer"
-                                    }}
+                                    className="w-12 h-12 rounded-full bg-gray-800 border border-gray-700 text-blue-500 flex items-center justify-center hover:bg-gray-700 hover:text-blue-400 transition-colors mx-auto"
                                     title="Swap Units"
                                 >
                                     <ArrowRightLeft size={20} />
@@ -189,22 +175,15 @@ export default function UnitConverterPage() {
                             </div>
 
                             {/* TO */}
-                            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                                <label style={{ fontSize: "14px", fontWeight: 600, color: "#9aa0aa", textTransform: "uppercase" }}>To</label>
-                                <div style={{
-                                    width: "100%", padding: "16px", borderRadius: "12px", border: "1px solid #2a2f3a",
-                                    backgroundColor: "#111", color: "#4f8cff", fontSize: "24px", fontWeight: 700,
-                                    display: "flex", alignItems: "center", height: "66px" // Match input height
-                                }}>
+                            <div className="flex flex-col gap-3">
+                                <label className="text-sm font-semibold text-gray-400 uppercase tracking-wide">To</label>
+                                <div className="w-full p-4 rounded-xl border border-gray-700 bg-gray-950 text-blue-500 text-2xl font-bold h-[66px] flex items-center overflow-hidden">
                                     {formatNumber(result)}
                                 </div>
                                 <select
                                     value={toUnit}
                                     onChange={(e) => setToUnit(e.target.value)}
-                                    style={{
-                                        width: "100%", padding: "12px", borderRadius: "8px", border: "1px solid #3f4451",
-                                        backgroundColor: "#2a2f3a", color: "#e6e8ee", outline: "none", fontSize: "14px", cursor: "pointer"
-                                    }}
+                                    className="w-full p-3 rounded-lg border border-gray-700 bg-gray-800 text-gray-200 outline-none text-sm cursor-pointer hover:border-blue-500 transition-colors"
                                 >
                                     {UNITS[category].units.map(u => (
                                         <option key={u.id} value={u.id}>{u.label}</option>

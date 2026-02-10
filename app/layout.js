@@ -22,22 +22,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning className={`dark ${inter.variable} ${jetbrainsMono.variable}`}>
-      <body
-        style={{
-          backgroundColor: "#0f1115",
-          color: "#e6e8ee",
-          fontFamily: "var(--font-inter), system-ui, -apple-system, sans-serif",
-          minHeight: "100vh",
-          margin: 0,
-          padding: 0,
-          display: "flex",
-          flexDirection: "column",
-          WebkitFontSmoothing: "antialiased",
-          MozOsxFontSmoothing: "grayscale",
-        }}
-      >
+      <body className="bg-[#0f1115] text-gray-200 font-sans min-h-screen m-0 p-0 flex flex-col antialiased">
         <Navbar />
-        <main style={{ flex: 1 }}>{children}</main>
+        <main className="flex-1">{children}</main>
         <Footer />
       </body>
     </html>

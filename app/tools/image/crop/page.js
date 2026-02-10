@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef } from "react";
 import ReactCrop, { centerCrop, makeAspectCrop } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
-import { Download, Crop, Image as ImageIcon, RotateCcw } from "lucide-react";
+import { Download } from "lucide-react";
 import ToolHeader from "@/components/tool/ToolHeader";
 import ToolDropzone from "@/components/tool/ToolDropzone";
 import ToolActions, { ActionButton } from "@/components/tool/ToolActions";
@@ -33,7 +33,6 @@ export default function ImageCropperPage() {
     const [originalFile, setOriginalFile] = useState(null)
 
     const imgRef = useRef(null)
-    const previewCanvasRef = useRef(null)
 
     const onSelectFile = (files) => {
         if (files && files.length > 0) {
@@ -100,14 +99,14 @@ export default function ImageCropperPage() {
     }
 
     return (
-        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "40px 24px" }}>
+        <div className="max-w-[1280px] mx-auto px-6 py-10">
             <ToolHeader
                 title="Image Cropper"
                 description="Crop your images freely or with fixed aspect ratios."
                 breadcrumbs={[{ label: "Image Tools", href: "/category/image" }, { label: "Cropper" }]}
             />
 
-            <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
+            <div className="max-w-7xl mx-auto">
                 {!imgSrc ? (
                     <ToolDropzone
                         onFiles={onSelectFile}
@@ -116,12 +115,12 @@ export default function ImageCropperPage() {
                         label="Upload image to crop"
                     />
                 ) : (
-                    <div style={{ display: "grid", gridTemplateColumns: "250px 1fr", gap: "32px", alignItems: "start" }}>
+                    <div className="flex flex-col md:flex-row gap-8 items-start">
                         {/* Controls */}
-                        <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-                            <div style={{ backgroundColor: "#171a21", border: "1px solid #2a2f3a", borderRadius: "16px", padding: "20px" }}>
-                                <h3 style={{ fontSize: "14px", fontWeight: 600, color: "#9aa0aa", textTransform: "uppercase", marginBottom: "16px" }}>Aspect Ratio</h3>
-                                <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                        <div className="w-full md:w-[280px] flex-shrink-0 flex flex-col gap-6">
+                            <div className="bg-[#171a21] border border-gray-800 rounded-2xl p-6">
+                                <h3 className="text-sm font-semibold text-gray-400 uppercase mb-4 m-0">Aspect Ratio</h3>
+                                <div className="flex flex-col gap-2">
                                     {[
                                         { label: "Free", value: undefined },
                                         { label: "1:1 (Square)", value: 1 },
@@ -132,13 +131,10 @@ export default function ImageCropperPage() {
                                         <button
                                             key={i}
                                             onClick={() => handleAspectChange(opt.value)}
-                                            style={{
-                                                padding: "10px", borderRadius: "8px", border: "1px solid",
-                                                borderColor: aspect === opt.value ? "#4f8cff" : "#2a2f3a",
-                                                backgroundColor: aspect === opt.value ? "rgba(79, 140, 255, 0.1)" : "#0f1115",
-                                                color: aspect === opt.value ? "#4f8cff" : "#e6e8ee",
-                                                cursor: "pointer", textAlign: "left", fontSize: "14px", fontWeight: 500
-                                            }}
+                                            className={`w-full text-left px-3 py-2.5 rounded-lg border text-sm font-medium transition-colors cursor-pointer ${aspect === opt.value
+                                                ? "border-blue-500 bg-blue-500/10 text-blue-500"
+                                                : "border-transparent bg-[#1a1e27] text-gray-200 hover:bg-gray-800"
+                                                }`}
                                         >
                                             {opt.label}
                                         </button>
@@ -146,20 +142,18 @@ export default function ImageCropperPage() {
                                 </div>
                             </div>
 
-                            <ActionButton onClick={downloadCroppedImage} icon={Download} disabled={!completedCrop}>
-                                Download Crop
-                            </ActionButton>
-
-                            <ActionButton variant="secondary" onClick={() => { setImgSrc(''); setOriginalFile(null); }}>
-                                Change Image
-                            </ActionButton>
+                            <ToolActions>
+                                <ActionButton onClick={downloadCroppedImage} icon={Download} disabled={!completedCrop} fullWidth>
+                                    Download Crop
+                                </ActionButton>
+                                <ActionButton variant="secondary" onClick={() => { setImgSrc(''); setOriginalFile(null); }} fullWidth>
+                                    Change Image
+                                </ActionButton>
+                            </ToolActions>
                         </div>
 
                         {/* Editor */}
-                        <div style={{
-                            backgroundColor: "#111", border: "1px solid #2a2f3a", borderRadius: "16px", overflow: "hidden",
-                            display: "flex", alignItems: "center", justifyContent: "center", minHeight: "500px", padding: "20px"
-                        }}>
+                        <div className="flex-1 min-w-0 w-full bg-black border border-gray-800 rounded-2xl overflow-hidden flex items-center justify-center min-h-[500px] p-6">
                             <ReactCrop
                                 crop={crop}
                                 onChange={(_, percentCrop) => setCrop(percentCrop)}
@@ -170,7 +164,7 @@ export default function ImageCropperPage() {
                                     ref={imgRef}
                                     alt="Crop me"
                                     src={imgSrc}
-                                    style={{ maxWidth: "100%", maxHeight: "600px" }}
+                                    className="max-w-full max-h-[600px] object-contain block"
                                     onLoad={onImageLoad}
                                 />
                             </ReactCrop>

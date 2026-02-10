@@ -61,16 +61,16 @@ export default function MergePdfPage() {
     };
 
     return (
-        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "40px 24px" }}>
+        <div className="max-w-[1280px] mx-auto px-6 py-10">
             <ToolHeader
                 title="Merge PDF"
                 description="Combine multiple PDF files into a single document with ease and speed."
                 breadcrumbs={[{ label: "PDF Tools", href: "/category/pdf" }, { label: "Merge PDF" }]}
             />
 
-            <div style={{ display: "flex", gap: "32px", flexWrap: "wrap" }}>
+            <div className="flex flex-wrap gap-8">
                 {/* Main */}
-                <div style={{ flex: 1, minWidth: 0 }}>
+                <div className="flex-1 min-w-0">
                     <ToolDropzone
                         onFiles={handleFiles}
                         accept=".pdf"
@@ -81,14 +81,14 @@ export default function MergePdfPage() {
                     />
 
                     {files.length > 0 && (
-                        <div style={{ marginTop: "24px", backgroundColor: "#171a21", border: "1px solid #2a2f3a", borderRadius: "16px", overflow: "hidden" }}>
-                            <div style={{ padding: "14px 20px", borderBottom: "1px solid #2a2f3a", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                                <span style={{ fontSize: "14px", fontWeight: 600, color: "#9aa0aa" }}>
+                        <div className="mt-6 bg-[#171a21] border border-gray-800 rounded-2xl overflow-hidden">
+                            <div className="px-5 py-3.5 border-b border-gray-800 flex items-center justify-between">
+                                <span className="text-sm font-semibold text-gray-400">
                                     {files.length} file{files.length !== 1 && "s"} added
                                 </span>
                                 <button
                                     onClick={() => { setFiles([]); setResult(null); }}
-                                    style={{ fontSize: "13px", color: "#f87171", background: "none", border: "none", cursor: "pointer" }}
+                                    className="text-[13px] text-red-500 bg-transparent border-none cursor-pointer hover:text-red-400 transition-colors"
                                 >
                                     Clear all
                                 </button>
@@ -101,23 +101,18 @@ export default function MergePdfPage() {
                                         onDragStart={() => handleDragStart(i)}
                                         onDragOver={(e) => handleDragOver(e, i)}
                                         onDragEnd={handleDragEnd}
-                                        style={{
-                                            display: "flex", alignItems: "center", gap: "12px",
-                                            padding: "12px 20px", cursor: "grab",
-                                            borderBottom: i < files.length - 1 ? "1px solid #2a2f3a" : "none",
-                                            backgroundColor: dragIdx === i ? "#1e2230" : "transparent",
-                                            opacity: dragIdx === i ? 0.6 : 1,
-                                        }}
+                                        className={`flex items-center gap-3 px-5 py-3 cursor-grab transition-colors ${i < files.length - 1 ? "border-b border-gray-800" : ""
+                                            } ${dragIdx === i ? "bg-[#1e2230] opacity-60" : "bg-transparent hover:bg-gray-800/30"}`}
                                     >
-                                        <GripVertical style={{ width: "16px", height: "16px", color: "#6b7280", flexShrink: 0 }} />
-                                        <FileText style={{ width: "16px", height: "16px", color: "#4f8cff", flexShrink: 0 }} />
-                                        <span style={{ flex: 1, fontSize: "14px", color: "#e6e8ee", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{file.name}</span>
-                                        <span style={{ fontSize: "12px", color: "#6b7280", flexShrink: 0 }}>{formatFileSize(file.size)}</span>
+                                        <GripVertical className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                                        <FileText className="w-4 h-4 text-blue-500 flex-shrink-0" />
+                                        <span className="flex-1 text-sm text-gray-200 truncate">{file.name}</span>
+                                        <span className="text-xs text-gray-500 flex-shrink-0">{formatFileSize(file.size)}</span>
                                         <button
                                             onClick={() => removeFile(i)}
-                                            style={{ color: "#6b7280", background: "none", border: "none", cursor: "pointer", flexShrink: 0 }}
+                                            className="text-gray-500 hover:text-red-500 bg-transparent border-none cursor-pointer flex-shrink-0 transition-colors"
                                         >
-                                            <X style={{ width: "16px", height: "16px" }} />
+                                            <X className="w-4 h-4" />
                                         </button>
                                     </div>
                                 ))}
@@ -148,55 +143,50 @@ export default function MergePdfPage() {
                     )}
 
                     {result && mergedBlob && (
-                        <div style={{ marginTop: "16px", textAlign: "center" }}>
+                        <div className="mt-4 text-center">
                             <button
                                 onClick={() => downloadBlob(mergedBlob, "kitbase-merged.pdf")}
-                                style={{
-                                    display: "inline-flex", alignItems: "center", gap: "8px",
-                                    padding: "14px 28px", backgroundColor: "#34d399", color: "#0f1115",
-                                    fontWeight: 600, fontSize: "15px", borderRadius: "12px",
-                                    border: "none", cursor: "pointer",
-                                }}
+                                className="inline-flex items-center gap-2 px-7 py-3.5 bg-emerald-500 text-gray-950 font-semibold text-[15px] rounded-xl border-none cursor-pointer hover:bg-emerald-400 transition-colors"
                             >
-                                <Download style={{ width: "18px", height: "18px" }} /> Download Merged PDF
+                                <Download className="w-[18px] h-[18px]" /> Download Merged PDF
                             </button>
                         </div>
                     )}
                 </div>
 
                 {/* Sidebar */}
-                <div style={{ width: "280px", flexShrink: 0, display: "flex", flexDirection: "column", gap: "20px" }}>
-                    <div style={{ backgroundColor: "#171a21", border: "1px solid #2a2f3a", borderRadius: "16px", padding: "24px" }}>
-                        <h3 style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "14px", fontWeight: 700, color: "#e6e8ee", margin: "0 0 16px" }}>
-                            <Info style={{ width: "16px", height: "16px", color: "#4f8cff" }} />
+                <div className="w-[280px] flex-shrink-0 flex flex-col gap-5">
+                    <div className="bg-[#171a21] border border-gray-800 rounded-2xl p-6">
+                        <h3 className="flex items-center gap-2 text-sm font-bold text-gray-200 m-0 mb-4">
+                            <Info className="w-4 h-4 text-blue-500" />
                             How it works
                         </h3>
-                        <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "10px" }}>
-                            <li style={{ display: "flex", alignItems: "flex-start", gap: "8px", fontSize: "14px", color: "#9aa0aa" }}>
-                                <span style={{ color: "#4f8cff", fontWeight: 700 }}>1.</span> Upload your PDF files
+                        <ul className="list-none p-0 m-0 flex flex-col gap-2.5">
+                            <li className="flex items-start gap-2 text-sm text-gray-400">
+                                <span className="text-blue-500 font-bold">1.</span> Upload your PDF files
                             </li>
-                            <li style={{ display: "flex", alignItems: "flex-start", gap: "8px", fontSize: "14px", color: "#9aa0aa" }}>
-                                <span style={{ color: "#4f8cff", fontWeight: 700 }}>2.</span> Drag to reorder if needed
+                            <li className="flex items-start gap-2 text-sm text-gray-400">
+                                <span className="text-blue-500 font-bold">2.</span> Drag to reorder if needed
                             </li>
-                            <li style={{ display: "flex", alignItems: "flex-start", gap: "8px", fontSize: "14px", color: "#9aa0aa" }}>
-                                <span style={{ color: "#4f8cff", fontWeight: 700 }}>3.</span> Click Merge and download
+                            <li className="flex items-start gap-2 text-sm text-gray-400">
+                                <span className="text-blue-500 font-bold">3.</span> Click Merge and download
                             </li>
                         </ul>
                     </div>
-                    <div style={{ backgroundColor: "#171a21", border: "1px solid #2a2f3a", borderRadius: "16px", padding: "24px" }}>
-                        <h3 style={{ fontSize: "14px", fontWeight: 700, color: "#e6e8ee", margin: "0 0 16px" }}>Specifications</h3>
-                        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                            <div style={{ display: "flex", justifyContent: "space-between", fontSize: "13px" }}>
-                                <span style={{ color: "#6b7280" }}>Max file size</span>
-                                <span style={{ color: "#9aa0aa" }}>50 MB each</span>
+                    <div className="bg-[#171a21] border border-gray-800 rounded-2xl p-6">
+                        <h3 className="text-sm font-bold text-gray-200 m-0 mb-4">Specifications</h3>
+                        <div className="flex flex-col gap-2.5">
+                            <div className="flex justify-between text-[13px]">
+                                <span className="text-gray-500">Max file size</span>
+                                <span className="text-gray-400">50 MB each</span>
                             </div>
-                            <div style={{ display: "flex", justifyContent: "space-between", fontSize: "13px" }}>
-                                <span style={{ color: "#6b7280" }}>Accepted format</span>
-                                <span style={{ color: "#9aa0aa" }}>.PDF</span>
+                            <div className="flex justify-between text-[13px]">
+                                <span className="text-gray-500">Accepted format</span>
+                                <span className="text-gray-400">.PDF</span>
                             </div>
-                            <div style={{ display: "flex", justifyContent: "space-between", fontSize: "13px" }}>
-                                <span style={{ color: "#6b7280" }}>Processing</span>
-                                <span style={{ color: "#34d399" }}>Client-side</span>
+                            <div className="flex justify-between text-[13px]">
+                                <span className="text-gray-500">Processing</span>
+                                <span className="text-emerald-400">Client-side</span>
                             </div>
                         </div>
                     </div>

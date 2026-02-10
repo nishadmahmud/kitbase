@@ -10,42 +10,28 @@ export default function HomePage() {
   return (
     <div>
       {/* Hero */}
-      <section style={{ position: "relative", overflow: "hidden" }}>
-        <div style={{
-          position: "absolute", inset: 0,
-          background: "radial-gradient(ellipse at top right, rgba(79,140,255,0.08) 0%, transparent 50%)",
-        }} />
-        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "80px 24px 96px" }}>
-          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "64px" }}>
-            <div style={{ maxWidth: "540px" }}>
-              <h1 style={{ fontSize: "clamp(2.25rem, 5vw, 3.5rem)", fontWeight: 800, lineHeight: 1.1, letterSpacing: "-0.02em", color: "#e6e8ee", margin: 0 }}>
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(79,140,255,0.08)_0%,transparent_50%)]" />
+        <div className="max-w-7xl mx-auto px-6 pt-20 pb-24">
+          <div className="flex flex-wrap items-center justify-between gap-16">
+            <div className="max-w-xl">
+              <h1 className="text-[clamp(2.25rem,5vw,3.5rem)] font-extrabold leading-[1.1] tracking-tight text-gray-100 m-0">
                 All your everyday tools.{" "}
-                <span style={{ color: "#4f8cff" }}>One clean place.</span>
+                <span className="text-blue-500">One clean place.</span>
               </h1>
-              <p style={{ marginTop: "24px", fontSize: "18px", color: "#9aa0aa", lineHeight: 1.7, marginBottom: 0 }}>
+              <p className="mt-6 text-lg text-gray-400 leading-relaxed m-0">
                 PDF, images, text, and developer utilities — fast, private, and free. No uploads, no ads, just pure utility.
               </p>
-              <div style={{ marginTop: "40px", display: "flex", flexWrap: "wrap", gap: "16px" }}>
+              <div className="mt-10 flex flex-wrap gap-4">
                 <Link
                   href="/all-tools"
-                  style={{
-                    display: "inline-flex", alignItems: "center", gap: "8px",
-                    padding: "14px 28px", backgroundColor: "#4f8cff", color: "white",
-                    fontWeight: 600, fontSize: "15px", borderRadius: "12px", textDecoration: "none",
-                    boxShadow: "0 8px 24px rgba(79,140,255,0.25)",
-                    transition: "all 0.2s",
-                  }}
+                  className="inline-flex items-center gap-2 px-7 py-3.5 bg-blue-500 text-white font-semibold text-[15px] rounded-xl no-underline shadow-xl shadow-blue-500/25 transition-all hover:bg-blue-600"
                 >
-                  Browse Tools <ArrowRight style={{ width: "16px", height: "16px" }} />
+                  Browse Tools <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link
                   href="#popular"
-                  style={{
-                    display: "inline-flex", alignItems: "center", gap: "8px",
-                    padding: "14px 28px", border: "1px solid #2a2f3a", color: "#e6e8ee",
-                    fontWeight: 600, fontSize: "15px", borderRadius: "12px", textDecoration: "none",
-                    transition: "all 0.2s",
-                  }}
+                  className="inline-flex items-center gap-2 px-7 py-3.5 border border-gray-800 text-gray-200 font-semibold text-[15px] rounded-xl no-underline transition-all hover:bg-gray-800"
                 >
                   Popular Tools
                 </Link>
@@ -53,20 +39,13 @@ export default function HomePage() {
             </div>
 
             {/* Hero graphic */}
-            <div style={{
-              position: "relative", width: "300px", height: "300px", flexShrink: 0,
-              background: "linear-gradient(135deg, rgba(79,140,255,0.12) 0%, rgba(79,140,255,0.04) 100%)",
-              borderRadius: "24px", border: "1px solid #2a2f3a",
-              display: "flex", alignItems: "center", justifyContent: "center",
-            }}>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "12px", padding: "32px", opacity: 0.5 }}>
+            <div className="relative w-[300px] h-[300px] flex-shrink-0 bg-gradient-to-br from-blue-500/10 to-blue-500/5 rounded-3xl border border-gray-800 flex items-center justify-center">
+              <div className="grid grid-cols-3 gap-3 p-8 opacity-50">
                 {[...Array(9)].map((_, i) => (
                   <div
                     key={i}
+                    className="w-14 h-14 bg-[#171a21] border border-gray-800 rounded-xl"
                     style={{
-                      width: "56px", height: "56px",
-                      backgroundColor: "#171a21", border: "1px solid #2a2f3a",
-                      borderRadius: "12px",
                       transform: `rotate(${(i - 4) * 5}deg)`,
                       opacity: 0.5 + (i % 3) * 0.2,
                     }}
@@ -79,64 +58,48 @@ export default function HomePage() {
       </section>
 
       {/* Search Bar */}
-      <section style={{ maxWidth: "1280px", margin: "-12px auto 80px", padding: "0 24px" }}>
+      <section className="max-w-7xl mx-auto px-6 -mt-3 mb-20 relative z-10">
         <Link
           href="/all-tools"
-          style={{
-            display: "flex", alignItems: "center", gap: "12px",
-            backgroundColor: "#171a21", border: "1px solid #2a2f3a",
-            borderRadius: "16px", padding: "20px 24px",
-            textDecoration: "none", transition: "all 0.2s",
-          }}
+          className="flex items-center gap-3 bg-[#171a21] border border-gray-800 rounded-2xl p-5 no-underline transition-all hover:border-gray-700 hover:bg-[#1e2230]"
         >
-          <Search style={{ width: "20px", height: "20px", color: "#6b7280", flexShrink: 0 }} />
-          <span style={{ flex: 1, color: "#6b7280", fontSize: "15px" }}>
+          <Search className="w-5 h-5 text-gray-500 flex-shrink-0" />
+          <span className="flex-1 text-gray-500 text-[15px]">
             Search tools (PDF merge, image resize, markdown...)
           </span>
-          <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-            <kbd style={{ padding: "4px 10px", fontSize: "12px", fontFamily: "monospace", backgroundColor: "#0f1115", border: "1px solid #2a2f3a", borderRadius: "6px", color: "#6b7280" }}>⌘</kbd>
-            <kbd style={{ padding: "4px 10px", fontSize: "12px", fontFamily: "monospace", backgroundColor: "#0f1115", border: "1px solid #2a2f3a", borderRadius: "6px", color: "#6b7280" }}>K</kbd>
+          <div className="flex items-center gap-1.5">
+            <kbd className="px-2.5 py-1 text-xs font-mono bg-[#0f1115] border border-gray-800 rounded-md text-gray-500">⌘</kbd>
+            <kbd className="px-2.5 py-1 text-xs font-mono bg-[#0f1115] border border-gray-800 rounded-md text-gray-500">K</kbd>
           </div>
         </Link>
       </section>
 
       {/* Popular Tools */}
-      <section id="popular" style={{ maxWidth: "1280px", margin: "0 auto 96px", padding: "0 24px" }}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "32px" }}>
-          <h2 style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "20px", fontWeight: 700, color: "#e6e8ee", margin: 0 }}>
-            <Sparkles style={{ width: "20px", height: "20px", color: "#4f8cff" }} />
+      <section id="popular" className="max-w-7xl mx-auto px-6 mb-24">
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="flex items-center gap-2.5 text-xl font-bold text-gray-100 m-0">
+            <Sparkles className="w-5 h-5 text-blue-500" />
             Popular Tools
           </h2>
-          <Link href="/all-tools" style={{ fontSize: "14px", fontWeight: 500, color: "#4f8cff", textDecoration: "none" }}>
+          <Link href="/all-tools" className="text-sm font-medium text-blue-500 no-underline hover:text-blue-400 transition-colors">
             View all
           </Link>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "20px" }}>
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-5">
           {popularTools.map((tool) => {
             const Icon = tool.icon;
             return (
               <Link
                 key={tool.href}
                 href={tool.href}
-                style={{
-                  backgroundColor: "#171a21", border: "1px solid #2a2f3a",
-                  borderRadius: "16px", padding: "28px",
-                  textDecoration: "none", transition: "all 0.2s",
-                }}
-                onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#3a4050"; e.currentTarget.style.backgroundColor = "#1e2230"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#2a2f3a"; e.currentTarget.style.backgroundColor = "#171a21"; }}
+                className="bg-[#171a21] border border-gray-800 rounded-2xl p-7 no-underline transition-all hover:bg-[#1e2230] hover:border-gray-700 group"
               >
-                <div style={{
-                  width: "48px", height: "48px", borderRadius: "12px",
-                  backgroundColor: "rgba(79,140,255,0.1)",
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  marginBottom: "20px",
-                }}>
-                  <Icon style={{ width: "24px", height: "24px", color: "#4f8cff" }} />
+                <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mb-5 group-hover:bg-blue-500/20 transition-colors">
+                  <Icon className="w-6 h-6 text-blue-500" />
                 </div>
-                <h3 style={{ fontWeight: 600, color: "#e6e8ee", margin: "0 0 8px", fontSize: "16px" }}>{tool.name}</h3>
-                <p style={{ fontSize: "14px", color: "#9aa0aa", lineHeight: 1.6, margin: 0 }}>{tool.description}</p>
+                <h3 className="font-semibold text-gray-200 m-0 mb-2 text-base">{tool.name}</h3>
+                <p className="text-sm text-gray-400 leading-relaxed m-0">{tool.description}</p>
               </Link>
             );
           })}
@@ -144,35 +107,27 @@ export default function HomePage() {
       </section>
 
       {/* Browse by Category */}
-      <section style={{ maxWidth: "1280px", margin: "0 auto 96px", padding: "0 24px" }}>
-        <h2 style={{ fontSize: "20px", fontWeight: 700, color: "#e6e8ee", margin: "0 0 32px" }}>Browse by Category</h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: "20px" }}>
+      <section className="max-w-7xl mx-auto px-6 mb-24">
+        <h2 className="text-xl font-bold text-gray-100 m-0 mb-8">Browse by Category</h2>
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(340px,1fr))] gap-5">
           {categories.map((cat) => {
             const Icon = cat.icon;
             return (
               <Link
                 key={cat.slug}
                 href={`/category/${cat.slug}`}
-                style={{
-                  display: "flex", alignItems: "center", gap: "20px",
-                  backgroundColor: "#171a21", border: "1px solid #2a2f3a",
-                  borderRadius: "16px", padding: "28px",
-                  textDecoration: "none", transition: "all 0.2s",
-                }}
-                onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#3a4050"; e.currentTarget.style.backgroundColor = "#1e2230"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#2a2f3a"; e.currentTarget.style.backgroundColor = "#171a21"; }}
+                className="flex items-center gap-5 bg-[#171a21] border border-gray-800 rounded-2xl p-7 no-underline transition-all hover:bg-[#1e2230] hover:border-gray-700"
               >
-                <div style={{
-                  width: "56px", height: "56px", borderRadius: "16px",
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  flexShrink: 0, backgroundColor: `${cat.color}15`,
-                }}>
-                  <Icon style={{ width: "28px", height: "28px", color: cat.color }} />
+                <div
+                  className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0"
+                  style={{ backgroundColor: `${cat.color}15` }}
+                >
+                  <Icon className="w-7 h-7" style={{ color: cat.color }} />
                 </div>
                 <div>
-                  <h3 style={{ fontWeight: 700, color: "#e6e8ee", fontSize: "18px", margin: "0 0 4px" }}>{cat.name}</h3>
-                  <p style={{ fontSize: "14px", color: "#9aa0aa", margin: 0 }}>
-                    <span style={{ color: "#4f8cff", fontWeight: 500 }}>{cat.tags.length + 4} Tools</span>
+                  <h3 className="font-bold text-gray-200 text-lg m-0 mb-1">{cat.name}</h3>
+                  <p className="text-sm text-gray-400 m-0">
+                    <span className="text-blue-500 font-medium">{cat.tags.length + 4} Tools</span>
                     {"  ·  "}
                     {cat.tags.join(", ")}
                   </p>

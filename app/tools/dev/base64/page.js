@@ -33,26 +33,24 @@ export default function Base64Page() {
     }, [output]);
 
     return (
-        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "40px 24px" }}>
+        <div className="max-w-[1280px] mx-auto px-6 py-10">
             <ToolHeader
                 title="Base64 Encoder / Decoder"
                 description="Encode and decode Base64 strings quickly in your browser."
                 breadcrumbs={[{ label: "Text & Dev Tools", href: "/category/dev" }, { label: "Base64" }]}
             />
 
-            <div style={{ maxWidth: "720px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "16px" }}>
+            <div className="max-w-3xl mx-auto flex flex-col gap-4">
                 {/* Mode toggle */}
-                <div style={{ display: "flex", gap: "4px", backgroundColor: "#171a21", border: "1px solid #2a2f3a", borderRadius: "12px", padding: "4px" }}>
+                <div className="flex gap-1 bg-[#171a21] border border-gray-800 rounded-xl p-1">
                     {["encode", "decode"].map((m) => (
                         <button
                             key={m}
                             onClick={() => { setMode(m); setOutput(""); setError(null); }}
-                            style={{
-                                flex: 1, padding: "10px", fontSize: "14px", fontWeight: 500, borderRadius: "8px",
-                                border: "none", cursor: "pointer", transition: "all 0.2s",
-                                backgroundColor: mode === m ? "#4f8cff" : "transparent",
-                                color: mode === m ? "white" : "#9aa0aa",
-                            }}
+                            className={`flex-1 p-2.5 text-sm font-medium rounded-lg border-none cursor-pointer transition-all duration-200 ${mode === m
+                                    ? "bg-blue-500 text-white shadow-md"
+                                    : "bg-transparent text-gray-400 hover:text-gray-200"
+                                }`}
                         >
                             {m === "encode" ? "Encode" : "Decode"}
                         </button>
@@ -60,19 +58,15 @@ export default function Base64Page() {
                 </div>
 
                 {/* Input */}
-                <div style={{ backgroundColor: "#171a21", border: "1px solid #2a2f3a", borderRadius: "16px", overflow: "hidden" }}>
-                    <div style={{ padding: "12px 20px", borderBottom: "1px solid #2a2f3a", fontSize: "12px", fontWeight: 600, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                <div className="bg-[#171a21] border border-gray-800 rounded-2xl overflow-hidden">
+                    <div className="px-5 py-3 border-b border-gray-800 text-xs font-semibold text-gray-500 uppercase tracking-wider bg-[#1a1e27]">
                         {mode === "encode" ? "Text Input" : "Base64 Input"}
                     </div>
                     <textarea
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                         placeholder={mode === "encode" ? "Enter text to encode..." : "Enter Base64 to decode..."}
-                        style={{
-                            width: "100%", height: "160px", padding: "20px", backgroundColor: "transparent",
-                            color: "#e6e8ee", fontSize: "14px", fontFamily: "monospace", lineHeight: 1.7,
-                            border: "none", outline: "none", resize: "none", boxSizing: "border-box",
-                        }}
+                        className="w-full h-40 p-5 bg-transparent text-gray-200 text-sm font-mono leading-relaxed border-none outline-none resize-none box-border"
                         spellCheck={false}
                     />
                 </div>
@@ -84,25 +78,25 @@ export default function Base64Page() {
                 </ToolActions>
 
                 {error && (
-                    <div style={{ padding: "16px 20px", backgroundColor: "rgba(248,113,113,0.05)", border: "1px solid rgba(248,113,113,0.2)", borderRadius: "12px", fontSize: "14px", color: "#f87171" }}>
+                    <div className="p-4 bg-red-500/5 border border-red-500/20 rounded-xl text-sm text-red-400">
                         {error}
                     </div>
                 )}
 
                 {output && (
-                    <div style={{ backgroundColor: "#171a21", border: "1px solid #2a2f3a", borderRadius: "16px", overflow: "hidden" }}>
-                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 20px", borderBottom: "1px solid #2a2f3a" }}>
-                            <span style={{ fontSize: "12px", fontWeight: 600, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                    <div className="bg-[#171a21] border border-gray-800 rounded-2xl overflow-hidden">
+                        <div className="flex items-center justify-between px-5 py-3 border-b border-gray-800 bg-[#1a1e27]">
+                            <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
                                 {mode === "encode" ? "Base64 Output" : "Text Output"}
                             </span>
                             <button
                                 onClick={handleCopy}
-                                style={{ display: "flex", alignItems: "center", gap: "4px", fontSize: "12px", color: "#4f8cff", background: "none", border: "none", cursor: "pointer" }}
+                                className="flex items-center gap-1 text-xs text-blue-500 bg-transparent border-none cursor-pointer hover:text-blue-400 transition-colors"
                             >
-                                <Copy style={{ width: "14px", height: "14px" }} />{copied ? "Copied!" : "Copy"}
+                                <Copy className="w-3.5 h-3.5" />{copied ? "Copied!" : "Copy"}
                             </button>
                         </div>
-                        <pre style={{ padding: "20px", margin: 0, color: "#e6e8ee", fontSize: "14px", fontFamily: "monospace", lineHeight: 1.7, overflowX: "auto", whiteSpace: "pre-wrap", wordBreak: "break-all" }}>
+                        <pre className="p-5 m-0 text-gray-200 text-sm font-mono leading-relaxed overflow-x-auto whitespace-pre-wrap break-all">
                             {output}
                         </pre>
                     </div>

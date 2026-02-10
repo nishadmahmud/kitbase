@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Copy, Download, FileText, BarChart3 } from "lucide-react";
+import { Copy, Download, BarChart3 } from "lucide-react";
 import ToolHeader from "@/components/tool/ToolHeader";
 import ToolActions, { ActionButton } from "@/components/tool/ToolActions";
 import { parseMarkdown } from "@/lib/markdown/parse";
@@ -49,7 +49,7 @@ export default function MarkdownViewerPage() {
     };
 
     return (
-        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "40px 24px" }}>
+        <div className="max-w-[1280px] mx-auto px-6 py-10">
             <ToolHeader
                 title="Markdown Viewer"
                 description="Live preview and edit your markdown files with real-time rendering."
@@ -57,42 +57,34 @@ export default function MarkdownViewerPage() {
             />
 
             {/* Stats bar */}
-            <div style={{ display: "flex", alignItems: "center", gap: "20px", marginBottom: "20px", fontSize: "13px", color: "#6b7280" }}>
-                <span style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-                    <BarChart3 style={{ width: "14px", height: "14px" }} /> {wordCount} words · {lineCount} lines
+            <div className="flex items-center gap-5 mb-5 text-xs text-gray-500">
+                <span className="flex items-center gap-1">
+                    <BarChart3 className="w-3.5 h-3.5" /> {wordCount} words · {lineCount} lines
                 </span>
             </div>
 
             {/* Editor + Preview */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px", minHeight: "480px" }}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 min-h-[480px]">
                 {/* Editor */}
-                <div style={{ backgroundColor: "#171a21", border: "1px solid #2a2f3a", borderRadius: "16px", overflow: "hidden", display: "flex", flexDirection: "column" }}>
-                    <div style={{ padding: "12px 20px", borderBottom: "1px solid #2a2f3a", fontSize: "12px", fontWeight: 600, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                <div className="bg-[#171a21] border border-gray-800 rounded-2xl overflow-hidden flex flex-col">
+                    <div className="px-5 py-3 border-b border-gray-800 text-xs font-semibold text-gray-500 uppercase tracking-wider bg-[#1a1e27]">
                         Editor
                     </div>
                     <textarea
                         value={md}
                         onChange={(e) => setMd(e.target.value)}
                         spellCheck={false}
-                        style={{
-                            flex: 1, padding: "20px", backgroundColor: "transparent",
-                            color: "#e6e8ee", fontSize: "14px", fontFamily: "var(--font-jetbrains-mono), monospace",
-                            lineHeight: 1.7, border: "none", outline: "none", resize: "none",
-                        }}
+                        className="flex-1 p-5 bg-transparent text-gray-200 text-sm font-mono leading-relaxed border-none outline-none resize-none"
                     />
                 </div>
 
                 {/* Preview */}
-                <div style={{ backgroundColor: "#171a21", border: "1px solid #2a2f3a", borderRadius: "16px", overflow: "hidden", display: "flex", flexDirection: "column" }}>
-                    <div style={{ padding: "12px 20px", borderBottom: "1px solid #2a2f3a", fontSize: "12px", fontWeight: 600, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                <div className="bg-[#171a21] border border-gray-800 rounded-2xl overflow-hidden flex flex-col">
+                    <div className="px-5 py-3 border-b border-gray-800 text-xs font-semibold text-gray-500 uppercase tracking-wider bg-[#1a1e27]">
                         Preview
                     </div>
-                    <div className="markdown-body"
+                    <div className="markdown-body flex-1 p-5 text-sm leading-[1.8] text-gray-200 overflow-y-auto"
                         dangerouslySetInnerHTML={{ __html: html }}
-                        style={{
-                            flex: 1, padding: "20px", fontSize: "14px", lineHeight: 1.8,
-                            color: "#e6e8ee", overflowY: "auto",
-                        }}
                     />
                     <style jsx global>{`
                         .markdown-body h1 { font-size: 2em; font-weight: 800; border-bottom: 1px solid #2a2f3a; padding-bottom: 0.3em; margin-top: 24px; margin-bottom: 16px; color: #e6e8ee; }
@@ -124,7 +116,7 @@ export default function MarkdownViewerPage() {
                         
                         .markdown-body table { border-spacing: 0; border-collapse: collapse; margin-bottom: 16px; width: 100%; overflow: auto; }
                         .markdown-body table th, .markdown-body table td { padding: 6px 13px; border: 1px solid #30363d; }
-                        .markdown-body table th { fontWeight: 600; background-color: #161b22; }
+                        .markdown-body table th { font-weight: 600; background-color: #161b22; }
                         .markdown-body table tr { background-color: #0d1117; border-top: 1px solid #21262d; }
                         .markdown-body table tr:nth-child(2n) { background-color: #161b22; }
                     `}</style>

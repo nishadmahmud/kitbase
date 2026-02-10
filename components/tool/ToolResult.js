@@ -3,33 +3,30 @@ import { CheckCircle, XCircle, Download } from "lucide-react";
 export default function ToolResult({ success, message, downloadUrl, downloadName }) {
     return (
         <div
-            style={{
-                marginTop: "24px", padding: "24px", borderRadius: "16px",
-                border: `1px solid ${success ? "rgba(52,211,153,0.2)" : "rgba(248,113,113,0.2)"}`,
-                backgroundColor: success ? "rgba(52,211,153,0.05)" : "rgba(248,113,113,0.05)",
-            }}
+            className={`mt-6 p-6 rounded-2xl border ${success
+                    ? "border-emerald-500/20 bg-emerald-500/5"
+                    : "border-red-500/20 bg-red-500/5"
+                }`}
         >
-            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            <div className="flex items-center gap-3">
                 {success ? (
-                    <CheckCircle style={{ width: "20px", height: "20px", color: "#34d399", flexShrink: 0 }} />
+                    <CheckCircle className="w-5 h-5 text-emerald-400 flex-shrink-0" />
                 ) : (
-                    <XCircle style={{ width: "20px", height: "20px", color: "#f87171", flexShrink: 0 }} />
+                    <XCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
                 )}
-                <p style={{ fontSize: "15px", color: success ? "#34d399" : "#f87171", margin: 0, fontWeight: 500 }}>{message}</p>
+                <p className={`text-[15px] m-0 font-medium ${success ? "text-emerald-400" : "text-red-500"}`}>
+                    {message}
+                </p>
             </div>
 
             {success && downloadUrl && (
-                <div style={{ marginTop: "16px", display: "flex", justifyContent: "center" }}>
+                <div className="mt-4 flex justify-center">
                     <a
                         href={downloadUrl}
                         download={downloadName || "download"}
-                        style={{
-                            display: "inline-flex", alignItems: "center", gap: "8px",
-                            padding: "12px 24px", backgroundColor: "#34d399", color: "#0f1115",
-                            fontWeight: 600, fontSize: "14px", borderRadius: "10px", textDecoration: "none",
-                        }}
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-500 text-gray-950 font-semibold text-sm rounded-xl hover:bg-emerald-400 transition-colors no-underline"
                     >
-                        <Download style={{ width: "16px", height: "16px" }} /> Download
+                        <Download className="w-4 h-4" /> Download
                     </a>
                 </div>
             )}

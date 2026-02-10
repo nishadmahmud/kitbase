@@ -39,26 +39,24 @@ export default function PercentageCalculatorPage() {
     const currentMode = modes.find((m) => m.key === mode);
 
     return (
-        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "40px 24px" }}>
+        <div className="max-w-[1280px] mx-auto px-6 py-10">
             <ToolHeader
                 title="Percentage Calculator"
                 description="Quick percentage calculations for discounts, tips, grades, and more."
                 breadcrumbs={[{ label: "Calculators", href: "/category/calculator" }, { label: "Percentage Calculator" }]}
             />
 
-            <div style={{ maxWidth: "480px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "24px" }}>
+            <div className="max-w-[480px] mx-auto flex flex-col gap-6">
                 {/* Mode selector */}
-                <div style={{ display: "flex", gap: "4px", backgroundColor: "#171a21", border: "1px solid #2a2f3a", borderRadius: "12px", padding: "4px" }}>
+                <div className="flex gap-1 bg-[#171a21] border border-gray-800 rounded-xl p-1">
                     {modes.map((m) => (
                         <button
                             key={m.key}
                             onClick={() => { setMode(m.key); setA(""); setB(""); }}
-                            style={{
-                                flex: 1, padding: "10px", fontSize: "12px", fontWeight: 500, borderRadius: "8px",
-                                border: "none", cursor: "pointer", transition: "all 0.2s",
-                                backgroundColor: mode === m.key ? "#4f8cff" : "transparent",
-                                color: mode === m.key ? "white" : "#9aa0aa",
-                            }}
+                            className={`flex-1 p-2.5 text-xs font-medium rounded-lg border-none cursor-pointer transition-all duration-200 ${mode === m.key
+                                    ? "bg-blue-500 text-white shadow-sm"
+                                    : "bg-transparent text-[#9aa0aa] hover:text-gray-200"
+                                }`}
                         >
                             {m.label}
                         </button>
@@ -66,49 +64,43 @@ export default function PercentageCalculatorPage() {
                 </div>
 
                 {/* Inputs */}
-                <div style={{ backgroundColor: "#171a21", border: "1px solid #2a2f3a", borderRadius: "16px", padding: "28px", display: "flex", flexDirection: "column", gap: "16px" }}>
+                <div className="bg-[#171a21] border border-gray-800 rounded-2xl p-7 flex flex-col gap-4">
                     <div>
-                        <label style={{ display: "block", fontSize: "14px", fontWeight: 500, color: "#9aa0aa", marginBottom: "8px" }}>Value A</label>
+                        <label className="block text-sm font-medium text-[#9aa0aa] mb-2">Value A</label>
                         <input
                             type="number"
                             value={a}
                             onChange={(e) => setA(e.target.value)}
                             placeholder={currentMode?.placeholderA}
-                            style={{
-                                width: "100%", padding: "14px 16px", backgroundColor: "#1a1e27", border: "1px solid #2a2f3a",
-                                borderRadius: "12px", color: "#e6e8ee", fontSize: "18px", outline: "none", boxSizing: "border-box",
-                            }}
+                            className="w-full px-4 py-3.5 bg-[#1a1e27] border border-gray-800 rounded-xl text-gray-200 text-lg outline-none focus:border-blue-500 transition-colors placeholder:text-gray-700"
                         />
                     </div>
                     <div>
-                        <label style={{ display: "block", fontSize: "14px", fontWeight: 500, color: "#9aa0aa", marginBottom: "8px" }}>Value B</label>
+                        <label className="block text-sm font-medium text-[#9aa0aa] mb-2">Value B</label>
                         <input
                             type="number"
                             value={b}
                             onChange={(e) => setB(e.target.value)}
                             placeholder={currentMode?.placeholderB}
-                            style={{
-                                width: "100%", padding: "14px 16px", backgroundColor: "#1a1e27", border: "1px solid #2a2f3a",
-                                borderRadius: "12px", color: "#e6e8ee", fontSize: "18px", outline: "none", boxSizing: "border-box",
-                            }}
+                            className="w-full px-4 py-3.5 bg-[#1a1e27] border border-gray-800 rounded-xl text-gray-200 text-lg outline-none focus:border-blue-500 transition-colors placeholder:text-gray-700"
                         />
                     </div>
                 </div>
 
                 {/* Result */}
                 {result && (
-                    <div style={{ backgroundColor: "rgba(79,140,255,0.05)", border: "1px solid rgba(79,140,255,0.2)", borderRadius: "16px", padding: "28px", textAlign: "center" }}>
-                        <p style={{ fontSize: "14px", color: "#9aa0aa", margin: "0 0 8px" }}>{result.label}</p>
-                        <p style={{ fontSize: "40px", fontWeight: 800, color: "#4f8cff", margin: 0 }}>{result.value}</p>
+                    <div className="bg-blue-500/5 border border-blue-500/20 rounded-2xl p-7 text-center">
+                        <p className="text-sm text-[#9aa0aa] m-0 mb-2">{result.label}</p>
+                        <p className="text-[40px] font-extrabold text-blue-500 m-0 leading-tight">{result.value}</p>
                     </div>
                 )}
 
-                <div style={{ textAlign: "center" }}>
+                <div className="text-center">
                     <button
                         onClick={() => { setA(""); setB(""); }}
-                        style={{ display: "inline-flex", alignItems: "center", gap: "6px", fontSize: "14px", color: "#6b7280", background: "none", border: "none", cursor: "pointer" }}
+                        className="inline-flex items-center gap-1.5 text-sm text-gray-500 bg-transparent border-none cursor-pointer hover:text-gray-300 transition-colors"
                     >
-                        <RotateCcw style={{ width: "14px", height: "14px" }} /> Reset
+                        <RotateCcw className="w-3.5 h-3.5" /> Reset
                     </button>
                 </div>
             </div>

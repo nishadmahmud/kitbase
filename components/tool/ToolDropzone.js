@@ -29,32 +29,24 @@ export default function ToolDropzone({ onFiles, accept = "*", multiple = true, l
             onDragOver={(e) => { e.preventDefault(); setDragActive(true); }}
             onDragLeave={() => setDragActive(false)}
             onDrop={handleDrop}
-            style={{
-                display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-                padding: "48px 24px", cursor: "pointer",
-                border: `2px dashed ${dragActive ? "#4f8cff" : "#2a2f3a"}`,
-                borderRadius: "16px",
-                backgroundColor: dragActive ? "rgba(79,140,255,0.05)" : "#171a21",
-                transition: "all 0.2s",
-            }}
+            className={`flex flex-col items-center justify-center py-12 px-6 cursor-pointer border-2 border-dashed rounded-2xl transition-all duration-200 group ${dragActive
+                    ? "border-blue-500 bg-blue-500/5"
+                    : "border-gray-800 bg-gray-900/50 hover:border-gray-700 hover:bg-gray-900"
+                }`}
         >
-            <input type="file" accept={accept} multiple={multiple} onChange={handleChange} style={{ display: "none" }} />
-            <div style={{
-                width: "56px", height: "56px", borderRadius: "16px",
-                backgroundColor: "rgba(79,140,255,0.1)",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                marginBottom: "16px",
-            }}>
-                <Upload style={{ width: "24px", height: "24px", color: "#4f8cff" }} />
+            <input type="file" accept={accept} multiple={multiple} onChange={handleChange} className="hidden" />
+            <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-4 transition-colors ${dragActive ? "bg-blue-500/10" : "bg-blue-500/10 group-hover:bg-blue-500/20"
+                }`}>
+                <Upload className="w-6 h-6 text-blue-500" />
             </div>
-            <p style={{ fontWeight: 600, color: "#e6e8ee", margin: "0 0 4px", fontSize: "15px" }}>
+            <p className="font-semibold text-gray-200 m-0 mb-1 text-[15px]">
                 {label || "Drag & drop files here"}
             </p>
-            <p style={{ fontSize: "14px", color: "#6b7280", margin: "0 0 8px" }}>
+            <p className="text-sm text-gray-500 m-0 mb-2">
                 {sublabel || "or click to browse"}
             </p>
             {supportedText && (
-                <p style={{ fontSize: "12px", color: "#4b5563", margin: 0 }}>{supportedText}</p>
+                <p className="text-xs text-gray-600 m-0">{supportedText}</p>
             )}
         </label>
     );

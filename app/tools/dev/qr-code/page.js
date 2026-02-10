@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Download, Share2, Settings, Type, Link as LinkIcon, Wifi, Mail } from "lucide-react";
+import { Download, Settings, Type, Link as LinkIcon, Wifi, Mail } from "lucide-react";
 import { QRCodeCanvas } from "qrcode.react";
 import ToolHeader from "@/components/tool/ToolHeader";
-import ToolActions, { ActionButton } from "@/components/tool/ToolActions";
+import { ActionButton } from "@/components/tool/ToolActions";
 
 const TABS = [
     { id: "text", label: "Text", icon: Type },
@@ -17,7 +17,6 @@ export default function QrCodePage() {
     const [activeTab, setActiveTab] = useState("url");
     const [content, setContent] = useState("https://kitbase.com");
 
-    // Custom inputs for specific tabs
     const [wifiSsid, setWifiSsid] = useState("");
     const [wifiPassword, setWifiPassword] = useState("");
     const [wifiEncryption, setWifiEncryption] = useState("WPA");
@@ -26,14 +25,11 @@ export default function QrCodePage() {
     const [subject, setSubject] = useState("");
     const [body, setBody] = useState("");
 
-    // Style settings
     const [size, setSize] = useState(256);
     const [fgColor, setFgColor] = useState("#000000");
     const [bgColor, setBgColor] = useState("#ffffff");
-    const [level, setLevel] = useState("M"); // L, M, Q, H
+    const [level, setLevel] = useState("M");
     const [includeMargin, setIncludeMargin] = useState(true);
-
-    const canvasRef = useRef(null);
 
     const getQrValue = () => {
         switch (activeTab) {
@@ -63,88 +59,81 @@ export default function QrCodePage() {
     };
 
     return (
-        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "40px 24px" }}>
+        <div className="max-w-[1280px] mx-auto px-6 py-10">
             <ToolHeader
                 title="QR Code Generator"
                 description="Create customized QR codes for links, text, Wi-Fi access, and more."
                 breadcrumbs={[{ label: "Dev Tools", href: "/category/dev" }, { label: "QR Generator" }]}
             />
 
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 350px", gap: "32px", alignItems: "start" }}>
-                {/* Left: Controls */}
-                <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-                    {/* Tabs */}
-                    <div style={{ display: "flex", gap: "8px", overflowX: "auto", paddingBottom: "4px" }}>
+            <div className="flex flex-col md:flex-row gap-8 items-start">
+                <div className="flex-1 min-w-0 w-full flex flex-col gap-6">
+                    <div className="flex gap-2 overflow-x-auto pb-1">
                         {TABS.map(tab => (
                             <button
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
-                                style={{
-                                    display: "flex", alignItems: "center", gap: "8px",
-                                    padding: "10px 16px", borderRadius: "8px", border: "1px solid",
-                                    borderColor: activeTab === tab.id ? "#4f8cff" : "#2a2f3a",
-                                    backgroundColor: activeTab === tab.id ? "rgba(79, 140, 255, 0.1)" : "#171a21",
-                                    color: activeTab === tab.id ? "#4f8cff" : "#9aa0aa",
-                                    cursor: "pointer", fontSize: "14px", fontWeight: 600, whiteSpace: "nowrap"
-                                }}
+                                className={`flex items-center gap-2 px-4 py-2.5 rounded-lg border text-sm font-semibold whitespace-nowrap transition-colors cursor-pointer ${activeTab === tab.id
+                                    ? "border-blue-500 bg-blue-500/10 text-blue-500"
+                                    : "border-gray-800 bg-[#171a21] text-gray-400 hover:text-gray-200"
+                                    }`}
                             >
                                 <tab.icon size={16} /> {tab.label}
                             </button>
                         ))}
                     </div>
 
-                    {/* Input Area */}
-                    <div style={{ backgroundColor: "#171a21", border: "1px solid #2a2f3a", borderRadius: "16px", padding: "24px" }}>
+                    <div className="bg-[#171a21] border border-gray-800 rounded-2xl p-6">
                         {activeTab === "url" && (
                             <div>
-                                <label style={{ display: "block", fontSize: "14px", color: "#e6e8ee", marginBottom: "8px" }}>Website URL</label>
+                                <label className="block text-sm text-gray-200 mb-2 font-medium">Website URL</label>
                                 <input
                                     type="url"
                                     value={content}
                                     onChange={(e) => setContent(e.target.value)}
                                     placeholder="https://example.com"
-                                    style={{ width: "100%", padding: "12px", borderRadius: "8px", border: "1px solid #3f4451", backgroundColor: "#0f1115", color: "#e6e8ee", outline: "none" }}
+                                    className="w-full p-3 rounded-lg border border-gray-700 bg-[#1a1e27] text-gray-200 outline-none focus:border-blue-500 transition-colors"
                                 />
                             </div>
                         )}
                         {activeTab === "text" && (
                             <div>
-                                <label style={{ display: "block", fontSize: "14px", color: "#e6e8ee", marginBottom: "8px" }}>Text Content</label>
+                                <label className="block text-sm text-gray-200 mb-2 font-medium">Text Content</label>
                                 <textarea
                                     value={content}
                                     onChange={(e) => setContent(e.target.value)}
                                     placeholder="Enter text to encode..."
                                     rows={4}
-                                    style={{ width: "100%", padding: "12px", borderRadius: "8px", border: "1px solid #3f4451", backgroundColor: "#0f1115", color: "#e6e8ee", outline: "none", resize: "vertical" }}
+                                    className="w-full p-3 rounded-lg border border-gray-700 bg-[#1a1e27] text-gray-200 outline-none focus:border-blue-500 transition-colors resize-y"
                                 />
                             </div>
                         )}
                         {activeTab === "wifi" && (
-                            <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+                            <div className="flex flex-col gap-4">
                                 <div>
-                                    <label style={{ display: "block", fontSize: "14px", color: "#e6e8ee", marginBottom: "8px" }}>Network Name (SSID)</label>
+                                    <label className="block text-sm text-gray-200 mb-2 font-medium">Network Name (SSID)</label>
                                     <input
                                         type="text"
                                         value={wifiSsid}
                                         onChange={(e) => setWifiSsid(e.target.value)}
-                                        style={{ width: "100%", padding: "12px", borderRadius: "8px", border: "1px solid #3f4451", backgroundColor: "#0f1115", color: "#e6e8ee", outline: "none" }}
+                                        className="w-full p-3 rounded-lg border border-gray-700 bg-[#1a1e27] text-gray-200 outline-none focus:border-blue-500 transition-colors"
                                     />
                                 </div>
                                 <div>
-                                    <label style={{ display: "block", fontSize: "14px", color: "#e6e8ee", marginBottom: "8px" }}>Password</label>
+                                    <label className="block text-sm text-gray-200 mb-2 font-medium">Password</label>
                                     <input
                                         type="text"
                                         value={wifiPassword}
                                         onChange={(e) => setWifiPassword(e.target.value)}
-                                        style={{ width: "100%", padding: "12px", borderRadius: "8px", border: "1px solid #3f4451", backgroundColor: "#0f1115", color: "#e6e8ee", outline: "none" }}
+                                        className="w-full p-3 rounded-lg border border-gray-700 bg-[#1a1e27] text-gray-200 outline-none focus:border-blue-500 transition-colors"
                                     />
                                 </div>
                                 <div>
-                                    <label style={{ display: "block", fontSize: "14px", color: "#e6e8ee", marginBottom: "8px" }}>Encryption</label>
+                                    <label className="block text-sm text-gray-200 mb-2 font-medium">Encryption</label>
                                     <select
                                         value={wifiEncryption}
                                         onChange={(e) => setWifiEncryption(e.target.value)}
-                                        style={{ width: "100%", padding: "12px", borderRadius: "8px", border: "1px solid #3f4451", backgroundColor: "#0f1115", color: "#e6e8ee", outline: "none" }}
+                                        className="w-full p-3 rounded-lg border border-gray-700 bg-[#1a1e27] text-gray-200 outline-none focus:border-blue-500 transition-colors"
                                     >
                                         <option value="WPA">WPA/WPA2</option>
                                         <option value="WEP">WEP</option>
@@ -154,61 +143,60 @@ export default function QrCodePage() {
                             </div>
                         )}
                         {activeTab === "email" && (
-                            <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+                            <div className="flex flex-col gap-4">
                                 <div>
-                                    <label style={{ display: "block", fontSize: "14px", color: "#e6e8ee", marginBottom: "8px" }}>Email Address</label>
+                                    <label className="block text-sm text-gray-200 mb-2 font-medium">Email Address</label>
                                     <input
                                         type="email"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
-                                        style={{ width: "100%", padding: "12px", borderRadius: "8px", border: "1px solid #3f4451", backgroundColor: "#0f1115", color: "#e6e8ee", outline: "none" }}
+                                        className="w-full p-3 rounded-lg border border-gray-700 bg-[#1a1e27] text-gray-200 outline-none focus:border-blue-500 transition-colors"
                                     />
                                 </div>
                                 <div>
-                                    <label style={{ display: "block", fontSize: "14px", color: "#e6e8ee", marginBottom: "8px" }}>Subject</label>
+                                    <label className="block text-sm text-gray-200 mb-2 font-medium">Subject</label>
                                     <input
                                         type="text"
                                         value={subject}
                                         onChange={(e) => setSubject(e.target.value)}
-                                        style={{ width: "100%", padding: "12px", borderRadius: "8px", border: "1px solid #3f4451", backgroundColor: "#0f1115", color: "#e6e8ee", outline: "none" }}
+                                        className="w-full p-3 rounded-lg border border-gray-700 bg-[#1a1e27] text-gray-200 outline-none focus:border-blue-500 transition-colors"
                                     />
                                 </div>
                                 <div>
-                                    <label style={{ display: "block", fontSize: "14px", color: "#e6e8ee", marginBottom: "8px" }}>Body</label>
+                                    <label className="block text-sm text-gray-200 mb-2 font-medium">Body</label>
                                     <textarea
                                         value={body}
                                         onChange={(e) => setBody(e.target.value)}
                                         rows={3}
-                                        style={{ width: "100%", padding: "12px", borderRadius: "8px", border: "1px solid #3f4451", backgroundColor: "#0f1115", color: "#e6e8ee", outline: "none", resize: "vertical" }}
+                                        className="w-full p-3 rounded-lg border border-gray-700 bg-[#1a1e27] text-gray-200 outline-none focus:border-blue-500 transition-colors resize-y"
                                     />
                                 </div>
                             </div>
                         )}
                     </div>
 
-                    {/* Customization Options */}
-                    <div style={{ backgroundColor: "#171a21", border: "1px solid #2a2f3a", borderRadius: "16px", padding: "24px" }}>
-                        <h3 style={{ fontSize: "14px", fontWeight: 600, color: "#9aa0aa", textTransform: "uppercase", marginBottom: "16px", display: "flex", alignItems: "center", gap: "8px" }}>
+                    <div className="bg-[#171a21] border border-gray-800 rounded-2xl p-6">
+                        <h3 className="text-sm font-semibold text-gray-400 uppercase mb-4 flex items-center gap-2 m-0">
                             <Settings size={16} /> Appearance
                         </h3>
-                        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <div>
-                                <label style={{ display: "block", fontSize: "14px", color: "#e6e8ee", marginBottom: "8px" }}>Foreground Color</label>
-                                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                                    <input type="color" value={fgColor} onChange={(e) => setFgColor(e.target.value)} style={{ width: "32px", height: "32px", padding: 0, border: "none", borderRadius: "4px", cursor: "pointer" }} />
-                                    <span style={{ fontSize: "12px", color: "#9aa0aa" }}>{fgColor}</span>
+                                <label className="block text-sm text-gray-200 mb-2 font-medium">Foreground Color</label>
+                                <div className="flex items-center gap-2">
+                                    <input type="color" value={fgColor} onChange={(e) => setFgColor(e.target.value)} className="w-8 h-8 p-0 border-none rounded cursor-pointer bg-transparent" />
+                                    <span className="text-xs text-gray-400 uppercase">{fgColor}</span>
                                 </div>
                             </div>
                             <div>
-                                <label style={{ display: "block", fontSize: "14px", color: "#e6e8ee", marginBottom: "8px" }}>Background Color</label>
-                                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                                    <input type="color" value={bgColor} onChange={(e) => setBgColor(e.target.value)} style={{ width: "32px", height: "32px", padding: 0, border: "none", borderRadius: "4px", cursor: "pointer" }} />
-                                    <span style={{ fontSize: "12px", color: "#9aa0aa" }}>{bgColor}</span>
+                                <label className="block text-sm text-gray-200 mb-2 font-medium">Background Color</label>
+                                <div className="flex items-center gap-2">
+                                    <input type="color" value={bgColor} onChange={(e) => setBgColor(e.target.value)} className="w-8 h-8 p-0 border-none rounded cursor-pointer bg-transparent" />
+                                    <span className="text-xs text-gray-400 uppercase">{bgColor}</span>
                                 </div>
                             </div>
                             <div>
-                                <label style={{ display: "block", fontSize: "14px", color: "#e6e8ee", marginBottom: "8px" }}>Error Correction</label>
-                                <select value={level} onChange={(e) => setLevel(e.target.value)} style={{ width: "100%", padding: "10px", borderRadius: "8px", border: "1px solid #3f4451", backgroundColor: "#0f1115", color: "#e6e8ee", outline: "none" }}>
+                                <label className="block text-sm text-gray-200 mb-2 font-medium">Error Correction</label>
+                                <select value={level} onChange={(e) => setLevel(e.target.value)} className="w-full p-2.5 rounded-lg border border-gray-700 bg-[#1a1e27] text-gray-200 outline-none focus:border-blue-500 transition-colors">
                                     <option value="L">Low (7%)</option>
                                     <option value="M">Medium (15%)</option>
                                     <option value="Q">Quartile (25%)</option>
@@ -216,16 +204,15 @@ export default function QrCodePage() {
                                 </select>
                             </div>
                             <div>
-                                <label style={{ display: "block", fontSize: "14px", color: "#e6e8ee", marginBottom: "8px" }}>Size (px)</label>
-                                <input type="number" value={size} onChange={(e) => setSize(Number(e.target.value))} min={128} max={1024} step={32} style={{ width: "100%", padding: "10px", borderRadius: "8px", border: "1px solid #3f4451", backgroundColor: "#0f1115", color: "#e6e8ee", outline: "none" }} />
+                                <label className="block text-sm text-gray-200 mb-2 font-medium">Size (px)</label>
+                                <input type="number" value={size} onChange={(e) => setSize(Number(e.target.value))} min={128} max={1024} step={32} className="w-full p-2.5 rounded-lg border border-gray-700 bg-[#1a1e27] text-gray-200 outline-none focus:border-blue-500 transition-colors" />
                             </div>
                         </div>
                     </div>
                 </div>
 
-                {/* Right: Preview */}
-                <div style={{ display: "flex", flexDirection: "column", gap: "16px", position: "sticky", top: "24px" }}>
-                    <div style={{ backgroundColor: "white", borderRadius: "16px", padding: "32px", display: "flex", justifyContent: "center", alignItems: "center", border: "1px solid #2a2f3a", boxShadow: "0 10px 30px rgba(0,0,0,0.1)" }}>
+                <div className="w-full md:w-[350px] flex-shrink-0 flex flex-col gap-4 sticky top-6">
+                    <div className="bg-white rounded-2xl p-8 flex justify-center items-center border border-gray-800 shadow-xl min-h-[300px]">
                         <QRCodeCanvas
                             id="qr-canvas"
                             value={getQrValue()}
@@ -234,7 +221,7 @@ export default function QrCodePage() {
                             bgColor={bgColor}
                             level={level}
                             includeMargin={includeMargin}
-                            style={{ maxWidth: "100%", height: "auto" }}
+                            className="max-w-full h-auto"
                         />
                     </div>
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Plus, Trash2, RotateCcw, GraduationCap } from "lucide-react";
+import { Plus, Trash2, RotateCcw } from "lucide-react";
 import ToolHeader from "@/components/tool/ToolHeader";
 
 const gradePoints = { "A+": 4.0, A: 4.0, "A-": 3.7, "B+": 3.3, B: 3.0, "B-": 2.7, "C+": 2.3, C: 2.0, "C-": 1.7, "D+": 1.3, D: 1.0, "D-": 0.7, F: 0.0 };
@@ -27,49 +27,46 @@ export default function GpaCalculatorPage() {
     const letterGrade = gpa >= 3.7 ? "A" : gpa >= 3.3 ? "A-" : gpa >= 3.0 ? "B+" : gpa >= 2.7 ? "B" : gpa >= 2.3 ? "B-" : gpa >= 2.0 ? "C+" : gpa >= 1.7 ? "C" : gpa >= 1.0 ? "D" : "F";
 
     return (
-        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "40px 24px" }}>
+        <div className="max-w-[1280px] mx-auto px-6 py-10">
             <ToolHeader
                 title="GPA Calculator"
                 description="Calculate your Grade Point Average instantly with an easy-to-use course table."
                 breadcrumbs={[{ label: "Calculators", href: "/category/calculator" }, { label: "GPA Calculator" }]}
             />
 
-            <div style={{ maxWidth: "800px", margin: "0 auto" }}>
+            <div className="max-w-[800px] mx-auto">
                 {/* GPA Display */}
-                <div style={{
-                    backgroundColor: "#171a21", border: "1px solid #2a2f3a", borderRadius: "20px",
-                    padding: "36px", textAlign: "center", marginBottom: "32px",
-                }}>
-                    <p style={{ fontSize: "13px", color: "#6b7280", margin: "0 0 8px", textTransform: "uppercase", letterSpacing: "0.05em", fontWeight: 600 }}>Your GPA</p>
-                    <p style={{ fontSize: "56px", fontWeight: 800, color: "#4f8cff", margin: "0 0 8px", lineHeight: 1 }}>{gpa.toFixed(2)}</p>
-                    <p style={{ fontSize: "16px", color: "#9aa0aa", margin: 0 }}>
+                <div className="bg-[#171a21] border border-gray-800 rounded-3xl p-9 text-center mb-8">
+                    <p className="text-[13px] text-gray-500 m-0 mb-2 uppercase tracking-wide font-semibold">Your GPA</p>
+                    <p className="text-[56px] font-extrabold text-blue-500 m-0 mb-2 leading-none">{gpa.toFixed(2)}</p>
+                    <p className="text-base text-[#9aa0aa] m-0">
                         {letterGrade} · {totalCredits} credit{totalCredits !== 1 ? "s" : ""}
                     </p>
                 </div>
 
                 {/* Course Table */}
-                <div style={{ backgroundColor: "#171a21", border: "1px solid #2a2f3a", borderRadius: "16px", overflow: "hidden", marginBottom: "24px" }}>
+                <div className="bg-[#171a21] border border-gray-800 rounded-2xl overflow-hidden mb-6">
                     {/* Header */}
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 120px 100px 48px", gap: "12px", padding: "14px 20px", borderBottom: "1px solid #2a2f3a" }}>
-                        <span style={{ fontSize: "12px", fontWeight: 600, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.05em" }}>Course</span>
-                        <span style={{ fontSize: "12px", fontWeight: 600, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.05em" }}>Grade</span>
-                        <span style={{ fontSize: "12px", fontWeight: 600, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.05em" }}>Credits</span>
+                    <div className="grid grid-cols-[1fr_120px_100px_48px] gap-3 px-5 py-3.5 border-b border-gray-800">
+                        <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Course</span>
+                        <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Grade</span>
+                        <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Credits</span>
                         <span></span>
                     </div>
                     {/* Rows */}
                     {courses.map((course, i) => (
-                        <div key={i} style={{ display: "grid", gridTemplateColumns: "1fr 120px 100px 48px", gap: "12px", padding: "10px 20px", borderBottom: i < courses.length - 1 ? "1px solid #1e2230" : "none", alignItems: "center" }}>
+                        <div key={i} className={`grid grid-cols-[1fr_120px_100px_48px] gap-3 px-5 py-2.5 items-center ${i < courses.length - 1 ? "border-b border-[#1e2230]" : ""}`}>
                             <input
                                 type="text"
                                 placeholder={`Course ${i + 1}`}
                                 value={course.name}
                                 onChange={(e) => updateCourse(i, "name", e.target.value)}
-                                style={{ padding: "8px 12px", fontSize: "14px", backgroundColor: "#1a1e27", border: "1px solid #2a2f3a", borderRadius: "8px", color: "#e6e8ee", outline: "none" }}
+                                className="w-full px-3 py-2 text-sm bg-[#1a1e27] border border-gray-800 rounded-lg text-gray-200 outline-none focus:border-blue-500 transition-colors"
                             />
                             <select
                                 value={course.grade}
                                 onChange={(e) => updateCourse(i, "grade", e.target.value)}
-                                style={{ padding: "8px 12px", fontSize: "14px", backgroundColor: "#1a1e27", border: "1px solid #2a2f3a", borderRadius: "8px", color: "#e6e8ee", outline: "none", cursor: "pointer" }}
+                                className="w-full px-3 py-2 text-sm bg-[#1a1e27] border border-gray-800 rounded-lg text-gray-200 outline-none cursor-pointer focus:border-blue-500 transition-colors"
                             >
                                 {gradeOptions.map((g) => <option key={g} value={g}>{g}</option>)}
                             </select>
@@ -79,40 +76,35 @@ export default function GpaCalculatorPage() {
                                 onChange={(e) => updateCourse(i, "credits", e.target.value)}
                                 min={0}
                                 max={12}
-                                style={{ padding: "8px 12px", fontSize: "14px", backgroundColor: "#1a1e27", border: "1px solid #2a2f3a", borderRadius: "8px", color: "#e6e8ee", outline: "none", textAlign: "center" }}
+                                className="w-full px-3 py-2 text-sm bg-[#1a1e27] border border-gray-800 rounded-lg text-gray-200 outline-none text-center focus:border-blue-500 transition-colors"
                             />
                             <button
                                 onClick={() => removeCourse(i)}
                                 disabled={courses.length <= 1}
-                                style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "36px", height: "36px", borderRadius: "8px", border: "none", cursor: courses.length <= 1 ? "not-allowed" : "pointer", backgroundColor: "transparent", color: courses.length <= 1 ? "#2a2f3a" : "#6b7280" }}
+                                className={`flex items-center justify-center w-9 h-9 rounded-lg border-none bg-transparent transition-colors ${courses.length <= 1
+                                        ? "text-[#2a2f3a] cursor-not-allowed"
+                                        : "text-gray-500 hover:text-red-500 hover:bg-red-500/10 cursor-pointer"
+                                    }`}
                             >
-                                <Trash2 style={{ width: "16px", height: "16px" }} />
+                                <Trash2 className="w-4 h-4" />
                             </button>
                         </div>
                     ))}
                 </div>
 
                 {/* Actions */}
-                <div style={{ display: "flex", justifyContent: "center", gap: "12px" }}>
+                <div className="flex justify-center gap-3">
                     <button
                         onClick={addCourse}
-                        style={{
-                            display: "inline-flex", alignItems: "center", gap: "6px",
-                            padding: "12px 24px", backgroundColor: "#4f8cff", color: "white",
-                            fontWeight: 600, fontSize: "14px", borderRadius: "10px", border: "none", cursor: "pointer",
-                        }}
+                        className="inline-flex items-center gap-1.5 px-6 py-3 bg-blue-500 text-white font-semibold text-sm rounded-xl border-none cursor-pointer hover:bg-blue-600 transition-colors"
                     >
-                        <Plus style={{ width: "16px", height: "16px" }} /> Add Course
+                        <Plus className="w-4 h-4" /> Add Course
                     </button>
                     <button
                         onClick={reset}
-                        style={{
-                            display: "inline-flex", alignItems: "center", gap: "6px",
-                            padding: "12px 24px", border: "1px solid #2a2f3a", color: "#9aa0aa",
-                            fontWeight: 600, fontSize: "14px", borderRadius: "10px", backgroundColor: "transparent", cursor: "pointer",
-                        }}
+                        className="inline-flex items-center gap-1.5 px-6 py-3 border border-gray-800 text-gray-400 font-semibold text-sm rounded-xl bg-transparent cursor-pointer hover:bg-gray-800 hover:text-gray-200 transition-colors"
                     >
-                        <RotateCcw style={{ width: "16px", height: "16px" }} /> Reset
+                        <RotateCcw className="w-4 h-4" /> Reset
                     </button>
                 </div>
             </div>

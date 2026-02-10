@@ -44,13 +44,13 @@ export default function ConvertImagePage() {
     const ext = format === "image/png" ? "png" : format === "image/webp" ? "webp" : "jpg";
 
     return (
-        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "40px 24px" }}>
+        <div className="max-w-[1280px] mx-auto px-6 py-10">
             <ToolHeader
                 title="Convert Image"
                 description="Convert images between JPG, PNG, WebP, and other formats instantly."
                 breadcrumbs={[{ label: "Image Tools", href: "/category/image" }, { label: "Convert Image" }]}
             />
-            <div style={{ maxWidth: "720px", margin: "0 auto" }}>
+            <div className="max-w-7xl mx-auto">
                 {!file ? (
                     <ToolDropzone
                         onFiles={handleFiles}
@@ -61,68 +61,75 @@ export default function ConvertImagePage() {
                         supportedText="Supported: JPG, PNG, WebP, GIF, BMP"
                     />
                 ) : (
-                    <div>
-                        {/* Preview */}
-                        <div style={{ backgroundColor: "#171a21", border: "1px solid #2a2f3a", borderRadius: "16px", padding: "16px", marginBottom: "24px" }}>
-                            <img
-                                src={preview}
-                                alt="Preview"
-                                style={{ maxWidth: "100%", maxHeight: "300px", display: "block", margin: "0 auto", borderRadius: "8px" }}
-                            />
-                            <p style={{ textAlign: "center", fontSize: "13px", color: "#6b7280", marginTop: "12px", marginBottom: 0 }}>
-                                {file.name} ({(file.size / 1024 / 1024).toFixed(2)} MB)
-                            </p>
+                    <div className="flex flex-col md:flex-row gap-8 items-start">
+                        {/* Sidebar */}
+                        <div className="w-full md:w-[320px] flex-shrink-0 flex flex-col gap-6">
+                            <ToolSettings>
+                                <SettingRow label="Target Format">
+                                    <SettingSelect
+                                        value={format}
+                                        onChange={(e) => setFormat(e.target.value)}
+                                        options={[
+                                            { value: "image/png", label: "PNG" },
+                                            { value: "image/jpeg", label: "JPEG" },
+                                            { value: "image/webp", label: "WebP" },
+                                        ]}
+                                    />
+                                </SettingRow>
+                                {format !== "image/png" && (
+                                    <SettingRow label="Quality (0.1 - 1.0)">
+                                        <SettingInput type="number" value={quality} onChange={(e) => setQuality(parseFloat(e.target.value))} min={0.1} max={1} step={0.05} />
+                                    </SettingRow>
+                                )}
+                            </ToolSettings>
+
+                            <ToolActions>
+                                <ActionButton onClick={handleConvert} loading={loading} icon={RefreshCw} fullWidth>
+                                    Convert to {ext.toUpperCase()}
+                                </ActionButton>
+                                <ActionButton variant="secondary" onClick={() => { setFile(null); setPreview(null); setResultBlob(null); }} fullWidth>
+                                    Change Image
+                                </ActionButton>
+                            </ToolActions>
                         </div>
 
-                        {/* Settings */}
-                        <ToolSettings>
-                            <SettingRow label="Target Format">
-                                <SettingSelect
-                                    value={format}
-                                    onChange={(e) => setFormat(e.target.value)}
-                                    options={[
-                                        { value: "image/png", label: "PNG" },
-                                        { value: "image/jpeg", label: "JPEG" },
-                                        { value: "image/webp", label: "WebP" },
-                                    ]}
+                        {/* Main */}
+                        <div className="flex-1 min-w-0 flex flex-col gap-6 w-full">
+                            {/* Preview */}
+                            <div className="bg-[#171a21] border border-gray-800 rounded-2xl p-4 flex flex-col items-center justify-center min-h-[300px]">
+                                <img
+                                    src={preview}
+                                    alt="Preview"
+                                    className="max-w-full max-h-[500px] object-contain rounded-lg"
                                 />
-                            </SettingRow>
-                            {format !== "image/png" && (
-                                <SettingRow label="Quality (0.1 - 1.0)">
-                                    <SettingInput type="number" value={quality} onChange={(e) => setQuality(parseFloat(e.target.value))} min={0.1} max={1} step={0.05} />
-                                </SettingRow>
-                            )}
-                        </ToolSettings>
-
-                        <ToolActions>
-                            <ActionButton onClick={handleConvert} loading={loading} icon={RefreshCw}>
-                                Convert to {ext.toUpperCase()}
-                            </ActionButton>
-                            <ActionButton variant="secondary" onClick={() => { setFile(null); setPreview(null); setResultBlob(null); }}>
-                                Change Image
-                            </ActionButton>
-                        </ToolActions>
-
-                        {error && <ToolResult success={false} message={error} />}
-
-                        {resultBlob && (
-                            <div style={{ marginTop: "24px" }}>
-                                <ToolResult success message={`Converted to ${ext.toUpperCase()}`} />
-                                <div style={{ marginTop: "16px", textAlign: "center" }}>
-                                    <button
-                                        onClick={() => downloadBlob(resultBlob, `kitbase-converted.${ext}`)}
-                                        style={{
-                                            display: "inline-flex", alignItems: "center", gap: "8px",
-                                            padding: "14px 28px", backgroundColor: "#34d399", color: "#0f1115",
-                                            fontWeight: 600, fontSize: "15px", borderRadius: "12px",
-                                            border: "none", cursor: "pointer",
-                                        }}
-                                    >
-                                        <Download style={{ width: "18px", height: "18px" }} /> Download
-                                    </button>
-                                </div>
+                                <p className="text-center text-[13px] text-gray-500 mt-4 m-0">
+                                    Original: {file.name} ({(file.size / 1024 / 1024).toFixed(2)} MB)
+                                </p>
                             </div>
-                        )}
+
+                            {error && <ToolResult success={false} message={error} />}
+
+                            {resultBlob && (
+                                <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                                    <div className="bg-[#171a21] border border-gray-800 rounded-2xl p-6 text-center">
+                                        <div className="flex items-center justify-between mb-6">
+                                            <h3 className="text-sm font-semibold text-gray-400 uppercase m-0">Conversion Complete</h3>
+                                            <span className="text-xs font-mono text-gray-500">{ext.toUpperCase()}</span>
+                                        </div>
+                                        <ToolResult success message={`Successfully converted to ${ext.toUpperCase()}`} />
+
+                                        <div className="mt-6 flex justify-center">
+                                            <button
+                                                onClick={() => downloadBlob(resultBlob, `kitbase-converted.${ext}`)}
+                                                className="inline-flex items-center gap-2 px-8 py-3 bg-emerald-500 text-gray-950 font-semibold text-sm rounded-xl border-none cursor-pointer hover:bg-emerald-400 transition-colors shadow-lg shadow-emerald-500/20"
+                                            >
+                                                <Download className="w-4 h-4" /> Download Converted Image
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 )}
             </div>

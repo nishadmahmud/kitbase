@@ -10,9 +10,9 @@ export default function CategoryPage() {
 
     if (!category) {
         return (
-            <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "48px 24px", textAlign: "center" }}>
-                <h1 style={{ fontSize: "24px", fontWeight: 700, color: "#e6e8ee" }}>Category not found</h1>
-                <Link href="/all-tools" style={{ color: "#4f8cff", textDecoration: "none", marginTop: "16px", display: "inline-block" }}>Browse all tools</Link>
+            <div className="max-w-7xl mx-auto px-6 py-12 text-center">
+                <h1 className="text-2xl font-bold text-gray-200">Category not found</h1>
+                <Link href="/all-tools" className="text-blue-500 no-underline mt-4 inline-block hover:text-blue-400">Browse all tools</Link>
             </div>
         );
     }
@@ -21,61 +21,46 @@ export default function CategoryPage() {
     const Icon = category.icon;
 
     return (
-        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "48px 24px" }}>
-            <nav style={{ fontSize: "14px", color: "#6b7280", marginBottom: "24px" }}>
-                <Link href="/" style={{ color: "#6b7280", textDecoration: "none" }}>Home</Link>
-                <span style={{ margin: "0 8px" }}>›</span>
-                <Link href="/all-tools" style={{ color: "#6b7280", textDecoration: "none" }}>All Tools</Link>
-                <span style={{ margin: "0 8px" }}>›</span>
-                <span style={{ color: "#4f8cff" }}>{category.name}</span>
+        <div className="max-w-7xl mx-auto px-6 py-12">
+            <nav className="text-sm text-gray-500 mb-6 flex items-center">
+                <Link href="/" className="text-gray-500 hover:text-gray-300 transition-colors no-underline">Home</Link>
+                <span className="mx-2">›</span>
+                <Link href="/all-tools" className="text-gray-500 hover:text-gray-300 transition-colors no-underline">All Tools</Link>
+                <span className="mx-2">›</span>
+                <span className="text-blue-500 font-medium">{category.name}</span>
             </nav>
 
-            <div style={{
-                backgroundColor: "#171a21", border: "1px solid #2a2f3a",
-                borderRadius: "20px", padding: "36px", marginBottom: "48px",
-            }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "24px" }}>
-                    <div style={{
-                        width: "64px", height: "64px", borderRadius: "16px",
-                        display: "flex", alignItems: "center", justifyContent: "center",
-                        backgroundColor: `${category.color}15`,
-                    }}>
-                        <Icon style={{ width: "32px", height: "32px", color: category.color }} />
+            <div className="bg-[#171a21] border border-gray-800 rounded-[20px] p-9 mb-12">
+                <div className="flex items-center gap-6">
+                    <div
+                        className="w-16 h-16 rounded-2xl flex items-center justify-center flex-shrink-0"
+                        style={{ backgroundColor: `${category.color}15` }}
+                    >
+                        <Icon className="w-8 h-8" style={{ color: category.color }} />
                     </div>
                     <div>
-                        <h1 style={{ fontSize: "28px", fontWeight: 800, color: "#e6e8ee", margin: 0 }}>{category.name}</h1>
-                        <p style={{ color: "#9aa0aa", margin: "6px 0 0", fontSize: "15px" }}>
+                        <h1 className="text-3xl font-extrabold text-gray-200 m-0">{category.name}</h1>
+                        <p className="text-gray-400 mt-1.5 mb-0 text-[15px]">
                             {tools.length} tools available · {category.tags.join(", ")}
                         </p>
                     </div>
                 </div>
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "20px" }}>
+            <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-5">
                 {tools.map((tool) => {
                     const ToolIcon = tool.icon;
                     return (
                         <Link
                             key={tool.href}
                             href={tool.href}
-                            style={{
-                                backgroundColor: "#171a21", border: "1px solid #2a2f3a",
-                                borderRadius: "16px", padding: "28px",
-                                textDecoration: "none", transition: "all 0.2s",
-                            }}
-                            onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#3a4050"; e.currentTarget.style.backgroundColor = "#1e2230"; }}
-                            onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#2a2f3a"; e.currentTarget.style.backgroundColor = "#171a21"; }}
+                            className="bg-[#171a21] border border-gray-800 rounded-2xl p-7 no-underline transition-all hover:bg-[#1e2230] hover:border-gray-700 group"
                         >
-                            <div style={{
-                                width: "48px", height: "48px", borderRadius: "12px",
-                                backgroundColor: "rgba(79,140,255,0.1)",
-                                display: "flex", alignItems: "center", justifyContent: "center",
-                                marginBottom: "16px",
-                            }}>
-                                <ToolIcon style={{ width: "24px", height: "24px", color: "#4f8cff" }} />
+                            <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mb-4 group-hover:bg-blue-500/20 transition-colors">
+                                <ToolIcon className="w-6 h-6 text-blue-500" />
                             </div>
-                            <h3 style={{ fontWeight: 600, color: "#e6e8ee", margin: "0 0 8px", fontSize: "16px" }}>{tool.name}</h3>
-                            <p style={{ fontSize: "14px", color: "#9aa0aa", lineHeight: 1.6, margin: 0 }}>{tool.description}</p>
+                            <h3 className="font-semibold text-gray-200 m-0 mb-2 text-base">{tool.name}</h3>
+                            <p className="text-sm text-gray-400 leading-relaxed m-0">{tool.description}</p>
                         </Link>
                     );
                 })}

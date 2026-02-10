@@ -1,23 +1,23 @@
 import { Loader2 } from "lucide-react";
 
 export function ActionButton({ children, onClick, icon: Icon, variant = "primary", disabled, loading }) {
-    const baseStyle = {
-        display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px",
-        fontWeight: 600, fontSize: "15px", borderRadius: "12px",
-        padding: "14px 28px", cursor: disabled ? "not-allowed" : "pointer",
-        border: "none", transition: "all 0.2s",
-        opacity: disabled ? 0.5 : 1,
-    };
+    const baseClasses = "inline-flex items-center justify-center gap-2 font-semibold text-[15px] rounded-xl px-7 py-3.5 transition-all duration-200 border border-transparent";
 
     const variants = {
-        primary: { backgroundColor: "#4f8cff", color: "white", boxShadow: "0 4px 16px rgba(79,140,255,0.25)" },
-        secondary: { backgroundColor: "transparent", color: "#e6e8ee", border: "1px solid #2a2f3a" },
-        danger: { backgroundColor: "#f87171", color: "white" },
+        primary: "bg-blue-500 text-white hover:bg-blue-600 shadow-lg shadow-blue-500/25 border-transparent",
+        secondary: "bg-transparent text-gray-200 border-gray-800 hover:bg-gray-800",
+        danger: "bg-red-500 text-white hover:bg-red-600 border-transparent",
     };
 
+    const disabledClasses = (disabled || loading) ? "opacity-50 cursor-not-allowed pointer-events-none" : "cursor-pointer";
+
     return (
-        <button onClick={onClick} disabled={disabled || loading} style={{ ...baseStyle, ...variants[variant] }}>
-            {loading ? <Loader2 style={{ width: "18px", height: "18px", animation: "spin 1s linear infinite" }} /> : Icon && <Icon style={{ width: "18px", height: "18px" }} />}
+        <button
+            onClick={onClick}
+            disabled={disabled || loading}
+            className={`${baseClasses} ${variants[variant]} ${disabledClasses}`}
+        >
+            {loading ? <Loader2 className="w-[18px] h-[18px] animate-spin" /> : Icon && <Icon className="w-[18px] h-[18px]" />}
             {children}
         </button>
     );
@@ -25,7 +25,7 @@ export function ActionButton({ children, onClick, icon: Icon, variant = "primary
 
 export default function ToolActions({ children }) {
     return (
-        <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: "12px", marginTop: "24px" }}>
+        <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
             {children}
         </div>
     );

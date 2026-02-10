@@ -57,14 +57,14 @@ export default function PdfToImagePage() {
     };
 
     return (
-        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "40px 24px" }}>
+        <div className="container mx-auto py-10 px-6 max-w-7xl">
             <ToolHeader
                 title="PDF to Image"
                 description="Convert PDF pages into high-quality JPG or PNG images."
                 breadcrumbs={[{ label: "PDF Tools", href: "/category/pdf" }, { label: "PDF to Image" }]}
             />
 
-            <div style={{ maxWidth: "800px", margin: "0 auto" }}>
+            <div className="max-w-3xl mx-auto">
                 {!file ? (
                     <ToolDropzone
                         onFiles={handleFiles}
@@ -74,40 +74,42 @@ export default function PdfToImagePage() {
                         supportedText="Supported: .PDF (Max 50MB)"
                     />
                 ) : (
-                    <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+                    <div className="flex flex-col gap-6">
                         {/* File Info */}
-                        <div style={{ backgroundColor: "#171a21", border: "1px solid #2a2f3a", borderRadius: "16px", padding: "20px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                                <FileText style={{ color: "#4f8cff" }} />
+                        <div className="bg-gray-900 border border-gray-800 rounded-xl p-5 flex justify-between items-center">
+                            <div className="flex items-center gap-3">
+                                <FileText className="text-blue-500" />
                                 <div>
-                                    <p style={{ fontWeight: 500, color: "#e6e8ee", margin: 0 }}>{file.name}</p>
-                                    <p style={{ fontSize: "12px", color: "#9aa0aa", margin: 0 }}>{(file.size / 1024 / 1024).toFixed(2)} MB</p>
+                                    <p className="font-medium text-gray-200 m-0">{file.name}</p>
+                                    <p className="text-xs text-gray-400 m-0">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
                                 </div>
                             </div>
-                            <button onClick={() => { setFile(null); setImages([]); }} style={{ color: "#ef4444", background: "none", border: "none", cursor: "pointer", fontSize: "14px" }}>Change</button>
+                            <button
+                                onClick={() => { setFile(null); setImages([]); }}
+                                className="text-red-500 bg-transparent border-none cursor-pointer text-sm font-medium hover:text-red-400"
+                            >
+                                Change
+                            </button>
                         </div>
 
                         {/* Settings */}
                         {images.length === 0 && (
-                            <div style={{ backgroundColor: "#171a21", border: "1px solid #2a2f3a", borderRadius: "16px", padding: "20px" }}>
-                                <h3 style={{ fontSize: "14px", fontWeight: 600, color: "#9aa0aa", textTransform: "uppercase", marginBottom: "16px", display: "flex", alignItems: "center", gap: "8px" }}>
+                            <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
+                                <h3 className="text-sm font-semibold text-gray-400 uppercase mb-4 flex items-center gap-2">
                                     <Settings size={16} /> Conversion Settings
                                 </h3>
-                                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
-                                        <label style={{ display: "block", fontSize: "14px", color: "#e6e8ee", marginBottom: "8px" }}>Format</label>
-                                        <div style={{ display: "flex", gap: "8px" }}>
+                                        <label className="block text-sm text-gray-200 mb-2 font-medium">Format</label>
+                                        <div className="flex gap-2">
                                             {["jpeg", "png"].map(f => (
                                                 <button
                                                     key={f}
                                                     onClick={() => setFormat(f)}
-                                                    style={{
-                                                        flex: 1, padding: "8px", borderRadius: "8px", border: "1px solid",
-                                                        borderColor: format === f ? "#4f8cff" : "#3f4451",
-                                                        backgroundColor: format === f ? "rgba(79, 140, 255, 0.1)" : "#2a2f3a",
-                                                        color: format === f ? "#4f8cff" : "#e6e8ee",
-                                                        cursor: "pointer", textTransform: "uppercase", fontSize: "12px", fontWeight: 600
-                                                    }}
+                                                    className={`flex-1 py-2 rounded-lg border text-xs font-semibold uppercase transition-colors ${format === f
+                                                            ? "border-blue-500 bg-blue-500/10 text-blue-500"
+                                                            : "border-gray-700 bg-gray-800 text-gray-200 hover:bg-gray-700"
+                                                        }`}
                                                 >
                                                     {f}
                                                 </button>
@@ -115,11 +117,11 @@ export default function PdfToImagePage() {
                                         </div>
                                     </div>
                                     <div>
-                                        <label style={{ display: "block", fontSize: "14px", color: "#e6e8ee", marginBottom: "8px" }}>Quality (Scale)</label>
+                                        <label className="block text-sm text-gray-200 mb-2 font-medium">Quality (Scale)</label>
                                         <select
                                             value={scale}
                                             onChange={(e) => setScale(Number(e.target.value))}
-                                            style={{ width: "100%", padding: "10px", borderRadius: "8px", border: "1px solid #3f4451", backgroundColor: "#2a2f3a", color: "#e6e8ee", outline: "none" }}
+                                            className="w-full p-2.5 rounded-lg border border-gray-700 bg-gray-800 text-gray-200 outline-none focus:border-blue-500 transition-colors"
                                         >
                                             <option value={1}>1x (Screen)</option>
                                             <option value={2}>2x (High Res)</option>
@@ -136,26 +138,26 @@ export default function PdfToImagePage() {
                                 Convert to Images
                             </ActionButton>
                         ) : (
-                            <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+                            <div className="flex flex-col gap-6">
                                 <ToolResult success message={`Successfully converted ${images.length} pages.`} />
 
-                                <div style={{ display: "flex", gap: "12px" }}>
+                                <div className="flex gap-3">
                                     <ActionButton onClick={downloadZip} icon={Archive} fullWidth>Download All (ZIP)</ActionButton>
                                     <ActionButton onClick={() => { setImages([]); }} variant="secondary" icon={RefreshCw}>Start Over</ActionButton>
                                 </div>
 
-                                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))", gap: "16px" }}>
+                                <div className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-4">
                                     {images.map((img, idx) => (
-                                        <div key={idx} style={{ position: "relative", group: "group" }}>
-                                            <img src={img} alt={`Page ${idx + 1}`} style={{ width: "100%", borderRadius: "8px", border: "1px solid #2a2f3a" }} />
-                                            <div style={{ position: "absolute", bottom: "0", left: "0", right: "0", padding: "8px", background: "linear-gradient(to top, rgba(0,0,0,0.8), transparent)", borderBottomLeftRadius: "8px", borderBottomRightRadius: "8px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                                <span style={{ fontSize: "12px", color: "white", fontWeight: 500 }}>Page {idx + 1}</span>
+                                        <div key={idx} className="relative group rounded-lg overflow-hidden border border-gray-800">
+                                            <img src={img} alt={`Page ${idx + 1}`} className="w-full h-auto block" />
+                                            <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/90 to-transparent flex justify-between items-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                                                <span className="text-xs text-white font-medium pl-1">Page {idx + 1}</span>
                                                 <button
                                                     onClick={() => downloadDataUrl(img, `page-${idx + 1}.${format === 'png' ? 'png' : 'jpg'}`)}
-                                                    style={{ padding: "4px", backgroundColor: "white", borderRadius: "4px", border: "none", cursor: "pointer", display: "flex" }}
+                                                    className="p-1.5 bg-white text-black rounded hover:bg-gray-200 transition-colors"
                                                     title="Download Image"
                                                 >
-                                                    <Download size={12} color="black" />
+                                                    <Download size={14} />
                                                 </button>
                                             </div>
                                         </div>

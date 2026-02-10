@@ -34,62 +34,44 @@ function SortableItem({ id, page, onRemove, onMove }) {
     };
 
     return (
-        <div ref={setNodeRef} style={style} className="group">
-            <div style={{
-                backgroundColor: "#1a1e27", border: "1px solid #2a2f3a", borderRadius: "12px", padding: "12px",
-                position: "relative", display: "flex", flexDirection: "column", alignItems: "center", gap: "8px",
-                height: "100%"
-            }}>
+        <div ref={setNodeRef} style={style} className="group h-full">
+            <div className="bg-[#1a1e27] border border-gray-800 rounded-xl p-3 relative flex flex-col items-center gap-2 h-full">
                 {/* Drag Handle Area */}
                 <div
                     {...attributes}
                     {...listeners}
-                    style={{
-                        position: "relative", width: "100%", aspectRatio: "3/4",
-                        backgroundColor: "#0f1115", borderRadius: "4px", overflow: "hidden",
-                        display: "flex", alignItems: "center", justifyContent: "center",
-                        border: "1px solid #2a2f3a", cursor: "grab"
-                    }}
+                    className="relative w-full aspect-[3/4] bg-[#0f1115] rounded overflow-hidden flex items-center justify-center border border-gray-800 cursor-grab"
                 >
                     {page.thumbnail ? (
-                        <img src={page.thumbnail} alt={`Page ${page.originalIndex + 1}`} style={{ width: "100%", height: "100%", objectFit: "contain", pointerEvents: "none" }} />
+                        <img src={page.thumbnail} alt={`Page ${page.originalIndex + 1}`} className="w-full h-full object-contain pointer-events-none" />
                     ) : (
-                        <span style={{ color: "#4b5563", fontSize: "12px" }}>Preview unavailable</span>
+                        <span className="text-gray-600 text-xs">Preview unavailable</span>
                     )}
 
-                    <div style={{
-                        position: "absolute", top: "6px", left: "6px",
-                        width: "24px", height: "24px", backgroundColor: "rgba(0,0,0,0.6)",
-                        borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center",
-                        color: "white", fontSize: "12px", fontWeight: 600
-                    }}>
+                    <div className="absolute top-1.5 left-1.5 w-6 h-6 bg-black/60 rounded-full flex items-center justify-center text-white text-xs font-semibold">
                         {page.originalIndex + 1}
                     </div>
 
-                    <div style={{
-                        position: "absolute", bottom: "6px", right: "6px",
-                        color: "rgba(255,255,255,0.7)", backgroundColor: "rgba(0,0,0,0.4)",
-                        borderRadius: "4px", padding: "2px"
-                    }}>
+                    <div className="absolute bottom-1.5 right-1.5 text-white/70 bg-black/40 rounded p-0.5">
                         <GripVertical size={14} />
                     </div>
                 </div>
 
                 {/* Fallback Move Buttons (Hidden on touch devices usually, but good to keep for accessibility) */}
-                <div style={{ display: "flex", gap: "4px", width: "100%", justifyContent: "center" }}>
+                <div className="flex gap-1 w-full justify-center">
                     <button
                         onClick={(e) => { e.stopPropagation(); onMove(id, "up"); }}
-                        style={{ padding: "6px", background: "#2a2f3a", border: "none", borderRadius: "6px", cursor: "pointer", color: "#e6e8ee" }}
+                        className="p-1.5 bg-[#2a2f3a] border-none rounded-md cursor-pointer text-gray-200 hover:bg-[#3a4050] transition-colors"
                         title="Move Left/Up"
                     >
-                        <ArrowUp style={{ width: "14px", height: "14px" }} />
+                        <ArrowUp className="w-3.5 h-3.5" />
                     </button>
                     <button
                         onClick={(e) => { e.stopPropagation(); onMove(id, "down"); }}
-                        style={{ padding: "6px", background: "#2a2f3a", border: "none", borderRadius: "6px", cursor: "pointer", color: "#e6e8ee" }}
+                        className="p-1.5 bg-[#2a2f3a] border-none rounded-md cursor-pointer text-gray-200 hover:bg-[#3a4050] transition-colors"
                         title="Move Right/Down"
                     >
-                        <ArrowDown style={{ width: "14px", height: "14px" }} />
+                        <ArrowDown className="w-3.5 h-3.5" />
                     </button>
                 </div>
 
@@ -98,16 +80,10 @@ function SortableItem({ id, page, onRemove, onMove }) {
                         e.stopPropagation();
                         onRemove(page.id);
                     }}
-                    style={{
-                        position: "absolute", top: "-8px", right: "-8px",
-                        padding: "4px", backgroundColor: "#ef4444", border: "2px solid #1a1e27",
-                        borderRadius: "50%", cursor: "pointer", color: "white",
-                        display: "flex", alignItems: "center", justifyContent: "center",
-                        zIndex: 10, width: "24px", height: "24px"
-                    }}
+                    className="absolute -top-2 -right-2 p-1 bg-red-500 border-2 border-[#1a1e27] rounded-full cursor-pointer text-white flex items-center justify-center z-10 w-6 h-6 hover:bg-red-600 transition-colors"
                     title="Remove Page"
                 >
-                    <X style={{ width: "14px", height: "14px" }} />
+                    <X className="w-3.5 h-3.5" />
                 </button>
             </div>
         </div>
@@ -209,13 +185,13 @@ export default function ReorderPdfClient() {
     };
 
     return (
-        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "40px 24px" }}>
+        <div className="max-w-[1280px] mx-auto px-6 py-10">
             <ToolHeader
                 title="Reorder PDF"
                 description="Rearrange, drag & drop, and remove pages in your PDF document visually."
                 breadcrumbs={[{ label: "PDF Tools", href: "/category/pdf" }, { label: "Reorder PDF" }]}
             />
-            <div style={{ maxWidth: "720px", margin: "0 auto" }}>
+            <div className="max-w-3xl mx-auto">
                 {!file ? (
                     <ToolDropzone
                         onFiles={handleFiles}
@@ -228,19 +204,19 @@ export default function ReorderPdfClient() {
                     />
                 ) : (
                     <div>
-                        <div style={{ backgroundColor: "#171a21", border: "1px solid #2a2f3a", borderRadius: "16px", padding: "20px", marginBottom: "24px" }}>
-                            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                                <FileText style={{ width: "20px", height: "20px", color: "#4f8cff" }} />
+                        <div className="bg-[#171a21] border border-gray-800 rounded-2xl p-5 mb-6">
+                            <div className="flex items-center gap-3">
+                                <FileText className="w-5 h-5 text-blue-500" />
                                 <div>
-                                    <p style={{ fontSize: "14px", fontWeight: 500, color: "#e6e8ee", margin: 0 }}>{file.name}</p>
-                                    <p style={{ fontSize: "12px", color: "#6b7280", margin: 0 }}>{(file.size / 1024 / 1024).toFixed(2)} MB • {pageOrder.length} Pages</p>
+                                    <p className="text-sm font-medium text-gray-200 m-0">{file.name}</p>
+                                    <p className="text-xs text-gray-500 m-0">{(file.size / 1024 / 1024).toFixed(2)} MB • {pageOrder.length} Pages</p>
                                 </div>
                             </div>
                         </div>
 
                         {loading ? (
-                            <div style={{ textAlign: "center", padding: "40px", color: "#9aa0aa" }}>
-                                <Loader2 style={{ width: "24px", height: "24px", animation: "spin 1s linear infinite", marginBottom: "12px" }} />
+                            <div className="text-center py-10 text-gray-400">
+                                <Loader2 className="w-6 h-6 animate-spin mb-3 mx-auto" />
                                 <p>Generating page previews...</p>
                             </div>
                         ) : (
@@ -251,7 +227,7 @@ export default function ReorderPdfClient() {
                                 onDragEnd={handleDragEnd}
                             >
                                 <SortableContext items={pageOrder.map(p => p.id)} strategy={rectSortingStrategy}>
-                                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))", gap: "16px", marginBottom: "24px" }}>
+                                    <div className="grid grid-cols-[repeat(auto-fill,minmax(140px,1fr))] gap-4 mb-6">
                                         {pageOrder.map((page) => (
                                             <SortableItem key={page.id} id={page.id} page={page} onRemove={removePage} onMove={movePageManual} />
                                         ))}
@@ -260,22 +236,13 @@ export default function ReorderPdfClient() {
 
                                 <DragOverlay>
                                     {activeId ? (
-                                        <div style={{ transform: "scale(1.05)", cursor: "grabbing" }}>
-                                            <div style={{
-                                                backgroundColor: "#1a1e27", border: "1px solid #4f8cff", borderRadius: "12px", padding: "12px",
-                                                position: "relative", display: "flex", flexDirection: "column", alignItems: "center", gap: "8px",
-                                                boxShadow: "0 10px 20px rgba(0,0,0,0.5)"
-                                            }}>
-                                                <div style={{
-                                                    position: "relative", width: "100%", aspectRatio: "3/4",
-                                                    backgroundColor: "#0f1115", borderRadius: "4px", overflow: "hidden",
-                                                    display: "flex", alignItems: "center", justifyContent: "center",
-                                                    border: "1px solid #2a2f3a"
-                                                }}>
+                                        <div className="scale-105 cursor-grabbing">
+                                            <div className="bg-[#1a1e27] border border-blue-500 rounded-xl p-3 relative flex flex-col items-center gap-2 shadow-2xl">
+                                                <div className="relative w-full aspect-[3/4] bg-[#0f1115] rounded overflow-hidden flex items-center justify-center border border-gray-800">
                                                     {(() => {
                                                         const p = pageOrder.find(x => x.id === activeId);
                                                         return p?.thumbnail ? (
-                                                            <img src={p.thumbnail} alt="" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+                                                            <img src={p.thumbnail} alt="" className="w-full h-full object-contain" />
                                                         ) : null;
                                                     })()}
                                                 </div>
@@ -298,19 +265,14 @@ export default function ReorderPdfClient() {
                         {error && <ToolResult success={false} message={error} />}
 
                         {resultBlob && (
-                            <div style={{ marginTop: "24px" }}>
+                            <div className="mt-6">
                                 <ToolResult success message="PDF Reordered Successfully" />
-                                <div style={{ marginTop: "16px", textAlign: "center" }}>
+                                <div className="mt-4 text-center">
                                     <button
                                         onClick={() => downloadBlob(resultBlob, `kitbase-reordered-${file.name}`)}
-                                        style={{
-                                            display: "inline-flex", alignItems: "center", gap: "8px",
-                                            padding: "14px 28px", backgroundColor: "#34d399", color: "#0f1115",
-                                            fontWeight: 600, fontSize: "15px", borderRadius: "12px",
-                                            border: "none", cursor: "pointer",
-                                        }}
+                                        className="inline-flex items-center gap-2 px-7 py-3.5 bg-emerald-500 text-gray-950 font-semibold text-[15px] rounded-xl border-none cursor-pointer hover:bg-emerald-400 transition-colors"
                                     >
-                                        <Download style={{ width: "18px", height: "18px" }} /> Download Reordered PDF
+                                        <Download className="w-[18px] h-[18px]" /> Download Reordered PDF
                                     </button>
                                 </div>
                             </div>

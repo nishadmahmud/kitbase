@@ -3,42 +3,42 @@ import { LayoutGrid, Shield } from "lucide-react";
 
 export default function Footer() {
     return (
-        <footer style={{ borderTop: "1px solid #2a2f3a", backgroundColor: "#0f1115", marginTop: "auto" }}>
-            <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "48px 24px" }}>
-                <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", gap: "32px" }}>
+        <footer className="border-t border-gray-800 bg-[#0f1115] mt-auto">
+            <div className="max-w-7xl mx-auto px-6 py-12">
+                <div className="flex flex-wrap justify-between gap-8">
                     <div>
-                        <Link href="/" style={{ display: "flex", alignItems: "center", gap: "10px", textDecoration: "none", marginBottom: "12px" }}>
-                            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "32px", height: "32px", backgroundColor: "#4f8cff", borderRadius: "8px" }}>
-                                <LayoutGrid style={{ width: "16px", height: "16px", color: "white" }} />
+                        <Link href="/" className="flex items-center gap-2.5 no-underline mb-3 group">
+                            <div className="flex items-center justify-center w-8 h-8 bg-blue-500 rounded-lg group-hover:scale-105 transition-transform">
+                                <LayoutGrid className="w-4 h-4 text-white" />
                             </div>
-                            <span style={{ fontSize: "18px", fontWeight: 700, color: "#e6e8ee" }}>Kitbase</span>
+                            <span className="text-lg font-bold text-gray-100">Kitbase</span>
                         </Link>
-                        <p style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "14px", color: "#9aa0aa", margin: 0 }}>
-                            <Shield style={{ width: "14px", height: "14px", color: "#34d399" }} />
+                        <p className="flex items-center gap-1.5 text-sm text-gray-400 m-0">
+                            <Shield className="w-3.5 h-3.5 text-emerald-400" />
                             Privacy-first. Files stay on your device.
                         </p>
                     </div>
-                    <div style={{ display: "flex", gap: "64px" }}>
+                    <div className="flex gap-16">
                         <div>
-                            <h4 style={{ fontSize: "11px", fontWeight: 600, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "12px", marginTop: 0 }}>Platform</h4>
-                            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "8px" }}>
-                                <li><Link href="/about" style={{ fontSize: "14px", color: "#9aa0aa", textDecoration: "none" }}>About</Link></li>
-                                <li><Link href="/all-tools" style={{ fontSize: "14px", color: "#9aa0aa", textDecoration: "none" }}>All Tools</Link></li>
-                                <li><a href="https://github.com" target="_blank" rel="noopener noreferrer" style={{ fontSize: "14px", color: "#9aa0aa", textDecoration: "none" }}>GitHub</a></li>
+                            <h4 className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-3 mt-0">Platform</h4>
+                            <ul className="list-none p-0 m-0 flex flex-col gap-2">
+                                <li><Link href="/about" className="text-sm text-gray-400 hover:text-gray-200 transition-colors no-underline">About</Link></li>
+                                <li><Link href="/all-tools" className="text-sm text-gray-400 hover:text-gray-200 transition-colors no-underline">All Tools</Link></li>
+                                <li><a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-sm text-gray-400 hover:text-gray-200 transition-colors no-underline">GitHub</a></li>
                             </ul>
                         </div>
                         <div>
-                            <h4 style={{ fontSize: "11px", fontWeight: 600, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "12px", marginTop: 0 }}>Legal</h4>
-                            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "8px" }}>
-                                <li><Link href="/about" style={{ fontSize: "14px", color: "#9aa0aa", textDecoration: "none" }}>Privacy</Link></li>
-                                <li><Link href="/about" style={{ fontSize: "14px", color: "#9aa0aa", textDecoration: "none" }}>Terms</Link></li>
+                            <h4 className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-3 mt-0">Legal</h4>
+                            <ul className="list-none p-0 m-0 flex flex-col gap-2">
+                                <li><Link href="/about" className="text-sm text-gray-400 hover:text-gray-200 transition-colors no-underline">Privacy</Link></li>
+                                <li><Link href="/about" className="text-sm text-gray-400 hover:text-gray-200 transition-colors no-underline">Terms</Link></li>
                             </ul>
                         </div>
                     </div>
                 </div>
-                <div style={{ marginTop: "40px", paddingTop: "24px", borderTop: "1px solid #2a2f3a", display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: "8px" }}>
-                    <p style={{ fontSize: "12px", color: "#6b7280", margin: 0 }}>© 2025 Kitbase. Open source productivity.</p>
-                    <p style={{ fontSize: "12px", color: "#6b7280", margin: 0 }}>v1.0.0 · Status: Operational</p>
+                <div className="mt-10 pt-6 border-t border-gray-800 flex flex-wrap justify-between items-center gap-2">
+                    <p className="text-xs text-gray-500 m-0">© 2025 Kitbase. Open source productivity.</p>
+                    <p className="text-xs text-gray-500 m-0">v1.0.0 · Status: Operational</p>
                 </div>
             </div>
         </footer>

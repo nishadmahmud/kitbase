@@ -11,56 +11,41 @@ export default function AboutPage() {
     const techs = ["Next.js 16", "React 19", "Tailwind CSS v4", "pdf-lib", "Markdown-it", "Canvas API", "Lucide Icons"];
 
     return (
-        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "48px 24px" }}>
-            <div style={{ maxWidth: "720px", margin: "0 auto", textAlign: "center", marginBottom: "64px" }}>
-                <h1 style={{ fontSize: "36px", fontWeight: 800, color: "#e6e8ee", margin: 0 }}>
-                    About <span style={{ color: "#4f8cff" }}>Kitbase</span>
+        <div className="max-w-7xl mx-auto px-6 py-12">
+            <div className="max-w-3xl mx-auto text-center mb-16">
+                <h1 className="text-4xl font-extrabold text-gray-100 m-0">
+                    About <span className="text-blue-500">Kitbase</span>
                 </h1>
-                <p style={{ marginTop: "16px", marginBottom: 0, fontSize: "18px", color: "#9aa0aa", lineHeight: 1.7 }}>
+                <p className="mt-4 mb-0 text-lg text-gray-400 leading-relaxed">
                     A free, privacy-first toolkit that runs entirely in your browser. No uploads, no servers, no BS.
                 </p>
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "20px", marginBottom: "64px" }}>
+            <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-5 mb-16">
                 {principles.map((p, i) => {
                     const Icon = p.icon;
                     return (
                         <div
                             key={i}
-                            style={{
-                                backgroundColor: "#171a21", border: "1px solid #2a2f3a",
-                                borderRadius: "16px", padding: "32px",
-                            }}
+                            className="bg-[#171a21] border border-gray-800 rounded-2xl p-8"
                         >
-                            <div style={{
-                                width: "48px", height: "48px", borderRadius: "12px",
-                                backgroundColor: "rgba(79,140,255,0.1)",
-                                display: "flex", alignItems: "center", justifyContent: "center",
-                                marginBottom: "20px",
-                            }}>
-                                <Icon style={{ width: "24px", height: "24px", color: "#4f8cff" }} />
+                            <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mb-5">
+                                <Icon className="w-6 h-6 text-blue-500" />
                             </div>
-                            <h3 style={{ fontWeight: 600, color: "#e6e8ee", margin: "0 0 8px", fontSize: "16px" }}>{p.title}</h3>
-                            <p style={{ fontSize: "14px", color: "#9aa0aa", lineHeight: 1.7, margin: 0 }}>{p.description}</p>
+                            <h3 className="font-semibold text-gray-200 m-0 mb-2 text-base">{p.title}</h3>
+                            <p className="text-sm text-gray-400 leading-relaxed m-0">{p.description}</p>
                         </div>
                     );
                 })}
             </div>
 
-            <div style={{
-                backgroundColor: "#171a21", border: "1px solid #2a2f3a",
-                borderRadius: "16px", padding: "36px", textAlign: "center",
-            }}>
-                <h2 style={{ fontSize: "20px", fontWeight: 700, color: "#e6e8ee", margin: "0 0 24px" }}>Built With</h2>
-                <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "12px" }}>
+            <div className="bg-[#171a21] border border-gray-800 rounded-2xl p-9 text-center">
+                <h2 className="text-xl font-bold text-gray-100 m-0 mb-6">Built With</h2>
+                <div className="flex flex-wrap justify-center gap-3">
                     {techs.map((tech) => (
                         <span
                             key={tech}
-                            style={{
-                                padding: "8px 16px", fontSize: "13px", fontWeight: 500,
-                                backgroundColor: "#1a1e27", border: "1px solid #2a2f3a",
-                                borderRadius: "10px", color: "#9aa0aa",
-                            }}
+                            className="px-4 py-2 text-[13px] font-medium bg-[#1a1e27] border border-gray-800 rounded-xl text-gray-400"
                         >
                             {tech}
                         </span>

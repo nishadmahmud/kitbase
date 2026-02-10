@@ -73,13 +73,13 @@ export default function ResizeImagePage() {
     const ext = format === "image/png" ? "png" : format === "image/webp" ? "webp" : "jpg";
 
     return (
-        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "40px 24px" }}>
+        <div className="max-w-[1280px] mx-auto px-6 py-10">
             <ToolHeader
                 title="Resize Image"
                 description="Change image dimensions while maintaining quality and aspect ratio."
                 breadcrumbs={[{ label: "Image Tools", href: "/category/image" }, { label: "Resize Image" }]}
             />
-            <div style={{ maxWidth: "720px", margin: "0 auto" }}>
+            <div className="max-w-7xl mx-auto">
                 {!file ? (
                     <ToolDropzone
                         onFiles={handleFiles}
@@ -90,88 +90,93 @@ export default function ResizeImagePage() {
                         supportedText="Supported: JPG, PNG, WebP, GIF (Max 20MB)"
                     />
                 ) : (
-                    <div>
-                        {/* Preview */}
-                        <div style={{ backgroundColor: "#171a21", border: "1px solid #2a2f3a", borderRadius: "16px", padding: "16px", marginBottom: "24px" }}>
-                            <img
-                                src={preview}
-                                alt="Preview"
-                                style={{ maxWidth: "100%", maxHeight: "300px", display: "block", margin: "0 auto", borderRadius: "8px" }}
-                            />
-                            <p style={{ textAlign: "center", fontSize: "13px", color: "#6b7280", marginTop: "12px", marginBottom: 0 }}>
-                                {file.name} · {origDims ? `${origDims.w}×${origDims.h}` : ""}
-                            </p>
+                    <div className="flex flex-col md:flex-row gap-8 items-start">
+                        {/* Sidebar: Settings & Actions */}
+                        <div className="w-full md:w-[320px] flex-shrink-0 flex flex-col gap-6">
+                            <ToolSettings>
+                                <SettingRow label="Width (px)">
+                                    <SettingInput value={width} onChange={handleWidthChange} min={1} />
+                                </SettingRow>
+                                <SettingRow label="Height (px)">
+                                    <SettingInput value={height} onChange={handleHeightChange} min={1} />
+                                </SettingRow>
+                                <SettingRow label="Keep aspect ratio">
+                                    <label className="flex items-center gap-2 cursor-pointer">
+                                        <input
+                                            type="checkbox"
+                                            checked={maintainAspect}
+                                            onChange={(e) => setMaintainAspect(e.target.checked)}
+                                            className="accent-blue-500 w-[18px] h-[18px]"
+                                        />
+                                        <span className="text-[13px] text-gray-400">{maintainAspect ? "Yes" : "No"}</span>
+                                    </label>
+                                </SettingRow>
+                                <SettingRow label="Format">
+                                    <SettingSelect
+                                        value={format}
+                                        onChange={(e) => setFormat(e.target.value)}
+                                        options={[
+                                            { value: "image/png", label: "PNG" },
+                                            { value: "image/jpeg", label: "JPEG" },
+                                            { value: "image/webp", label: "WebP" },
+                                        ]}
+                                    />
+                                </SettingRow>
+                                {format !== "image/png" && (
+                                    <SettingRow label="Quality">
+                                        <SettingInput type="number" value={quality} onChange={(e) => setQuality(parseFloat(e.target.value))} min={0.1} max={1} step={0.05} />
+                                    </SettingRow>
+                                )}
+                            </ToolSettings>
+
+                            <ToolActions>
+                                <ActionButton onClick={handleResize} loading={loading} icon={ImageIcon} fullWidth>
+                                    Resize to {width}×{height}
+                                </ActionButton>
+                                <ActionButton variant="secondary" onClick={() => { setFile(null); setPreview(null); setResultUrl(null); }} fullWidth>
+                                    Change Image
+                                </ActionButton>
+                            </ToolActions>
                         </div>
 
-                        {/* Settings */}
-                        <ToolSettings>
-                            <SettingRow label="Width (px)">
-                                <SettingInput value={width} onChange={handleWidthChange} min={1} />
-                            </SettingRow>
-                            <SettingRow label="Height (px)">
-                                <SettingInput value={height} onChange={handleHeightChange} min={1} />
-                            </SettingRow>
-                            <SettingRow label="Keep aspect ratio">
-                                <label style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer" }}>
-                                    <input
-                                        type="checkbox"
-                                        checked={maintainAspect}
-                                        onChange={(e) => setMaintainAspect(e.target.checked)}
-                                        style={{ accentColor: "#4f8cff", width: "18px", height: "18px" }}
-                                    />
-                                    <span style={{ fontSize: "13px", color: "#9aa0aa" }}>{maintainAspect ? "Yes" : "No"}</span>
-                                </label>
-                            </SettingRow>
-                            <SettingRow label="Format">
-                                <SettingSelect
-                                    value={format}
-                                    onChange={(e) => setFormat(e.target.value)}
-                                    options={[
-                                        { value: "image/png", label: "PNG" },
-                                        { value: "image/jpeg", label: "JPEG" },
-                                        { value: "image/webp", label: "WebP" },
-                                    ]}
+                        {/* Main: Preview & Result */}
+                        <div className="flex-1 min-w-0 flex flex-col gap-6 w-full">
+                            {/* Preview */}
+                            <div className="bg-[#171a21] border border-gray-800 rounded-2xl p-4 flex flex-col items-center justify-center min-h-[300px]">
+                                <img
+                                    src={preview}
+                                    alt="Preview"
+                                    className="max-w-full max-h-[500px] object-contain rounded-lg"
                                 />
-                            </SettingRow>
-                            {format !== "image/png" && (
-                                <SettingRow label="Quality">
-                                    <SettingInput type="number" value={quality} onChange={(e) => setQuality(parseFloat(e.target.value))} min={0.1} max={1} step={0.05} />
-                                </SettingRow>
-                            )}
-                        </ToolSettings>
-
-                        <ToolActions>
-                            <ActionButton onClick={handleResize} loading={loading} icon={ImageIcon}>
-                                Resize to {width}×{height}
-                            </ActionButton>
-                            <ActionButton variant="secondary" onClick={() => { setFile(null); setPreview(null); setResultUrl(null); }}>
-                                Change Image
-                            </ActionButton>
-                        </ToolActions>
-
-                        {error && <ToolResult success={false} message={error} />}
-
-                        {resultUrl && (
-                            <div style={{ marginTop: "24px" }}>
-                                <ToolResult success message={`Resized to ${width}×${height} as ${ext.toUpperCase()}`} />
-                                <div style={{ marginTop: "16px", backgroundColor: "#171a21", border: "1px solid #2a2f3a", borderRadius: "16px", padding: "16px" }}>
-                                    <img src={resultUrl} alt="Resized" style={{ maxWidth: "100%", maxHeight: "300px", display: "block", margin: "0 auto", borderRadius: "8px" }} />
-                                </div>
-                                <div style={{ marginTop: "16px", textAlign: "center" }}>
-                                    <button
-                                        onClick={() => downloadDataUrl(resultUrl, `kitbase-resized.${ext}`)}
-                                        style={{
-                                            display: "inline-flex", alignItems: "center", gap: "8px",
-                                            padding: "14px 28px", backgroundColor: "#34d399", color: "#0f1115",
-                                            fontWeight: 600, fontSize: "15px", borderRadius: "12px",
-                                            border: "none", cursor: "pointer",
-                                        }}
-                                    >
-                                        <Download style={{ width: "18px", height: "18px" }} /> Download
-                                    </button>
-                                </div>
+                                <p className="text-center text-[13px] text-gray-500 mt-4 m-0">
+                                    Original: {file.name} · {origDims ? `${origDims.w}×${origDims.h}` : ""}
+                                </p>
                             </div>
-                        )}
+
+                            {error && <ToolResult success={false} message={error} />}
+
+                            {resultUrl && (
+                                <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                                    <div className="bg-[#171a21] border border-gray-800 rounded-2xl p-6">
+                                        <div className="flex items-center justify-between mb-6">
+                                            <h3 className="text-sm font-semibold text-gray-400 uppercase m-0">Resized Result</h3>
+                                            <span className="text-xs font-mono text-gray-500">{width}×{height}</span>
+                                        </div>
+
+                                        <div className="flex flex-col items-center gap-6">
+                                            <img src={resultUrl} alt="Resized" className="max-w-full max-h-[500px] object-contain rounded-lg shadow-2xl" />
+
+                                            <button
+                                                onClick={() => downloadDataUrl(resultUrl, `kitbase-resized.${ext}`)}
+                                                className="inline-flex items-center gap-2 px-8 py-3 bg-emerald-500 text-gray-950 font-semibold text-sm rounded-xl border-none cursor-pointer hover:bg-emerald-400 transition-colors shadow-lg shadow-emerald-500/20"
+                                            >
+                                                <Download className="w-4 h-4" /> Download Resized Image
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 )}
             </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Sliders, Download, RotateCcw, Image as ImageIcon, Sparkles } from "lucide-react";
+import { Sliders, Download, RotateCcw } from "lucide-react";
 import ToolHeader from "@/components/tool/ToolHeader";
 import ToolDropzone from "@/components/tool/ToolDropzone";
 import ToolActions, { ActionButton } from "@/components/tool/ToolActions";
@@ -78,16 +78,16 @@ export default function ImageFiltersPage() {
     };
 
     return (
-        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "40px 24px" }}>
+        <div className="max-w-[1280px] mx-auto px-6 py-10">
             <ToolHeader
                 title="Image Filters"
                 description="Enhance your photos with adjustable brightness, contrast, and artistic effects."
                 breadcrumbs={[{ label: "Image Tools", href: "/category/image" }, { label: "Filters" }]}
             />
 
-            <canvas ref={canvasRef} style={{ display: "none" }} />
+            <canvas ref={canvasRef} className="hidden" />
 
-            <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
+            <div className="max-w-7xl mx-auto">
                 {!file ? (
                     <ToolDropzone
                         onFiles={handleFiles}
@@ -97,12 +97,12 @@ export default function ImageFiltersPage() {
                         supportedText="Supported: JPG, PNG, WebP"
                     />
                 ) : (
-                    <div style={{ display: "grid", gridTemplateColumns: "300px 1fr", gap: "32px", alignItems: "start" }}>
+                    <div className="flex flex-col md:flex-row gap-8 items-start">
                         {/* Controls */}
-                        <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-                            <div style={{ backgroundColor: "#171a21", border: "1px solid #2a2f3a", borderRadius: "16px", padding: "20px" }}>
-                                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
-                                    <h3 style={{ fontSize: "14px", fontWeight: 600, color: "#9aa0aa", textTransform: "uppercase", display: "flex", alignItems: "center", gap: "8px", margin: 0 }}>
+                        <div className="w-full md:w-[320px] flex-shrink-0 flex flex-col gap-6">
+                            <div className="bg-[#171a21] border border-gray-800 rounded-2xl p-6">
+                                <div className="flex justify-between items-center mb-6">
+                                    <h3 className="text-sm font-semibold text-gray-400 uppercase flex items-center gap-2 m-0">
                                         <Sliders size={16} /> Adjustments
                                     </h3>
                                     <button
@@ -111,18 +111,18 @@ export default function ImageFiltersPage() {
                                             FILTERS.forEach(f => defaults[f.id] = f.default);
                                             setSettings(defaults);
                                         }}
-                                        style={{ background: "none", border: "none", color: "#ef4444", cursor: "pointer", display: "flex", alignItems: "center", gap: "4px", fontSize: "12px", fontWeight: 500 }}
+                                        className="text-red-500 bg-transparent border-none cursor-pointer flex items-center gap-1 text-xs font-medium hover:text-red-400 transition-colors"
                                     >
                                         <RotateCcw size={12} /> Reset
                                     </button>
                                 </div>
 
-                                <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+                                <div className="flex flex-col gap-6">
                                     {FILTERS.map(filter => (
-                                        <div key={filter.id}>
-                                            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px" }}>
-                                                <label style={{ fontSize: "13px", color: "#e6e8ee", fontWeight: 500 }}>{filter.label}</label>
-                                                <span style={{ fontSize: "12px", color: "#9aa0aa" }}>{settings[filter.id]}{filter.unit}</span>
+                                        <div key={filter.id} className="flex flex-col gap-2">
+                                            <div className="flex justify-between items-center">
+                                                <label className="text-sm text-gray-200 font-medium">{filter.label}</label>
+                                                <span className="text-xs text-gray-400 font-mono">{settings[filter.id]}{filter.unit}</span>
                                             </div>
                                             <input
                                                 type="range"
@@ -130,7 +130,7 @@ export default function ImageFiltersPage() {
                                                 max={filter.max}
                                                 value={settings[filter.id] || filter.default}
                                                 onChange={(e) => updateSetting(filter.id, Number(e.target.value))}
-                                                style={{ width: "100%", cursor: "pointer", accentColor: "#4f8cff" }}
+                                                className="w-full cursor-pointer accent-blue-500 h-1.5 bg-gray-800 rounded-lg appearance-none"
                                             />
                                         </div>
                                     ))}
@@ -144,18 +144,14 @@ export default function ImageFiltersPage() {
                         </div>
 
                         {/* Preview */}
-                        <div style={{
-                            backgroundColor: "#111", border: "1px solid #2a2f3a", borderRadius: "16px", overflow: "hidden",
-                            display: "flex", alignItems: "center", justifyContent: "center", minHeight: "400px", padding: "20px"
-                        }}>
+                        <div className="flex-1 min-w-0 w-full bg-black border border-gray-800 rounded-2xl overflow-hidden flex items-center justify-center min-h-[500px] p-6">
                             <img
                                 ref={imageRef}
                                 src={previewUrl}
                                 alt="Preview"
+                                className="max-w-full max-h-[600px] object-contain transition-all duration-100 ease-linear block"
                                 style={{
-                                    maxWidth: "100%", maxHeight: "600px", objectFit: "contain",
-                                    filter: getFilterString(),
-                                    transition: "filter 0.1s linear"
+                                    filter: getFilterString()
                                 }}
                             />
                         </div>
