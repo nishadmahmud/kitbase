@@ -139,7 +139,7 @@ export default function ReorderPdfClient() {
 
             let thumbnails = [];
             try {
-                thumbnails = await renderPdfPages(f);
+                thumbnails = await renderPdfPages(f, { width: 200 });
             } catch (err) {
                 console.warn("Failed to render thumbnails", err);
                 thumbnails = new Array(count).fill(null);
