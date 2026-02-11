@@ -37,7 +37,7 @@ export default function Base64Page() {
             <ToolHeader
                 title="Base64 Encoder / Decoder"
                 description="Encode and decode Base64 strings quickly in your browser."
-                breadcrumbs={[{ label: "Text & Dev Tools", href: "/category/dev" }, { label: "Base64" }]}
+                breadcrumbs={[{ label: "Developer Tools", href: "/category/dev" }, { label: "Base64" }]}
             />
 
             <div className="max-w-3xl mx-auto flex flex-col gap-4">

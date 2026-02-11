@@ -53,7 +53,7 @@ export default function MarkdownViewerPage() {
             <ToolHeader
                 title="Markdown Viewer"
                 description="Live preview and edit your markdown files with real-time rendering."
-                breadcrumbs={[{ label: "Text & Dev Tools", href: "/category/dev" }, { label: "Markdown Viewer" }]}
+                breadcrumbs={[{ label: "Developer Tools", href: "/category/dev" }, { label: "Markdown Viewer" }]}
             />
 
             {/* Stats bar */}

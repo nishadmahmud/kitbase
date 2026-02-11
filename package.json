@@ -17,6 +17,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "diff": "^8.0.3",
+    "file-saver": "^2.0.5",
     "jszip": "^3.10.1",
     "lucide-react": "^0.563.0",
     "markdown-it": "^14.1.0",

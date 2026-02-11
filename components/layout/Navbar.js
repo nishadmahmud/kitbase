@@ -2,8 +2,9 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Search, X, LayoutGrid, Menu } from "lucide-react";
+import { Search, X, Menu } from "lucide-react";
 import { searchTools, categories, getToolsByCategory } from "@/lib/toolsRegistry";
 
 export default function Navbar() {
@@ -58,8 +59,8 @@ export default function Navbar() {
                 <div className="flex h-16 items-center justify-between gap-4">
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2.5 no-underline flex-shrink-0 group">
-                        <div className="flex items-center justify-center w-8 h-8 bg-blue-500 rounded-lg group-hover:scale-105 transition-transform">
-                            <LayoutGrid className="w-4 h-4 text-white" />
+                        <div className="flex items-center justify-center w-8 h-8 rounded-lg overflow-hidden group-hover:scale-105 transition-transform">
+                            <Image src="/logo.svg" alt="Kitbase Logo" width={32} height={32} className="w-full h-full object-contain" />
                         </div>
                         <span className="text-lg font-bold text-gray-100">Kitbase</span>
                     </Link>
@@ -85,27 +86,36 @@ export default function Navbar() {
 
                                 {/* Dropdown */}
                                 {link.isCategory && hoveredCategory === link.slug && (
-                                    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 w-[280px] bg-[#171a21] border border-gray-800 rounded-xl shadow-2xl shadow-black/50 p-2 z-[100]">
-                                        {getToolsByCategory(link.slug).map((tool) => {
-                                            const Icon = tool.icon;
-                                            return (
-                                                <Link
-                                                    key={tool.href}
-                                                    href={tool.href}
-                                                    className="flex items-center gap-3 p-2.5 rounded-lg no-underline transition-colors hover:bg-[#1e2230] group"
-                                                >
-                                                    <div className="flex items-center justify-center w-8 h-8 bg-blue-500/10 rounded-lg flex-shrink-0 group-hover:bg-blue-500/20 transition-colors">
-                                                        <Icon className="w-4 h-4 text-blue-500" />
-                                                    </div>
-                                                    <div>
-                                                        <div className="text-sm font-medium text-gray-200">{tool.name}</div>
-                                                        <div className="text-xs text-gray-500 leading-tight mt-0.5">
-                                                            {tool.description.slice(0, 40)}...
+                                    <div
+                                        className="absolute top-full left-1/2 -translate-x-1/2 mt-1 bg-[#171a21] border border-gray-800 rounded-xl shadow-2xl shadow-black/50 p-2 z-[100]"
+                                        style={{
+                                            width: getToolsByCategory(link.slug).length > 5
+                                                ? `${Math.ceil(getToolsByCategory(link.slug).length / 5) * 280}px`
+                                                : "280px"
+                                        }}
+                                    >
+                                        <div className="grid grid-flow-col grid-rows-5 gap-x-2">
+                                            {getToolsByCategory(link.slug).map((tool) => {
+                                                const Icon = tool.icon;
+                                                return (
+                                                    <Link
+                                                        key={tool.href}
+                                                        href={tool.href}
+                                                        className="flex items-center gap-3 p-2.5 rounded-lg no-underline transition-colors hover:bg-[#1e2230] group w-[264px]"
+                                                    >
+                                                        <div className="flex items-center justify-center w-8 h-8 bg-blue-500/10 rounded-lg flex-shrink-0 group-hover:bg-blue-500/20 transition-colors">
+                                                            <Icon className="w-4 h-4 text-blue-500" />
                                                         </div>
-                                                    </div>
-                                                </Link>
-                                            );
-                                        })}
+                                                        <div className="min-w-0">
+                                                            <div className="text-sm font-medium text-gray-200 truncate">{tool.name}</div>
+                                                            <div className="text-xs text-gray-500 leading-tight mt-0.5 truncate">
+                                                                {tool.description}
+                                                            </div>
+                                                        </div>
+                                                    </Link>
+                                                );
+                                            })}
+                                        </div>
                                     </div>
                                 )}
                             </div>

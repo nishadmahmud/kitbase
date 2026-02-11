@@ -60,7 +60,7 @@ export default function JsonFormatterPage() {
             <ToolHeader
                 title="JSON Formatter"
                 description="Prettify and validate complex JSON data for better readability."
-                breadcrumbs={[{ label: "Text & Dev Tools", href: "/category/dev" }, { label: "JSON Formatter" }]}
+                breadcrumbs={[{ label: "Developer Tools", href: "/category/dev" }, { label: "JSON Formatter" }]}
             />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5 min-h-[400px]">
