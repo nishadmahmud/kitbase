@@ -137,24 +137,21 @@ export default function SignPdfPage() {
     // Placement Logic
     const containerRef = useRef(null);
     const [dragging, setDragging] = useState(false);
+    const [isSelected, setIsSelected] = useState(false); // Track selection for deletion
 
-    const handleDragStart = (e) => {
-        setDragging(true);
-        e.preventDefault(); // Prevent text selection/scroll sometimes
-    };
+    // Click to Place
+    const handleCanvasClick = (e) => {
+        if (dragging || !containerRef.current || !signature) return;
 
-    const handleDragMove = (e) => {
-        if (!dragging || !containerRef.current) return;
+        // If we clicked the canvas (not the signature), deselect
+        setIsSelected(false);
 
+        // processing click
         const container = containerRef.current.getBoundingClientRect();
         let clientX = e.clientX;
         let clientY = e.clientY;
 
-        if (e.touches) {
-            clientX = e.touches[0].clientX;
-            clientY = e.touches[0].clientY;
-        }
-
+        // Calculate relative position 
         let x = clientX - container.left;
         let y = clientY - container.top;
 
@@ -162,16 +159,85 @@ export default function SignPdfPage() {
         x = Math.max(0, Math.min(x, container.width));
         y = Math.max(0, Math.min(y, container.height));
 
-        // Convert to percentage
         setPosition({
             x: (x / container.width) * 100,
             y: (y / container.height) * 100
         });
     };
 
-    const handleDragEnd = () => {
-        setDragging(false);
+    const handleDragStart = (e) => {
+        e.preventDefault();
+        e.stopPropagation(); // Prevent triggering click-to-place
+        setDragging(true);
+        setIsSelected(true); // Select when dragging starts
     };
+
+    // Window-based drag handling for robustness
+    useEffect(() => {
+        if (!dragging) return;
+
+        const handleWindowMove = (e) => {
+            if (!containerRef.current) return;
+
+            const container = containerRef.current.getBoundingClientRect();
+            let clientX = e.clientX;
+            let clientY = e.clientY;
+
+            if (e.touches && e.touches.length > 0) {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            }
+
+            let x = clientX - container.left;
+            let y = clientY - container.top;
+
+            // Constrain
+            x = Math.max(0, Math.min(x, container.width));
+            y = Math.max(0, Math.min(y, container.height));
+
+            setPosition({
+                x: (x / container.width) * 100,
+                y: (y / container.height) * 100
+            });
+        };
+
+        const handleWindowUp = () => {
+            setDragging(false);
+        };
+
+        window.addEventListener("mousemove", handleWindowMove);
+        window.addEventListener("mouseup", handleWindowUp);
+        window.addEventListener("touchmove", handleWindowMove, { passive: false });
+        window.addEventListener("touchend", handleWindowUp);
+
+        return () => {
+            window.removeEventListener("mousemove", handleWindowMove);
+            window.removeEventListener("mouseup", handleWindowUp);
+            window.removeEventListener("touchmove", handleWindowMove);
+            window.removeEventListener("touchend", handleWindowUp);
+        };
+    }, [dragging]);
+
+    // Keyboard Deletion
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (!signature || !isSelected) return;
+
+            // Delete or Backspace
+            if (e.key === "Delete" || e.key === "Backspace") {
+                // Check if we are not in an input/textarea
+                if (document.activeElement.tagName === "INPUT" || document.activeElement.tagName === "TEXTAREA") return;
+
+                e.preventDefault();
+                setSignature(null);
+                setIsSelected(false);
+            }
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [signature, isSelected]);
+
 
     // Signing Process
     const processPdf = async () => {
@@ -195,11 +261,11 @@ export default function SignPdfPage() {
             // Scale signature
             const sigDims = sigImage.scale(0.5 * sigScale); // Base scale + user scale
 
-            // Adjust to center the signature on the point (since we dragged center usually, or top-left?)
-            // Our drag logic updates the point directly under cursor.
-            // Let's assume point is center of signature for better UX?
-            // Or usually top-left. Let's stick to top-left of sig at point.
-            // Actually, let's treat position as center of signature
+            // Page.drawImage draws from bottom-left origin by default? 
+            // pdf-lib drawImage: x,y is bottom-left of image.
+
+            // Our position is center of the signature in the UI (translate -50%, -50%).
+            // So we need to subtract half width/height to get bottom-left corner relative to that center point.
 
             page.drawImage(sigImage, {
                 x: pdfX - (sigDims.width / 2),
@@ -218,12 +284,7 @@ export default function SignPdfPage() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-gray-950 pb-12 transition-colors duration-300"
-            onMouseMove={handleDragMove}
-            onMouseUp={handleDragEnd}
-            onTouchMove={handleDragMove}
-            onTouchEnd={handleDragEnd}
-        >
+        <div className="min-h-screen bg-slate-50 dark:bg-gray-950 pb-12 transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-6 pt-10">
                 <ToolHeader
                     title="Sign PDF"
@@ -414,8 +475,9 @@ export default function SignPdfPage() {
                                     {pages[currentPage] ? (
                                         <div
                                             ref={containerRef}
-                                            className="relative shadow-xl ring-1 ring-black/10 select-none bg-white"
+                                            className="relative shadow-xl ring-1 ring-black/10 select-none bg-white cursor-crosshair"
                                             style={{ maxHeight: '70vh', width: 'fit-content' }}
+                                            onClick={handleCanvasClick}
                                         >
                                             <img
                                                 src={pages[currentPage]}
@@ -426,34 +488,53 @@ export default function SignPdfPage() {
                                             {/* Draggable Signature Grid/Overlay */}
                                             {signature && (
                                                 <div
-                                                    className="absolute cursor-move group"
+                                                    className="absolute cursor-move group z-20"
                                                     style={{
                                                         left: `${position.x}%`,
                                                         top: `${position.y}%`,
                                                         transform: 'translate(-50%, -50%)', // Center on point
-                                                        // Limit visual overflow
                                                     }}
                                                     onMouseDown={handleDragStart}
                                                     onTouchStart={handleDragStart}
+                                                    onClick={(e) => { e.stopPropagation(); setIsSelected(true); }} // Select on click, stop prop so canvas doesn't deselect
                                                 >
                                                     <div className={cn(
-                                                        "relative border-2 border-dashed border-blue-500 rounded p-1 transition-opacity",
-                                                        dragging ? "opacity-100" : "opacity-80 group-hover:opacity-100 border-blue-400/50"
+                                                        "relative border-2 rounded p-1 transition-all",
+                                                        isSelected
+                                                            ? "border-blue-500 bg-blue-500/10 shadow-lg"
+                                                            : (dragging
+                                                                ? "border-blue-500 bg-blue-500/10 shadow-lg scale-105"
+                                                                : "border-transparent group-hover:border-blue-400/50 border-dashed")
                                                     )}>
                                                         <img
                                                             src={signature}
                                                             alt="Signature"
-                                                            className="pointer-events-none select-none block"
+                                                            className="pointer-events-none select-none block max-w-none w-auto"
                                                             style={{
                                                                 height: `${40 * sigScale}px`,
-                                                                width: 'auto',
                                                                 minWidth: '50px'
                                                             }}
                                                         />
                                                         {/* Handle */}
-                                                        <div className="absolute -top-3 -right-3 bg-blue-500 text-white rounded-full p-1 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity">
-                                                            <Move size={10} />
-                                                        </div>
+                                                        {isSelected && (
+                                                            <div className="absolute -top-3 -right-3 bg-red-500 text-white rounded-full p-1 shadow-sm cursor-pointer hover:bg-red-600"
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation();
+                                                                    setSignature(null);
+                                                                    setIsSelected(false);
+                                                                }}
+                                                            >
+                                                                <X size={10} />
+                                                            </div>
+                                                        )}
+                                                        {!isSelected && (
+                                                            <div className={cn(
+                                                                "absolute -top-3 -right-3 bg-blue-500 text-white rounded-full p-1 shadow-sm transition-opacity",
+                                                                dragging ? "opacity-100 invert" : "opacity-0 group-hover:opacity-100"
+                                                            )}>
+                                                                <Move size={10} />
+                                                            </div>
+                                                        )}
                                                     </div>
                                                 </div>
                                             )}
@@ -466,7 +547,7 @@ export default function SignPdfPage() {
                                 </div>
                             </div>
                             <p className="text-center text-xs text-gray-500 mt-4">
-                                Drag the signature to position it. Click "Sign PDF" when ready.
+                                Drag to position. Click to select. Backspace/Delete to remove.
                             </p>
                         </div>
                     </div>
