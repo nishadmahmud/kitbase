@@ -92,20 +92,20 @@ export default function HomePage() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-3 sm:gap-6">
           {popularTools.map((tool) => {
             const Icon = tool.icon;
             return (
               <Link
                 key={tool.href}
                 href={tool.href}
-                className="bg-white dark:bg-[#151920] border border-gray-100 dark:border-gray-800 rounded-2xl p-6 no-underline transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-gray-200/50 dark:hover:shadow-black/50 group block h-full flex flex-col"
+                className="bg-white dark:bg-[#151920] border border-gray-100 dark:border-gray-800 rounded-2xl p-4 sm:p-6 no-underline transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-gray-200/50 dark:hover:shadow-black/50 group block h-full flex flex-col"
               >
-                <div className="w-12 h-12 rounded-xl bg-gray-50 dark:bg-[#1a1e27] border border-gray-100 dark:border-gray-800 flex items-center justify-center mb-5 group-hover:bg-blue-500 group-hover:border-blue-500 transition-colors duration-300">
-                  <Icon className="w-6 h-6 text-gray-600 dark:text-gray-400 group-hover:text-white transition-colors duration-300" />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gray-50 dark:bg-[#1a1e27] border border-gray-100 dark:border-gray-800 flex items-center justify-center mb-4 sm:mb-5 group-hover:bg-blue-500 group-hover:border-blue-500 transition-colors duration-300">
+                  <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600 dark:text-gray-400 group-hover:text-white transition-colors duration-300" />
                 </div>
-                <h3 className="font-bold text-gray-900 dark:text-gray-100 m-0 mb-2 text-lg">{tool.name}</h3>
-                <p className="text-[15px] text-gray-500 dark:text-gray-400 leading-relaxed m-0">{tool.description}</p>
+                <h3 className="font-bold text-gray-900 dark:text-gray-100 m-0 mb-1 sm:mb-2 text-base sm:text-lg">{tool.name}</h3>
+                <p className="text-xs sm:text-[15px] text-gray-500 dark:text-gray-400 leading-relaxed m-0 line-clamp-2 sm:line-clamp-none">{tool.description}</p>
               </Link>
             );
           })}
@@ -115,32 +115,32 @@ export default function HomePage() {
       {/* Browse by Category */}
       <section className="max-w-7xl mx-auto px-6 mb-24 relative z-10">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 m-0 mb-10 tracking-tight">Browse Categories</h2>
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(340px,1fr))] gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-[repeat(auto-fill,minmax(340px,1fr))] gap-3 sm:gap-6">
           {categories.map((cat) => {
             const Icon = cat.icon;
             return (
               <Link
                 key={cat.slug}
                 href={`/category/${cat.slug}`}
-                className="flex items-start gap-5 bg-white dark:bg-[#151920] border border-gray-100 dark:border-gray-800 rounded-2xl p-6 no-underline transition-all hover:border-gray-200 dark:hover:border-gray-700 hover:shadow-xl hover:shadow-gray-200/40 dark:hover:shadow-black/40 group relative overflow-hidden"
+                className="flex flex-col sm:flex-row items-start gap-4 sm:gap-5 bg-white dark:bg-[#151920] border border-gray-100 dark:border-gray-800 rounded-2xl p-4 sm:p-6 no-underline transition-all hover:border-gray-200 dark:hover:border-gray-700 hover:shadow-xl hover:shadow-gray-200/40 dark:hover:shadow-black/40 group relative overflow-hidden"
               >
                 {/* Decorative background blob */}
                 <div className="absolute -right-4 -top-4 w-24 h-24 bg-gray-50 dark:bg-gray-800/50 rounded-full group-hover:bg-blue-50 dark:group-hover:bg-blue-500/10 transition-colors duration-500" />
 
                 <div
-                  className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 bg-white dark:bg-[#1a1e27] border border-gray-100 dark:border-gray-800 shadow-sm relative z-10 group-hover:scale-110 transition-transform duration-300"
+                  className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0 bg-white dark:bg-[#1a1e27] border border-gray-100 dark:border-gray-800 shadow-sm relative z-10 group-hover:scale-110 transition-transform duration-300"
                   style={{ color: cat.color }} // Use category color for icon in light mode for vibrance
                 >
-                  <Icon className="w-7 h-7" /> {/* Inherits color */}
+                  <Icon className="w-5 h-5 sm:w-7 sm:h-7" /> {/* Inherits color */}
                 </div>
                 <div className="relative z-10">
-                  <h3 className="font-bold text-gray-900 dark:text-gray-100 text-lg m-0 mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{cat.name}</h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 m-0 mb-3 leading-relaxed">
+                  <h3 className="font-bold text-gray-900 dark:text-gray-100 text-base sm:text-lg m-0 mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{cat.name}</h3>
+                  <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 m-0 mb-3 leading-relaxed line-clamp-2 sm:line-clamp-none">
                     {cat.description}
                   </p>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2">
                     {cat.tags.slice(0, 3).map(tag => (
-                      <span key={tag} className="text-[10px] uppercase font-bold tracking-wider text-gray-400 dark:text-gray-500 bg-gray-50 dark:bg-gray-800/50 px-2 py-1 rounded-md border border-gray-100 dark:border-gray-800">
+                      <span key={tag} className="text-[9px] sm:text-[10px] uppercase font-bold tracking-wider text-gray-400 dark:text-gray-500 bg-gray-50 dark:bg-gray-800/50 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-md border border-gray-100 dark:border-gray-800">
                         {tag}
                       </span>
                     ))}

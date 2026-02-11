@@ -12,8 +12,10 @@ export default function Navbar() {
     const [searchQuery, setSearchQuery] = useState("");
     const [searchResults, setSearchResults] = useState([]);
     const [showSearch, setShowSearch] = useState(false);
+    const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
     const [hoveredCategory, setHoveredCategory] = useState(null);
     const searchRef = useRef(null);
+    const mobileSearchRef = useRef(null);
     const pathname = usePathname();
 
     useEffect(() => {
@@ -29,6 +31,7 @@ export default function Navbar() {
     useEffect(() => {
         setSearchQuery("");
         setShowSearch(false);
+        setMobileSearchOpen(false);
         setHoveredCategory(null);
     }, [pathname]);
 
@@ -37,9 +40,16 @@ export default function Navbar() {
             if (searchRef.current && !searchRef.current.contains(e.target)) {
                 setShowSearch(false);
             }
+            if (mobileSearchRef.current && !mobileSearchRef.current.contains(e.target) && !e.target.closest('button[data-mobile-search-toggle="true"]')) {
+                setMobileSearchOpen(false);
+            }
         }
         document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
+        document.addEventListener("touchstart", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("touchstart", handleClickOutside);
+        };
     }, []);
 
     // Global Search Shortcut (Ctrl/Cmd + K)
@@ -139,7 +149,7 @@ export default function Navbar() {
 
                     {/* Actions */}
                     <div className="flex items-center gap-3">
-                        <div ref={searchRef} className="relative hidden sm:block">
+                        <div ref={searchRef} className="relative hidden md:block">
                             <div className="relative">
                                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
                                 <input
@@ -193,10 +203,77 @@ export default function Navbar() {
                             )}
                         </div>
 
+                        {/* Mobile Search Toggle */}
+                        <button
+                            data-mobile-search-toggle="true"
+                            onClick={() => setMobileSearchOpen(!mobileSearchOpen)}
+                            className="md:hidden p-2 text-gray-500 dark:text-gray-400 bg-transparent border-none cursor-pointer rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-200 transition-colors"
+                        >
+                            <Search className="w-5 h-5" />
+                        </button>
+
                         {/* Theme Toggle */}
                         <ThemeToggle />
                     </div>
                 </div>
+
+                {mobileSearchOpen && (
+                    <div ref={mobileSearchRef} className="md:hidden py-4 border-t border-gray-200 dark:border-gray-800 mt-2">
+                        <div className="relative">
+                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                            <input
+                                autoFocus
+                                type="text"
+                                placeholder="Search tools..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                className="w-full pl-9 pr-8 py-2.5 text-sm bg-gray-100 dark:bg-[#1a1e27] border border-gray-200 dark:border-gray-800 rounded-lg text-gray-900 dark:text-gray-200 outline-none focus:border-blue-500/50 focus:bg-white dark:focus:bg-[#1a1e27] transition-all"
+                            />
+                            {searchQuery && (
+                                <button
+                                    onClick={() => setSearchQuery("")}
+                                    className="absolute right-2 top-1/2 -translate-y-1/2 bg-transparent border-none cursor-pointer text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+                                >
+                                    <X className="w-4 h-4" />
+                                </button>
+                            )}
+                        </div>
+                        {searchQuery && (
+                            <div className="mt-2 bg-white dark:bg-[#171a21] border border-gray-200 dark:border-gray-800 rounded-xl shadow-lg overflow-hidden z-[100]">
+                                {searchResults.length > 0 ? (
+                                    <div className="py-2">
+                                        {searchResults.slice(0, 6).map((tool) => {
+                                            const Icon = tool.icon;
+                                            return (
+                                                <Link
+                                                    key={tool.href}
+                                                    href={tool.href}
+                                                    onClick={() => {
+                                                        setMobileSearchOpen(false);
+                                                        setSearchQuery("");
+                                                    }}
+                                                    className="flex items-center gap-3 px-4 py-3 no-underline transition-colors hover:bg-gray-50 dark:hover:bg-[#1e2230] group border-b border-gray-100 dark:border-gray-800/50 last:border-0"
+                                                >
+                                                    <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-500/10 flex-shrink-0 group-hover:bg-blue-500/20 transition-colors">
+                                                        <Icon className="w-4 h-4 text-blue-500" />
+                                                    </div>
+                                                    <div>
+                                                        <p className="text-sm font-medium text-gray-900 dark:text-gray-200 m-0">{tool.name}</p>
+                                                        <p className="text-xs text-gray-500 m-0">{tool.category}</p>
+                                                    </div>
+                                                </Link>
+                                            );
+                                        })}
+                                    </div>
+                                ) : (
+                                    <div className="py-6 px-4 text-center text-sm text-gray-500">
+                                        No tools found for &quot;{searchQuery}&quot;
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                    </div>
+                )}
             </div>
         </nav>
     );
