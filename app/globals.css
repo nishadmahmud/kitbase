@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   /* Override Gray with Slate for a cool, blue-tinted neutral */
   --color-gray-50: #f8fafc;
@@ -28,6 +30,8 @@
   background: var(--color-gray-800);
   border-radius: 3px;
 }
+
+
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-gray-700);

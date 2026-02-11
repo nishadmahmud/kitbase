@@ -51,7 +51,7 @@ export default function PomodoroPage() {
     const progress = 100 - (timeLeft / (modes[mode].minutes * 60)) * 100;
 
     return (
-        <div className="min-h-screen bg-gray-950 pb-12">
+        <div className="min-h-screen bg-white dark:bg-gray-950 pb-12 transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-6 pt-10">
                 <ToolHeader
                     title="Pomodoro Timer"
@@ -62,14 +62,14 @@ export default function PomodoroPage() {
             <div className="max-w-xl mx-auto px-6 -mt-8 relative z-10 flex flex-col gap-8">
 
                 {/* Mode Selector */}
-                <div className="bg-gray-900 border border-gray-800 rounded-2xl p-2 flex justify-between shadow-lg">
+                <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-2 flex justify-between shadow-lg transition-colors">
                     {Object.entries(modes).map(([key, m]) => (
                         <button
                             key={key}
                             onClick={() => changeMode(key)}
                             className={`flex flex-1 items-center justify-center gap-2 py-3 rounded-xl text-sm font-medium transition-all ${mode === key
                                 ? `${m.bg} text-white shadow-lg`
-                                : "text-gray-400 hover:text-gray-200 hover:bg-gray-800"
+                                : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
                                 }`}
                         >
                             <m.icon size={16} /> {m.label}
@@ -78,7 +78,7 @@ export default function PomodoroPage() {
                 </div>
 
                 {/* Timer Display */}
-                <div className="bg-gray-900 border border-gray-800 rounded-[3rem] p-12 text-center shadow-2xl relative overflow-hidden flex items-center justify-center aspect-square md:aspect-auto md:h-96">
+                <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-[3rem] p-12 text-center shadow-2xl relative overflow-hidden flex items-center justify-center aspect-square md:aspect-auto md:h-96 transition-colors">
                     {/* Ring Progress (SVG) */}
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none p-6">
                         <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
@@ -88,7 +88,7 @@ export default function PomodoroPage() {
                                 fill="none"
                                 stroke="currentColor"
                                 strokeWidth="4"
-                                className="text-gray-800"
+                                className="text-gray-200 dark:text-gray-800 transition-colors"
                             />
                             {/* Progress Ring */}
                             <circle
@@ -108,7 +108,7 @@ export default function PomodoroPage() {
                     <div className={`absolute inset-0 opacity-10 blur-3xl transition-colors duration-700 pointer-events-none ${modes[mode].bg}`} />
 
                     <div className="relative z-10 flex flex-col items-center">
-                        <div className={`text-7xl md:text-8xl font-mono font-bold tracking-tighter mb-2 transition-colors duration-300 ${isActive ? "text-gray-100" : "text-gray-400"}`}>
+                        <div className={`text-7xl md:text-8xl font-mono font-bold tracking-tighter mb-2 transition-colors duration-300 ${isActive ? "text-gray-900 dark:text-gray-100" : "text-gray-400 dark:text-gray-500"}`}>
                             {formatTime(timeLeft)}
                         </div>
                         <p className={`text-lg font-medium tracking-widest uppercase opacity-80 ${modes[mode].color}`}>
@@ -122,8 +122,8 @@ export default function PomodoroPage() {
                     <button
                         onClick={toggleTimer}
                         className={`w-20 h-20 rounded-full flex items-center justify-center transition-all shadow-xl hover:scale-105 ${isActive
-                            ? "bg-gray-800 text-gray-200 border-2 border-gray-700"
-                            : `bg-gray-100 text-gray-900 border-4 border-gray-200`
+                            ? "bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-200 border-2 border-gray-200 dark:border-gray-700"
+                            : `bg-white dark:bg-gray-100 text-gray-900 border-4 border-gray-200 dark:border-gray-200`
                             }`}
                     >
                         {isActive ? <Pause size={32} fill="currentColor" /> : <Play size={32} fill="currentColor" className="ml-1" />}
@@ -131,7 +131,7 @@ export default function PomodoroPage() {
 
                     <button
                         onClick={resetTimer}
-                        className="w-20 h-20 rounded-full flex items-center justify-center bg-gray-900 text-gray-400 border border-gray-800 hover:text-gray-200 hover:bg-gray-800 transition-all shadow-lg hover:rotate-180 duration-500"
+                        className="w-20 h-20 rounded-full flex items-center justify-center bg-white dark:bg-gray-900 text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-800 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all shadow-lg hover:rotate-180 duration-500"
                     >
                         <RotateCcw size={28} />
                     </button>

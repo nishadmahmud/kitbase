@@ -61,14 +61,16 @@ export default function MergePdfPage() {
     };
 
     return (
-        <div className="max-w-[1280px] mx-auto px-6 py-10">
-            <ToolHeader
-                title="Merge PDF"
-                description="Combine multiple PDF files into a single document with ease and speed."
-                breadcrumbs={[{ label: "PDF Tools", href: "/category/pdf" }, { label: "Merge PDF" }]}
-            />
+        <div className="min-h-screen bg-slate-50 dark:bg-gray-950 pb-12 transition-colors duration-300">
+            <div className="max-w-7xl mx-auto px-6 pt-10">
+                <ToolHeader
+                    title="Merge PDF"
+                    description="Combine multiple PDF files into a single document with ease and speed."
+                    breadcrumbs={[{ label: "PDF Tools", href: "/category/pdf" }, { label: "Merge PDF" }]}
+                />
+            </div>
 
-            <div className="flex flex-wrap gap-8">
+            <div className="flex flex-wrap gap-8 max-w-7xl mx-auto px-6">
                 {/* Main */}
                 <div className="flex-1 min-w-0">
                     <ToolDropzone
@@ -81,14 +83,14 @@ export default function MergePdfPage() {
                     />
 
                     {files.length > 0 && (
-                        <div className="mt-6 bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden">
-                            <div className="px-5 py-3.5 border-b border-gray-800 flex items-center justify-between">
-                                <span className="text-sm font-semibold text-gray-400">
+                        <div className="mt-6 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
+                            <div className="px-5 py-3.5 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between bg-gray-50/50 dark:bg-gray-900/50">
+                                <span className="text-sm font-semibold text-gray-600 dark:text-gray-400">
                                     {files.length} file{files.length !== 1 && "s"} added
                                 </span>
                                 <button
                                     onClick={() => { setFiles([]); setResult(null); }}
-                                    className="text-[13px] text-red-500 bg-transparent border-none cursor-pointer hover:text-red-400 transition-colors"
+                                    className="text-[13px] text-red-500 bg-transparent border-none cursor-pointer hover:text-red-600 dark:hover:text-red-400 transition-colors font-medium"
                                 >
                                     Clear all
                                 </button>
@@ -101,16 +103,16 @@ export default function MergePdfPage() {
                                         onDragStart={() => handleDragStart(i)}
                                         onDragOver={(e) => handleDragOver(e, i)}
                                         onDragEnd={handleDragEnd}
-                                        className={`flex items-center gap-3 px-5 py-3 cursor-grab transition-colors ${i < files.length - 1 ? "border-b border-gray-800" : ""
-                                            } ${dragIdx === i ? "bg-gray-800 opacity-60" : "bg-transparent hover:bg-gray-800/30"}`}
+                                        className={`flex items-center gap-3 px-5 py-3 cursor-grab transition-colors ${i < files.length - 1 ? "border-b border-gray-100 dark:border-gray-800" : ""
+                                            } ${dragIdx === i ? "bg-blue-50 dark:bg-gray-800 opacity-60" : "bg-white dark:bg-transparent hover:bg-gray-50 dark:hover:bg-gray-800/30"}`}
                                     >
-                                        <GripVertical className="w-4 h-4 text-gray-500 flex-shrink-0" />
-                                        <FileText className="w-4 h-4 text-gray-100 flex-shrink-0" />
-                                        <span className="flex-1 text-sm text-gray-200 truncate">{file.name}</span>
-                                        <span className="text-xs text-gray-500 flex-shrink-0">{formatFileSize(file.size)}</span>
+                                        <GripVertical className="w-4 h-4 text-gray-400 dark:text-gray-500 flex-shrink-0" />
+                                        <FileText className="w-4 h-4 text-gray-500 dark:text-gray-400 flex-shrink-0" />
+                                        <span className="flex-1 text-sm text-gray-700 dark:text-gray-200 truncate">{file.name}</span>
+                                        <span className="text-xs text-gray-400 dark:text-gray-500 flex-shrink-0">{formatFileSize(file.size)}</span>
                                         <button
                                             onClick={() => removeFile(i)}
-                                            className="text-gray-500 hover:text-red-500 bg-transparent border-none cursor-pointer flex-shrink-0 transition-colors"
+                                            className="text-gray-400 hover:text-red-500 dark:text-gray-500 dark:hover:text-red-400 bg-transparent border-none cursor-pointer flex-shrink-0 transition-colors"
                                         >
                                             <X className="w-4 h-4" />
                                         </button>
@@ -146,7 +148,7 @@ export default function MergePdfPage() {
                         <div className="mt-4 text-center">
                             <button
                                 onClick={() => downloadBlob(mergedBlob, "kitbase-merged.pdf")}
-                                className="inline-flex items-center gap-2 px-7 py-3.5 bg-emerald-500 text-gray-950 font-semibold text-[15px] rounded-xl border-none cursor-pointer hover:bg-emerald-400 transition-colors"
+                                className="inline-flex items-center gap-2 px-7 py-3.5 bg-emerald-500 text-white dark:text-gray-950 font-semibold text-[15px] rounded-xl border-none cursor-pointer hover:bg-emerald-600 dark:hover:bg-emerald-400 transition-colors shadow-lg shadow-emerald-500/20"
                             >
                                 <Download className="w-[18px] h-[18px]" /> Download Merged PDF
                             </button>
@@ -156,37 +158,37 @@ export default function MergePdfPage() {
 
                 {/* Sidebar */}
                 <div className="w-[280px] flex-shrink-0 flex flex-col gap-5">
-                    <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
-                        <h3 className="flex items-center gap-2 text-sm font-bold text-gray-200 m-0 mb-4">
-                            <Info className="w-4 h-4 text-gray-100" />
+                    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
+                        <h3 className="flex items-center gap-2 text-sm font-bold text-gray-900 dark:text-gray-200 m-0 mb-4">
+                            <Info className="w-4 h-4 text-blue-500 dark:text-gray-100" />
                             How it works
                         </h3>
                         <ul className="list-none p-0 m-0 flex flex-col gap-2.5">
-                            <li className="flex items-start gap-2 text-sm text-gray-400">
-                                <span className="text-gray-100 font-bold">1.</span> Upload your PDF files
+                            <li className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400">
+                                <span className="text-gray-900 dark:text-gray-100 font-bold">1.</span> Upload your PDF files
                             </li>
-                            <li className="flex items-start gap-2 text-sm text-gray-400">
-                                <span className="text-gray-100 font-bold">2.</span> Drag to reorder if needed
+                            <li className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400">
+                                <span className="text-gray-900 dark:text-gray-100 font-bold">2.</span> Drag to reorder if needed
                             </li>
-                            <li className="flex items-start gap-2 text-sm text-gray-400">
-                                <span className="text-gray-100 font-bold">3.</span> Click Merge and download
+                            <li className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400">
+                                <span className="text-gray-900 dark:text-gray-100 font-bold">3.</span> Click Merge and download
                             </li>
                         </ul>
                     </div>
-                    <div className="bg-[#171a21] border border-gray-800 rounded-2xl p-6">
-                        <h3 className="text-sm font-bold text-gray-200 m-0 mb-4">Specifications</h3>
+                    <div className="bg-gray-50 dark:bg-[#171a21] border border-gray-200 dark:border-gray-800 rounded-2xl p-6">
+                        <h3 className="text-sm font-bold text-gray-900 dark:text-gray-200 m-0 mb-4">Specifications</h3>
                         <div className="flex flex-col gap-2.5">
                             <div className="flex justify-between text-[13px]">
                                 <span className="text-gray-500">Max file size</span>
-                                <span className="text-gray-400">50 MB each</span>
+                                <span className="text-gray-700 dark:text-gray-400 font-medium">50 MB each</span>
                             </div>
                             <div className="flex justify-between text-[13px]">
                                 <span className="text-gray-500">Accepted format</span>
-                                <span className="text-gray-400">.PDF</span>
+                                <span className="text-gray-700 dark:text-gray-400 font-medium">.PDF</span>
                             </div>
                             <div className="flex justify-between text-[13px]">
                                 <span className="text-gray-500">Processing</span>
-                                <span className="text-emerald-400">Client-side</span>
+                                <span className="text-emerald-600 dark:text-emerald-400 font-medium">Client-side</span>
                             </div>
                         </div>
                     </div>

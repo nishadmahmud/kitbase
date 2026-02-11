@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import Script from "next/script";
 import { FileDown, Minus, Plus, ChevronDown } from "lucide-react";
 import ToolHeader from "@/components/tool/ToolHeader";
+import CustomSelect from "@/components/ui/CustomSelect";
 import { ActionButton } from "@/components/tool/ToolActions";
 import { parseMarkdown } from "@/lib/markdown/parse";
 
@@ -100,124 +101,115 @@ console.log("Hello, World!");
     const currentPaper = PAPER_SIZES[paperSize];
 
     return (
-        <div className="max-w-[1280px] mx-auto px-6 py-10">
-            <Script
-                src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
-                strategy="lazyOnload"
-            />
+        <div className="min-h-screen bg-slate-50 dark:bg-gray-950 pb-12 transition-colors duration-300">
+            <div className="max-w-7xl mx-auto px-6 pt-10">
+                <Script
+                    src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+                    strategy="lazyOnload"
+                />
 
-            <ToolHeader
-                title="Markdown to PDF"
-                description="Convert your markdown notes into professional PDF documents."
-                breadcrumbs={[{ label: "Dev Tools", href: "/category/dev" }, { label: "Markdown to PDF" }]}
-            />
+                <ToolHeader
+                    title="Markdown to PDF"
+                    description="Convert your markdown notes into professional PDF documents."
+                    breadcrumbs={[{ label: "Dev Tools", href: "/category/dev" }, { label: "Markdown to PDF" }]}
+                />
 
-            <div className="grid grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-6 min-h-[800px]">
-                {/* Editor */}
-                <div className="flex flex-col bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden h-[800px]">
-                    <div className="px-5 py-3 border-b border-gray-800 bg-gray-950">
-                        <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Editor (Markdown)</span>
+                <div className="grid grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-6 min-h-[800px]">
+                    {/* Editor */}
+                    <div className="flex flex-col bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden h-[800px] shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
+                        <div className="px-5 py-3 border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950">
+                            <span className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Editor (Markdown)</span>
+                        </div>
+                        <textarea
+                            value={input}
+                            onChange={(e) => setInput(e.target.value)}
+                            className="flex-1 w-full bg-transparent border-none p-5 text-gray-900 dark:text-gray-200 text-sm font-mono outline-none resize-none"
+                            placeholder="# Start writing..."
+                        />
                     </div>
-                    <textarea
-                        value={input}
-                        onChange={(e) => setInput(e.target.value)}
-                        className="flex-1 w-full bg-transparent border-none p-5 text-gray-200 text-sm font-mono outline-none resize-none"
-                        placeholder="# Start writing..."
-                    />
-                </div>
 
-                {/* Preview / PDF Target */}
-                <div className="flex flex-col gap-4 h-[800px]">
-                    <div className="flex-1 bg-gray-800 rounded-2xl overflow-hidden flex flex-col relative border border-gray-800">
-                        {/* Preview Toolbar */}
-                        <div className="px-5 py-3 bg-gray-950 border-b border-gray-800 flex flex-wrap justify-between items-center gap-3 z-10 relative">
-                            <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">PDF Preview</span>
+                    {/* Preview / PDF Target */}
+                    <div className="flex flex-col gap-4 h-[800px]">
+                        <div className="flex-1 bg-gray-100 dark:bg-gray-800 rounded-2xl overflow-hidden flex flex-col relative border border-gray-200 dark:border-gray-800 shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
+                            {/* Preview Toolbar */}
+                            <div className="px-5 py-3 bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 flex flex-wrap justify-between items-center gap-3 z-10 relative">
+                                <span className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">PDF Preview</span>
 
-                            <div className="flex gap-3 items-center">
-                                {/* Zoom Controls */}
-                                <div className="flex items-center bg-gray-800 rounded-md border border-gray-700 px-2 py-0.5">
-                                    <button
-                                        onClick={() => setZoom(z => Math.max(0.3, z - 0.1))}
-                                        className="text-gray-200 bg-transparent border-none cursor-pointer p-1 hover:text-white"
-                                        title="Zoom Out"
-                                    >
-                                        <Minus size={14} />
-                                    </button>
-                                    <span className="text-xs font-medium text-gray-200 w-10 text-center">{Math.round(zoom * 100)}%</span>
-                                    <button
-                                        onClick={() => setZoom(z => Math.min(2, z + 0.1))}
-                                        className="text-gray-200 bg-transparent border-none cursor-pointer p-1 hover:text-white"
-                                        title="Zoom In"
-                                    >
-                                        <Plus size={14} />
-                                    </button>
-                                </div>
+                                <div className="flex gap-3 items-center">
+                                    {/* Zoom Controls */}
+                                    <div className="flex items-center bg-gray-100 dark:bg-gray-800 rounded-md border border-gray-200 dark:border-gray-700 px-2 py-0.5">
+                                        <button
+                                            onClick={() => setZoom(z => Math.max(0.3, z - 0.1))}
+                                            className="text-gray-600 dark:text-gray-200 bg-transparent border-none cursor-pointer p-1 hover:text-gray-900 dark:hover:text-white"
+                                            title="Zoom Out"
+                                        >
+                                            <Minus size={14} />
+                                        </button>
+                                        <span className="text-xs font-medium text-gray-700 dark:text-gray-200 w-10 text-center">{Math.round(zoom * 100)}%</span>
+                                        <button
+                                            onClick={() => setZoom(z => Math.min(2, z + 0.1))}
+                                            className="text-gray-600 dark:text-gray-200 bg-transparent border-none cursor-pointer p-1 hover:text-gray-900 dark:hover:text-white"
+                                            title="Zoom In"
+                                        >
+                                            <Plus size={14} />
+                                        </button>
+                                    </div>
 
-                                {/* Paper Size Selector */}
-                                <div className="relative">
-                                    <select
-                                        value={paperSize}
-                                        onChange={(e) => setPaperSize(e.target.value)}
-                                        className="appearance-none bg-gray-800 text-gray-200 border border-gray-700 rounded-md py-1 pl-2 pr-6 text-xs font-medium cursor-pointer outline-none hover:bg-gray-700"
-                                    >
-                                        {Object.entries(PAPER_SIZES).map(([key, size]) => (
-                                            <option key={key} value={key}>{size.name}</option>
-                                        ))}
-                                    </select>
-                                    <ChevronDown className="w-3 h-3 absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
-                                </div>
+                                    <div className="w-32">
+                                        <CustomSelect
+                                            value={paperSize}
+                                            onChange={(e) => setPaperSize(e.target.value)}
+                                            options={Object.entries(PAPER_SIZES).map(([key, size]) => ({ value: key, label: size.name }))}
+                                            buttonClassName="py-1 text-xs h-8 bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700"
+                                        />
+                                    </div>
 
-                                {/* Margin Selector */}
-                                <div className="relative">
-                                    <select
-                                        value={marginSize}
-                                        onChange={(e) => setMarginSize(e.target.value)}
-                                        className="appearance-none bg-gray-800 text-gray-200 border border-gray-700 rounded-md py-1 pl-2 pr-6 text-xs font-medium cursor-pointer outline-none hover:bg-gray-700"
-                                    >
-                                        {Object.entries(MARGINS).map(([key, margin]) => (
-                                            <option key={key} value={key}>Margin: {margin.name}</option>
-                                        ))}
-                                    </select>
-                                    <ChevronDown className="w-3 h-3 absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+                                    <div className="w-40">
+                                        <CustomSelect
+                                            value={marginSize}
+                                            onChange={(e) => setMarginSize(e.target.value)}
+                                            options={Object.entries(MARGINS).map(([key, margin]) => ({ value: key, label: `Margin: ${margin.name}` }))}
+                                            buttonClassName="py-1 text-xs h-8 bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700"
+                                        />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div className="flex-1 overflow-auto relative bg-gray-700 flex p-10">
-                            {/* 
+                            <div className="flex-1 overflow-auto relative bg-gray-200 dark:bg-gray-700 flex p-10">
+                                {/* 
                                 Scaled Wrapper Pattern with 'margin: auto' for safe centering
                                 If content < container => centered.
                                 If content > container => aligns start (scrollable).
                             */}
-                            <div
-                                style={{
-                                    width: `${currentPaper.width * zoom}mm`, // Explicit visual width
-                                    height: `${currentPaper.height * zoom}mm`, // Explicit visual height
-                                }}
-                                className="relative flex-shrink-0 m-auto"
-                            >
                                 <div
-                                    ref={contentRef}
-                                    className="pdf-content absolute top-0 left-0 bg-white shadow-[0_0_15px_rgba(0,0,0,0.3)] text-black box-border origin-top-left transition-all duration-200"
-                                    dangerouslySetInnerHTML={{ __html: html }}
                                     style={{
-                                        width: `${currentPaper.width}mm`,
-                                        minHeight: `${currentPaper.height}mm`,
-                                        padding: MARGINS[marginSize].value,
-                                        transform: `scale(${zoom})`,
+                                        width: `${currentPaper.width * zoom}mm`, // Explicit visual width
+                                        height: `${currentPaper.height * zoom}mm`, // Explicit visual height
                                     }}
-                                />
+                                    className="relative flex-shrink-0 m-auto"
+                                >
+                                    <div
+                                        ref={contentRef}
+                                        className="pdf-content absolute top-0 left-0 bg-white shadow-lg dark:shadow-[0_0_15px_rgba(0,0,0,0.3)] text-black box-border origin-top-left transition-all duration-200"
+                                        dangerouslySetInnerHTML={{ __html: html }}
+                                        style={{
+                                            width: `${currentPaper.width}mm`,
+                                            minHeight: `${currentPaper.height}mm`,
+                                            padding: MARGINS[marginSize].value,
+                                            transform: `scale(${zoom})`,
+                                        }}
+                                    />
+                                </div>
                             </div>
                         </div>
+
+                        <ActionButton onClick={handleDownload} loading={loading} icon={FileDown} fullWidth>
+                            Download PDF
+                        </ActionButton>
                     </div>
-
-                    <ActionButton onClick={handleDownload} loading={loading} icon={FileDown} fullWidth>
-                        Download PDF
-                    </ActionButton>
                 </div>
-            </div>
 
-            <style jsx global>{`
+                <style jsx global>{`
                 /* PDF Preview Styles (Scoped to .pdf-content) */
                 .pdf-content { color: #111827; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; font-size: 11pt; }
                 .pdf-content * { box-sizing: border-box; }
@@ -238,6 +230,7 @@ console.log("Hello, World!");
                 .pdf-content th { background-color: #f9fafb; font-weight: 600; }
                 .pdf-content hr { height: 0.25em; padding: 0; margin: 24px 0; background-color: #e1e4e8; border: 0; }
             `}</style>
+            </div>
         </div>
     );
 }

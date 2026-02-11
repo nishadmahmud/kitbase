@@ -64,7 +64,7 @@ export default function ChecksumVerifierPage() {
     const isMismatch = compareHash && hash && !isMatch;
 
     return (
-        <div className="min-h-screen bg-gray-950 pb-12">
+        <div className="min-h-screen bg-slate-50 dark:bg-gray-950 pb-12 transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-6 pt-10">
                 <ToolHeader
                     title="Checksum Verifier"
@@ -75,7 +75,7 @@ export default function ChecksumVerifierPage() {
             <div className="max-w-5xl mx-auto px-6 -mt-8 relative z-10 flex flex-col gap-8">
 
                 {/* Upload Section */}
-                <div className="bg-gray-900 border border-gray-800 rounded-2xl p-8 shadow-lg">
+                <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-8 shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
                     {!file ? (
                         <ToolDropzone
                             onFilesSelected={handleFileSelect}
@@ -83,17 +83,17 @@ export default function ChecksumVerifierPage() {
                             multiple={false}
                         />
                     ) : (
-                        <div className="flex items-center gap-4 p-4 bg-gray-950 border border-gray-800 rounded-xl relative group">
-                            <div className="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 flex-shrink-0">
+                        <div className="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl relative group">
+                            <div className="w-12 h-12 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center text-gray-500 dark:text-gray-400 flex-shrink-0">
                                 <Binary size={24} />
                             </div>
                             <div className="flex-1 min-w-0">
-                                <p className="text-sm font-medium text-gray-200 truncate">{file.name}</p>
+                                <p className="text-sm font-medium text-gray-900 dark:text-gray-200 truncate">{file.name}</p>
                                 <p className="text-xs text-gray-500">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
                             </div>
                             <button
                                 onClick={() => { setFile(null); setHash(""); setCompareHash(""); }}
-                                className="text-gray-500 hover:text-red-400 p-2 rounded-lg hover:bg-gray-900 transition-colors"
+                                className="text-gray-500 hover:text-red-500 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors"
                             >
                                 <X size={20} />
                             </button>
@@ -105,18 +105,18 @@ export default function ChecksumVerifierPage() {
                     <div className="grid md:grid-cols-3 gap-8">
                         {/* Algorithm Selection */}
                         <div className="md:col-span-1 space-y-4">
-                            <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
-                                <h3 className="text-xs font-semibold text-gray-400 uppercase mb-4">Hash Algorithm</h3>
+                            <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-5 shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
+                                <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase mb-4">Hash Algorithm</h3>
                                 <div className="space-y-2">
                                     {algorithms.map(algo => (
                                         <button
                                             key={algo}
                                             onClick={() => handleAlgorithmChange(algo)}
                                             className={cn(
-                                                "w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-colors flex justify-between items-center",
+                                                "w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-colors flex justify-between items-center cursor-pointer",
                                                 algorithm === algo
                                                     ? "bg-blue-600 text-white shadow-lg shadow-blue-900/20"
-                                                    : "bg-gray-800 text-gray-400 hover:bg-gray-750 hover:text-gray-200"
+                                                    : "bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-750 hover:text-gray-900 dark:hover:text-gray-200"
                                             )}
                                         >
                                             {algo}
@@ -130,20 +130,21 @@ export default function ChecksumVerifierPage() {
                         {/* Results Area */}
                         <div className="md:col-span-2 space-y-6">
                             {/* Calculated Hash */}
-                            <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
-                                <h3 className="text-sm font-medium text-gray-300 mb-4 flex items-center gap-2">
+                            <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
+                                <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-4 flex items-center gap-2">
                                     Calculated {algorithm} Hash
-                                    {isCalculating && <span className="text-xs text-blue-400 animate-pulse ml-2">Calculating...</span>}
+                                    {isCalculating && <span className="text-xs text-blue-500 dark:text-blue-400 animate-pulse ml-2">Calculating...</span>}
+                                    user
                                 </h3>
 
                                 <div className="relative group">
-                                    <div className="w-full bg-black/50 border border-gray-700 rounded-lg p-4 font-mono text-xs text-blue-400 break-all leading-relaxed">
+                                    <div className="w-full bg-gray-50 dark:bg-black/50 border border-gray-200 dark:border-gray-700 rounded-lg p-4 font-mono text-xs text-blue-600 dark:text-blue-400 break-all leading-relaxed">
                                         {hash || "..."}
                                     </div>
                                     {hash && (
                                         <button
                                             onClick={copyToClipboard}
-                                            className="absolute top-2 right-2 p-2 bg-gray-800 hover:bg-gray-700 text-gray-400 rounded-md opacity-0 group-hover:opacity-100 transition-opacity"
+                                            className="absolute top-2 right-2 p-2 bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-500 dark:text-gray-400 rounded-md opacity-0 group-hover:opacity-100 transition-opacity"
                                             title="Copy to clipboard"
                                         >
                                             <Copy size={14} />
@@ -153,12 +154,12 @@ export default function ChecksumVerifierPage() {
                             </div>
 
                             {/* Comparison */}
-                            <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 transition-colors duration-300"
+                            <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 transition-colors duration-300 shadow-sm dark:shadow-2xl dark:shadow-black/20"
                                 style={{
                                     borderColor: isMatch ? 'rgba(34, 197, 94, 0.3)' : isMismatch ? 'rgba(239, 68, 68, 0.3)' : ''
                                 }}
                             >
-                                <h3 className="text-sm font-medium text-gray-300 mb-4">Verify Hash (Paste to compare)</h3>
+                                <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-4">Verify Hash (Paste to compare)</h3>
                                 <div className="relative">
                                     <input
                                         type="text"
@@ -166,10 +167,10 @@ export default function ChecksumVerifierPage() {
                                         onChange={(e) => setCompareHash(e.target.value)}
                                         placeholder="Paste hash here..."
                                         className={cn(
-                                            "w-full bg-black/30 border rounded-lg pl-4 pr-10 py-3 font-mono text-xs outline-none transition-colors",
-                                            isMatch ? "border-green-500 text-green-400 bg-green-900/10" :
-                                                isMismatch ? "border-red-500 text-red-400 bg-red-900/10" :
-                                                    "border-gray-700 text-gray-200 focus:border-blue-500"
+                                            "w-full bg-gray-50 dark:bg-black/30 border rounded-lg pl-4 pr-10 py-3 font-mono text-xs outline-none transition-colors",
+                                            isMatch ? "border-green-500 text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/10" :
+                                                isMismatch ? "border-red-500 text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/10" :
+                                                    "border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-200 focus:border-blue-500"
                                         )}
                                     />
                                     <div className="absolute right-3 top-1/2 -translate-y-1/2">
@@ -179,12 +180,12 @@ export default function ChecksumVerifierPage() {
                                 </div>
 
                                 {isMatch && (
-                                    <p className="text-green-500 text-xs mt-3 flex items-center gap-1">
+                                    <p className="text-green-600 dark:text-green-500 text-xs mt-3 flex items-center gap-1">
                                         <Check size={12} strokeWidth={3} /> Match verified! The files are identical.
                                     </p>
                                 )}
                                 {isMismatch && (
-                                    <p className="text-red-500 text-xs mt-3 flex items-center gap-1">
+                                    <p className="text-red-600 dark:text-red-500 text-xs mt-3 flex items-center gap-1">
                                         <X size={12} strokeWidth={3} /> Mismatch! The calculated hash does not match.
                                     </p>
                                 )}

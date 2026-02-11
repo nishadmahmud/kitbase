@@ -42,12 +42,14 @@ export default function CompressImagePage() {
     };
 
     return (
-        <div className="max-w-[1280px] mx-auto px-6 py-10">
-            <ToolHeader
-                title="Compress Image"
-                description="Reduce file size of JPG, PNG, and WebP without losing quality."
-                breadcrumbs={[{ label: "Image Tools", href: "/category/image" }, { label: "Compress Image" }]}
-            />
+        <div className="min-h-screen bg-slate-50 dark:bg-gray-950 pb-12 transition-colors duration-300">
+            <div className="max-w-7xl mx-auto px-6 pt-10">
+                <ToolHeader
+                    title="Compress Image"
+                    description="Reduce file size of JPG, PNG, and WebP without losing quality."
+                    breadcrumbs={[{ label: "Image Tools", href: "/category/image" }, { label: "Compress Image" }]}
+                />
+            </div>
             <div className="max-w-7xl mx-auto">
                 {!file ? (
                     <ToolDropzone
@@ -84,7 +86,7 @@ export default function CompressImagePage() {
                         {/* Main */}
                         <div className="flex-1 min-w-0 flex flex-col gap-6 w-full">
                             {/* Preview */}
-                            <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4 flex flex-col items-center justify-center min-h-[300px]">
+                            <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-4 flex flex-col items-center justify-center min-h-[300px] shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
                                 <img
                                     src={preview}
                                     alt="Preview"
@@ -107,7 +109,7 @@ export default function CompressImagePage() {
                                     <div className="mt-4 text-center">
                                         <button
                                             onClick={() => downloadBlob(resultBlob, `kitbase-compressed-${file.name}`)}
-                                            className="inline-flex items-center gap-2 px-8 py-3 bg-emerald-500 text-gray-950 font-semibold text-sm rounded-xl border-none cursor-pointer hover:bg-emerald-400 transition-colors shadow-lg shadow-emerald-500/20"
+                                            className="inline-flex items-center gap-2 px-8 py-3 bg-emerald-500 text-white dark:text-gray-950 font-semibold text-sm rounded-xl border-none cursor-pointer hover:bg-emerald-400 transition-colors shadow-lg shadow-emerald-500/20"
                                         >
                                             <Download className="w-4 h-4" /> Download Compressed Image
                                         </button>

@@ -35,17 +35,17 @@ function SortableItem({ id, page, onRemove, onMove }) {
 
     return (
         <div ref={setNodeRef} style={style} className="group h-full">
-            <div className="bg-gray-800 border border-gray-700 rounded-xl p-3 relative flex flex-col items-center gap-2 h-full hover:border-gray-600 transition-colors">
+            <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-3 relative flex flex-col items-center gap-2 h-full hover:border-gray-300 dark:hover:border-gray-600 transition-colors shadow-sm dark:shadow-2xl dark:shadow-black/20">
                 {/* Drag Handle Area */}
                 <div
                     {...attributes}
                     {...listeners}
-                    className="relative w-full aspect-[3/4] bg-gray-950 rounded overflow-hidden flex items-center justify-center border border-gray-800 cursor-grab"
+                    className="relative w-full aspect-[3/4] bg-gray-100 dark:bg-gray-950 rounded overflow-hidden flex items-center justify-center border border-gray-200 dark:border-gray-800 cursor-grab"
                 >
                     {page.thumbnail ? (
                         <img src={page.thumbnail} alt={`Page ${page.originalIndex + 1}`} className="w-full h-full object-contain pointer-events-none" />
                     ) : (
-                        <span className="text-gray-600 text-xs">Preview unavailable</span>
+                        <span className="text-gray-400 dark:text-gray-600 text-xs">Preview unavailable</span>
                     )}
 
                     <div className="absolute top-1.5 left-1.5 w-6 h-6 bg-black/60 rounded-full flex items-center justify-center text-white text-xs font-semibold">
@@ -61,14 +61,14 @@ function SortableItem({ id, page, onRemove, onMove }) {
                 <div className="flex gap-1 w-full justify-center">
                     <button
                         onClick={(e) => { e.stopPropagation(); onMove(id, "up"); }}
-                        className="p-1.5 bg-gray-700 border-none rounded-md cursor-pointer text-gray-200 hover:bg-gray-600 transition-colors"
+                        className="p-1.5 bg-gray-100 dark:bg-gray-700 border-none rounded-md cursor-pointer text-gray-500 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
                         title="Move Left/Up"
                     >
                         <ArrowUp className="w-3.5 h-3.5" />
                     </button>
                     <button
                         onClick={(e) => { e.stopPropagation(); onMove(id, "down"); }}
-                        className="p-1.5 bg-gray-700 border-none rounded-md cursor-pointer text-gray-200 hover:bg-gray-600 transition-colors"
+                        className="p-1.5 bg-gray-100 dark:bg-gray-700 border-none rounded-md cursor-pointer text-gray-500 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
                         title="Move Right/Down"
                     >
                         <ArrowDown className="w-3.5 h-3.5" />
@@ -80,7 +80,7 @@ function SortableItem({ id, page, onRemove, onMove }) {
                         e.stopPropagation();
                         onRemove(page.id);
                     }}
-                    className="absolute -top-2 -right-2 p-1 bg-red-500 border-2 border-gray-900 rounded-full cursor-pointer text-white flex items-center justify-center z-10 w-6 h-6 hover:bg-red-600 transition-colors"
+                    className="absolute -top-2 -right-2 p-1 bg-red-500 border-2 border-white dark:border-gray-900 rounded-full cursor-pointer text-white flex items-center justify-center z-10 w-6 h-6 hover:bg-red-600 transition-colors shadow-sm"
                     title="Remove Page"
                 >
                     <X className="w-3.5 h-3.5" />
@@ -185,13 +185,15 @@ export default function ReorderPdfClient() {
     };
 
     return (
-        <div className="max-w-[1280px] mx-auto px-6 py-10">
-            <ToolHeader
-                title="Reorder PDF"
-                description="Rearrange, drag & drop, and remove pages in your PDF document visually."
-                breadcrumbs={[{ label: "PDF Tools", href: "/category/pdf" }, { label: "Reorder PDF" }]}
-            />
-            <div className="max-w-3xl mx-auto">
+        <div className="min-h-screen bg-slate-50 dark:bg-gray-950 pb-12 transition-colors duration-300">
+            <div className="max-w-7xl mx-auto px-6 pt-10">
+                <ToolHeader
+                    title="Reorder PDF"
+                    description="Rearrange, drag & drop, and remove pages in your PDF document visually."
+                    breadcrumbs={[{ label: "PDF Tools", href: "/category/pdf" }, { label: "Reorder PDF" }]}
+                />
+            </div>
+            <div className="max-w-3xl mx-auto px-6">
                 {!file ? (
                     <ToolDropzone
                         onFiles={handleFiles}
@@ -204,12 +206,12 @@ export default function ReorderPdfClient() {
                     />
                 ) : (
                     <div>
-                        <div className="bg-gray-900 border border-gray-800 rounded-2xl p-5 mb-6">
+                        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-5 mb-6 shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
                             <div className="flex items-center gap-3">
-                                <FileText className="w-5 h-5 text-gray-100" />
+                                <FileText className="w-5 h-5 text-gray-500 dark:text-gray-100" />
                                 <div>
-                                    <p className="text-sm font-medium text-gray-200 m-0">{file.name}</p>
-                                    <p className="text-xs text-gray-500 m-0">{(file.size / 1024 / 1024).toFixed(2)} MB • {pageOrder.length} Pages</p>
+                                    <p className="text-sm font-medium text-gray-900 dark:text-gray-200 m-0">{file.name}</p>
+                                    <p className="text-xs text-gray-500 dark:text-gray-500 m-0">{(file.size / 1024 / 1024).toFixed(2)} MB • {pageOrder.length} Pages</p>
                                 </div>
                             </div>
                         </div>
@@ -237,8 +239,8 @@ export default function ReorderPdfClient() {
                                 <DragOverlay>
                                     {activeId ? (
                                         <div className="scale-105 cursor-grabbing">
-                                            <div className="bg-gray-800 border border-gray-500 rounded-xl p-3 relative flex flex-col items-center gap-2 shadow-2xl">
-                                                <div className="relative w-full aspect-[3/4] bg-gray-950 rounded overflow-hidden flex items-center justify-center border border-gray-700">
+                                            <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-500 rounded-xl p-3 relative flex flex-col items-center gap-2 shadow-2xl">
+                                                <div className="relative w-full aspect-[3/4] bg-gray-100 dark:bg-gray-950 rounded overflow-hidden flex items-center justify-center border border-gray-200 dark:border-gray-700">
                                                     {(() => {
                                                         const p = pageOrder.find(x => x.id === activeId);
                                                         return p?.thumbnail ? (
@@ -270,7 +272,7 @@ export default function ReorderPdfClient() {
                                 <div className="mt-4 text-center">
                                     <button
                                         onClick={() => downloadBlob(resultBlob, `kitbase-reordered-${file.name}`)}
-                                        className="inline-flex items-center gap-2 px-7 py-3.5 bg-emerald-500 text-gray-950 font-semibold text-[15px] rounded-xl border-none cursor-pointer hover:bg-emerald-400 transition-colors"
+                                        className="inline-flex items-center gap-2 px-7 py-3.5 bg-emerald-500 text-white dark:text-gray-950 font-semibold text-[15px] rounded-xl border-none cursor-pointer hover:bg-emerald-600 dark:hover:bg-emerald-400 transition-colors shadow-lg shadow-emerald-500/20"
                                     >
                                         <Download className="w-[18px] h-[18px]" /> Download Reordered PDF
                                     </button>

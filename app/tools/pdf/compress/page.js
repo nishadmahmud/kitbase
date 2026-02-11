@@ -34,13 +34,15 @@ export default function CompressPdfPage() {
     };
 
     return (
-        <div className="max-w-[1280px] mx-auto px-6 py-10">
-            <ToolHeader
-                title="Compress PDF"
-                description="Optimize and reduce the file size of your PDF documents."
-                breadcrumbs={[{ label: "PDF Tools", href: "/category/pdf" }, { label: "Compress PDF" }]}
-            />
-            <div className="max-w-3xl mx-auto">
+        <div className="min-h-screen bg-slate-50 dark:bg-gray-950 pb-12 transition-colors duration-300">
+            <div className="max-w-7xl mx-auto px-6 pt-10">
+                <ToolHeader
+                    title="Compress PDF"
+                    description="Optimize and reduce the file size of your PDF documents."
+                    breadcrumbs={[{ label: "PDF Tools", href: "/category/pdf" }, { label: "Compress PDF" }]}
+                />
+            </div>
+            <div className="max-w-3xl mx-auto px-6">
                 {!file ? (
                     <ToolDropzone
                         onFiles={handleFiles}
@@ -53,11 +55,11 @@ export default function CompressPdfPage() {
                     />
                 ) : (
                     <div>
-                        <div className="bg-gray-900 border border-gray-800 rounded-2xl p-5 mb-6">
+                        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-5 mb-6 shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
                             <div className="flex items-center gap-3">
-                                <FileText className="w-5 h-5 text-gray-100" />
+                                <FileText className="w-5 h-5 text-gray-500 dark:text-gray-100" />
                                 <div>
-                                    <p className="text-sm font-medium text-gray-200 m-0">{file.name}</p>
+                                    <p className="text-sm font-medium text-gray-900 dark:text-gray-200 m-0">{file.name}</p>
                                     <p className="text-xs text-gray-500 m-0">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
                                 </div>
                             </div>
@@ -72,7 +74,7 @@ export default function CompressPdfPage() {
                             </ActionButton>
                         </ToolActions>
 
-                        <div className="mt-4 p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg text-sm text-amber-500">
+                        <div className="mt-4 p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg text-sm text-amber-600 dark:text-amber-500">
                             <strong>Note:</strong> This tool performs structural optimization. If your PDF contains large images, the size reduction might be minimal as we prioritize document integrity.
                         </div>
 
@@ -92,7 +94,7 @@ export default function CompressPdfPage() {
                                 <div className="mt-4 text-center">
                                     <button
                                         onClick={() => downloadBlob(resultBlob, `kitbase-optimized-${file.name}`)}
-                                        className="inline-flex items-center gap-2 px-7 py-3.5 bg-emerald-500 text-gray-950 font-semibold text-[15px] rounded-xl border-none cursor-pointer hover:bg-emerald-400 transition-colors"
+                                        className="inline-flex items-center gap-2 px-7 py-3.5 bg-emerald-500 text-white dark:text-gray-950 font-semibold text-[15px] rounded-xl border-none cursor-pointer hover:bg-emerald-600 dark:hover:bg-emerald-400 transition-colors shadow-lg shadow-emerald-500/20"
                                     >
                                         <Download className="w-[18px] h-[18px]" /> Download Optimized PDF
                                     </button>

@@ -73,12 +73,14 @@ export default function ResizeImagePage() {
     const ext = format === "image/png" ? "png" : format === "image/webp" ? "webp" : "jpg";
 
     return (
-        <div className="max-w-[1280px] mx-auto px-6 py-10">
-            <ToolHeader
-                title="Resize Image"
-                description="Change image dimensions while maintaining quality and aspect ratio."
-                breadcrumbs={[{ label: "Image Tools", href: "/category/image" }, { label: "Resize Image" }]}
-            />
+        <div className="min-h-screen bg-slate-50 dark:bg-gray-950 pb-12 transition-colors duration-300">
+            <div className="max-w-7xl mx-auto px-6 pt-10">
+                <ToolHeader
+                    title="Resize Image"
+                    description="Change image dimensions while maintaining quality and aspect ratio."
+                    breadcrumbs={[{ label: "Image Tools", href: "/category/image" }, { label: "Resize Image" }]}
+                />
+            </div>
             <div className="max-w-7xl mx-auto">
                 {!file ? (
                     <ToolDropzone
@@ -142,7 +144,7 @@ export default function ResizeImagePage() {
                         {/* Main: Preview & Result */}
                         <div className="flex-1 min-w-0 flex flex-col gap-6 w-full">
                             {/* Preview */}
-                            <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4 flex flex-col items-center justify-center min-h-[300px]">
+                            <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-4 flex flex-col items-center justify-center min-h-[300px]">
                                 <img
                                     src={preview}
                                     alt="Preview"
@@ -157,9 +159,9 @@ export default function ResizeImagePage() {
 
                             {resultUrl && (
                                 <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                                    <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+                                    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
                                         <div className="flex items-center justify-between mb-6">
-                                            <h3 className="text-sm font-semibold text-gray-400 uppercase m-0">Resized Result</h3>
+                                            <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase m-0">Resized Result</h3>
                                             <span className="text-xs font-mono text-gray-500">{width}×{height}</span>
                                         </div>
 
@@ -168,7 +170,7 @@ export default function ResizeImagePage() {
 
                                             <button
                                                 onClick={() => downloadDataUrl(resultUrl, `kitbase-resized.${ext}`)}
-                                                className="inline-flex items-center gap-2 px-8 py-3 bg-emerald-500 text-gray-950 font-semibold text-sm rounded-xl border-none cursor-pointer hover:bg-emerald-400 transition-colors shadow-lg shadow-emerald-500/20"
+                                                className="inline-flex items-center gap-2 px-8 py-3 bg-emerald-500 text-white dark:text-gray-950 font-semibold text-sm rounded-xl border-none cursor-pointer hover:bg-emerald-400 transition-colors shadow-lg shadow-emerald-500/20"
                                             >
                                                 <Download className="w-4 h-4" /> Download Resized Image
                                             </button>

@@ -34,13 +34,15 @@ export default function SplitPdfPage() {
     };
 
     return (
-        <div className="max-w-[1280px] mx-auto px-6 py-10">
-            <ToolHeader
-                title="Split PDF"
-                description="Separate one page or a whole set for easy conversion and organization."
-                breadcrumbs={[{ label: "PDF Tools", href: "/category/pdf" }, { label: "Split PDF" }]}
-            />
-            <div className="max-w-3xl mx-auto">
+        <div className="min-h-screen bg-slate-50 dark:bg-gray-950 pb-12 transition-colors duration-300">
+            <div className="max-w-7xl mx-auto px-6 pt-10">
+                <ToolHeader
+                    title="Split PDF"
+                    description="Separate one page or a whole set for easy conversion and organization."
+                    breadcrumbs={[{ label: "PDF Tools", href: "/category/pdf" }, { label: "Split PDF" }]}
+                />
+            </div>
+            <div className="max-w-3xl mx-auto px-6">
                 {!file ? (
                     <ToolDropzone
                         onFiles={handleFiles}
@@ -52,11 +54,11 @@ export default function SplitPdfPage() {
                     />
                 ) : (
                     <div>
-                        <div className="bg-gray-900 border border-gray-800 rounded-2xl p-5 mb-6">
+                        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-5 mb-6 shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
                             <div className="flex items-center gap-3">
-                                <FileText className="w-5 h-5 text-gray-100" />
+                                <FileText className="w-5 h-5 text-gray-500 dark:text-gray-100" />
                                 <div>
-                                    <p className="text-sm font-medium text-gray-200 m-0">{file.name}</p>
+                                    <p className="text-sm font-medium text-gray-900 dark:text-gray-200 m-0">{file.name}</p>
                                     <p className="text-xs text-gray-500 m-0">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
                                 </div>
                             </div>
@@ -78,11 +80,11 @@ export default function SplitPdfPage() {
                                 <ToolResult success message={`Split into ${resultFiles.length} pages`} />
                                 <div className="mt-4 flex flex-col gap-2">
                                     {resultFiles.map((f, i) => (
-                                        <div key={i} className="flex items-center justify-between px-4 py-3 bg-gray-900 border border-gray-800 rounded-xl">
-                                            <span className="text-sm text-gray-200">{f.name}</span>
+                                        <div key={i} className="flex items-center justify-between px-4 py-3 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl shadow-sm dark:shadow-none transition-colors">
+                                            <span className="text-sm text-gray-700 dark:text-gray-200">{f.name}</span>
                                             <button
                                                 onClick={() => downloadBlob(f.blob, f.name)}
-                                                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-800 text-gray-200 text-[13px] font-medium rounded-lg border border-gray-700 cursor-pointer hover:bg-gray-700 hover:text-white transition-colors"
+                                                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 text-[13px] font-medium rounded-lg border border-gray-200 dark:border-gray-700 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white transition-colors"
                                             >
                                                 <Download className="w-3.5 h-3.5" /> Download
                                             </button>

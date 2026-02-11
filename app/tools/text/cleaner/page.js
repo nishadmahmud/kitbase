@@ -34,7 +34,7 @@ export default function TextCleanerPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-950 pb-12">
+        <div className="min-h-screen bg-slate-50 dark:bg-gray-950 pb-12 transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-6 pt-10">
                 <ToolHeader
                     title="Text Cleaner"
@@ -45,30 +45,30 @@ export default function TextCleanerPage() {
             <div className="max-w-5xl mx-auto px-6 -mt-8 relative z-10 flex flex-col gap-6">
 
                 {/* Control Bar */}
-                <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4 flex flex-wrap gap-3 justify-center shadow-lg">
+                <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-4 flex flex-wrap gap-3 justify-center shadow-sm dark:shadow-lg transition-colors">
                     <ActionButton onClick={() => clean("extra-spaces")} label="Remove Extra Spaces" icon={Eraser} />
                     <ActionButton onClick={() => clean("empty-lines")} label="Remove Empty Lines" icon={Eraser} />
-                    <div className="w-px bg-gray-800 mx-1 hidden md:block"></div>
+                    <div className="w-px bg-gray-200 dark:bg-gray-800 mx-1 hidden md:block"></div>
                     <ActionButton onClick={() => clean("duplicate-lines")} label="Remove Duplicate Lines" icon={Eraser} />
                     <ActionButton onClick={() => clean("trim-lines")} label="Trim Every Line" icon={Eraser} />
                 </div>
 
                 {/* Editor Area */}
-                <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden flex flex-col h-[500px] shadow-2xl shadow-black/20">
-                    <div className="px-5 py-3 border-b border-gray-800 bg-gray-950 flex justify-between items-center">
+                <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden flex flex-col h-[500px] shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
+                    <div className="px-5 py-3 border-b border-gray-200 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-950 flex justify-between items-center transition-colors">
                         <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Editor</span>
                         <div className="flex gap-2">
                             <button
                                 onClick={() => setText("")}
-                                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-400 hover:text-gray-200 bg-transparent hover:bg-gray-800 rounded-lg transition-colors border border-transparent hover:border-gray-700"
+                                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors border border-transparent hover:border-gray-200 dark:hover:border-gray-700"
                             >
                                 <RotateCcw size={14} /> Reset
                             </button>
                             <button
                                 onClick={handleCopy}
                                 className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg transition-colors border ${copied
-                                    ? "bg-green-500/10 text-green-500 border-green-500/20"
-                                    : "bg-gray-800 text-gray-200 border-gray-700 hover:bg-gray-700"
+                                    ? "bg-green-500/10 text-green-600 dark:text-green-500 border-green-500/20"
+                                    : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
                                     }`}
                             >
                                 {copied ? <Check size={14} /> : <Copy size={14} />}
@@ -80,7 +80,7 @@ export default function TextCleanerPage() {
                         value={text}
                         onChange={(e) => setText(e.target.value)}
                         placeholder="Paste your text here to clean it..."
-                        className="flex-1 w-full bg-transparent p-6 text-gray-200 text-base leading-relaxed outline-none resize-none placeholder:text-gray-700 font-mono"
+                        className="flex-1 w-full bg-transparent p-6 text-gray-900 dark:text-gray-200 text-base leading-relaxed outline-none resize-none placeholder:text-gray-400 dark:placeholder:text-gray-700 font-mono"
                         spellCheck={false}
                     />
                 </div>
@@ -93,9 +93,9 @@ function ActionButton({ onClick, label, icon: Icon }) {
     return (
         <button
             onClick={onClick}
-            className="flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold bg-gray-950 text-gray-300 border border-gray-800 hover:bg-gray-800 hover:text-white hover:border-gray-600 transition-all shadow-sm hover:shadow-md"
+            className="flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold bg-gray-50 dark:bg-gray-950 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-800 hover:bg-white dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-gray-600 transition-all shadow-sm hover:shadow-md"
         >
-            {Icon && <Icon size={16} className="text-gray-500" />} {label}
+            {Icon && <Icon size={16} className="text-gray-400 dark:text-gray-500" />} {label}
         </button>
     );
 }

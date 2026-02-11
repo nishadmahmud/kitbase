@@ -97,7 +97,7 @@ export default function WatermarkPdfPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-950 pb-12">
+        <div className="min-h-screen bg-slate-50 dark:bg-gray-950 pb-12 transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-6 pt-10">
                 <ToolHeader
                     title="Watermark PDF"
@@ -108,7 +108,7 @@ export default function WatermarkPdfPage() {
             <div className="max-w-5xl mx-auto px-6 -mt-8 relative z-10 flex flex-col gap-8">
 
                 {/* Upload Section */}
-                <div className="bg-gray-900 border border-gray-800 rounded-2xl p-8 shadow-lg">
+                <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-8 shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
                     {!file ? (
                         <ToolDropzone
                             onFilesSelected={handleFileSelect}
@@ -116,12 +116,12 @@ export default function WatermarkPdfPage() {
                             title="Click or drag PDF to watermark"
                         />
                     ) : (
-                        <div className="flex items-center gap-4 p-4 bg-gray-950 border border-gray-800 rounded-xl relative group">
+                        <div className="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl relative group transition-colors">
                             <div className="w-12 h-12 bg-purple-500/10 rounded-lg flex items-center justify-center text-purple-500 flex-shrink-0">
                                 <FileUp size={24} />
                             </div>
                             <div className="flex-1 min-w-0">
-                                <p className="text-sm font-medium text-gray-200 truncate">{file.name}</p>
+                                <p className="text-sm font-medium text-gray-900 dark:text-gray-200 truncate">{file.name}</p>
                                 <p className="text-xs text-gray-500">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
                             </div>
                             <button
@@ -136,10 +136,10 @@ export default function WatermarkPdfPage() {
 
                 {/* Settings Section */}
                 {file && (
-                    <div className="bg-gray-900 border border-gray-800 rounded-2xl p-8 shadow-lg animate-in fade-in slide-in-from-bottom-4 duration-500">
+                    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-8 shadow-sm dark:shadow-2xl dark:shadow-black/20 animate-in fade-in slide-in-from-bottom-4 duration-500 transition-colors">
                         <div className="grid md:grid-cols-2 gap-8">
                             <div>
-                                <h3 className="text-lg font-bold text-gray-200 mb-6 flex items-center gap-2">
+                                <h3 className="text-lg font-bold text-gray-900 dark:text-gray-200 mb-6 flex items-center gap-2">
                                     <Settings2 size={20} className="text-purple-500" /> Settings
                                 </h3>
 
@@ -152,7 +152,7 @@ export default function WatermarkPdfPage() {
                                             type="text"
                                             value={text}
                                             onChange={(e) => setText(e.target.value)}
-                                            className="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-gray-200 outline-none focus:border-purple-500/50 transition-colors"
+                                            className="w-full bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl px-4 py-3 text-gray-900 dark:text-gray-200 outline-none focus:border-purple-500/50 transition-colors"
                                         />
                                     </div>
 
@@ -165,7 +165,7 @@ export default function WatermarkPdfPage() {
                                                 type="number"
                                                 value={size}
                                                 onChange={(e) => setSize(Number(e.target.value))}
-                                                className="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-gray-200 outline-none focus:border-purple-500/50 transition-colors"
+                                                className="w-full bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl px-4 py-3 text-gray-900 dark:text-gray-200 outline-none focus:border-purple-500/50 transition-colors"
                                             />
                                         </div>
                                         <div>
@@ -176,7 +176,7 @@ export default function WatermarkPdfPage() {
                                                 type="number"
                                                 value={rotation}
                                                 onChange={(e) => setRotation(Number(e.target.value))}
-                                                className="w-full bg-gray-950 border border-gray-800 rounded-xl px-4 py-3 text-gray-200 outline-none focus:border-purple-500/50 transition-colors"
+                                                className="w-full bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl px-4 py-3 text-gray-900 dark:text-gray-200 outline-none focus:border-purple-500/50 transition-colors"
                                             />
                                         </div>
                                     </div>
@@ -193,7 +193,7 @@ export default function WatermarkPdfPage() {
                                                 step="0.1"
                                                 value={opacity}
                                                 onChange={(e) => setOpacity(Number(e.target.value))}
-                                                className="w-full h-2 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-purple-500"
+                                                className="w-full h-2 bg-gray-200 dark:bg-gray-800 rounded-lg appearance-none cursor-pointer accent-purple-500"
                                             />
                                         </div>
                                         <div>
@@ -214,7 +214,7 @@ export default function WatermarkPdfPage() {
                                 </div>
                             </div>
 
-                            <div className="flex flex-col justify-center items-center bg-gray-950 rounded-xl border border-gray-800/50 p-8">
+                            <div className="flex flex-col justify-center items-center bg-gray-100 dark:bg-gray-950 rounded-xl border border-gray-200 dark:border-gray-800/50 p-8">
                                 {/* Simple Visual Preview (HTML/CSS Approximation) */}
                                 <div
                                     className="w-48 h-64 bg-white relative flex items-center justify-center overflow-hidden shadow-2xl"
@@ -239,7 +239,7 @@ export default function WatermarkPdfPage() {
                             </div>
                         </div>
 
-                        <div className="mt-8 pt-6 border-t border-gray-800">
+                        <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-800">
                             <button
                                 onClick={handleWatermark}
                                 disabled={isProcessing}

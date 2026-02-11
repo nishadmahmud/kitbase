@@ -72,7 +72,7 @@ export default function LoremIpsumPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-950 pb-12">
+        <div className="min-h-screen bg-slate-50 dark:bg-gray-950 pb-12 transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-6 pt-10">
                 <ToolHeader
                     title="Lorem Ipsum Generator"
@@ -83,18 +83,18 @@ export default function LoremIpsumPage() {
             <div className="max-w-5xl mx-auto px-6 -mt-8 relative z-10 flex flex-col gap-6">
 
                 {/* Control Bar */}
-                <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6 flex flex-wrap gap-6 items-center shadow-lg">
+                <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 flex flex-wrap gap-6 items-center shadow-sm dark:shadow-lg transition-colors">
 
                     <div className="flex flex-col gap-2">
                         <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Type</label>
-                        <div className="flex bg-gray-950 rounded-xl p-1 border border-gray-800">
+                        <div className="flex bg-gray-50 dark:bg-gray-950 rounded-xl p-1 border border-gray-200 dark:border-gray-800 transition-colors">
                             {["paragraphs", "sentences", "words"].map((t) => (
                                 <button
                                     key={t}
                                     onClick={() => setType(t)}
                                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${type === t
-                                        ? "bg-gray-800 text-gray-100 shadow-sm"
-                                        : "text-gray-400 hover:text-gray-200"
+                                        ? "bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow-sm"
+                                        : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
                                         }`}
                                 >
                                     {t.charAt(0).toUpperCase() + t.slice(1)}
@@ -111,7 +111,7 @@ export default function LoremIpsumPage() {
                             max="500"
                             value={count}
                             onChange={(e) => setCount(Number(e.target.value))}
-                            className="w-24 px-4 py-2 bg-gray-950 border border-gray-800 rounded-xl text-gray-200 outline-none focus:border-gray-600 transition-colors"
+                            className="w-24 px-4 py-2 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl text-gray-900 dark:text-gray-200 outline-none focus:border-blue-500 dark:focus:border-gray-600 transition-colors"
                         />
                     </div>
 
@@ -122,16 +122,16 @@ export default function LoremIpsumPage() {
                                 type="checkbox"
                                 checked={startWithLorem}
                                 onChange={(e) => setStartWithLorem(e.target.checked)}
-                                className="w-5 h-5 rounded border-gray-700 bg-gray-950 text-gray-500 focus:ring-0 focus:ring-offset-0"
+                                className="w-5 h-5 rounded border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-950 text-blue-600 focus:ring-0 focus:ring-offset-0 transition-colors"
                             />
-                            <span className="text-sm text-gray-300">Start with "Lorem ipsum"</span>
+                            <span className="text-sm text-gray-600 dark:text-gray-300">Start with "Lorem ipsum"</span>
                         </label>
                     </div>
 
                     <div className="flex-1 flex justify-end">
                         <button
                             onClick={generate}
-                            className="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold bg-gray-800 text-gray-200 border border-gray-700 hover:bg-gray-700 transition-all"
+                            className="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold bg-gray-900 dark:bg-gray-800 text-white dark:text-gray-200 border border-gray-800 dark:border-gray-700 hover:bg-gray-800 dark:hover:bg-gray-700 transition-all"
                         >
                             <RefreshCw size={18} /> Regenerate
                         </button>
@@ -139,14 +139,14 @@ export default function LoremIpsumPage() {
                 </div>
 
                 {/* Editor Area */}
-                <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden flex flex-col h-[500px] shadow-2xl shadow-black/20">
-                    <div className="px-5 py-3 border-b border-gray-800 bg-gray-950 flex justify-between items-center">
+                <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden flex flex-col h-[500px] shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
+                    <div className="px-5 py-3 border-b border-gray-200 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-950 flex justify-between items-center transition-colors">
                         <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Result</span>
                         <button
                             onClick={handleCopy}
                             className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg transition-colors border ${copied
-                                ? "bg-green-500/10 text-green-500 border-green-500/20"
-                                : "bg-gray-800 text-gray-200 border-gray-700 hover:bg-gray-700"
+                                ? "bg-green-500/10 text-green-600 dark:text-green-500 border-green-500/20"
+                                : "bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-200 border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
                                 }`}
                         >
                             {copied ? <Check size={14} /> : <Copy size={14} />}
@@ -156,7 +156,7 @@ export default function LoremIpsumPage() {
                     <textarea
                         value={result}
                         readOnly
-                        className="flex-1 w-full bg-transparent p-6 text-gray-200 text-lg leading-relaxed outline-none resize-none font-serif"
+                        className="flex-1 w-full bg-transparent p-6 text-gray-900 dark:text-gray-200 text-lg leading-relaxed outline-none resize-none font-serif"
                     />
                 </div>
             </div>

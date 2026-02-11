@@ -62,7 +62,7 @@ export default function UnlockPdfPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-950 pb-12">
+        <div className="min-h-screen bg-slate-50 dark:bg-gray-950 pb-12 transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-6 pt-10">
                 <ToolHeader
                     title="Unlock PDF"
@@ -73,7 +73,7 @@ export default function UnlockPdfPage() {
             <div className="max-w-5xl mx-auto px-6 -mt-8 relative z-10 flex flex-col gap-8">
 
                 {/* Upload Section */}
-                <div className="bg-gray-900 border border-gray-800 rounded-2xl p-8 shadow-lg">
+                <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-8 shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
                     {!file ? (
                         <ToolDropzone
                             onFilesSelected={handleFileSelect}
@@ -81,12 +81,12 @@ export default function UnlockPdfPage() {
                             title="Click or drag PDF to unlock"
                         />
                     ) : (
-                        <div className="flex items-center gap-4 p-4 bg-gray-950 border border-gray-800 rounded-xl relative group">
+                        <div className="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl relative group transition-colors">
                             <div className="w-12 h-12 bg-blue-500/10 rounded-lg flex items-center justify-center text-blue-500 flex-shrink-0">
                                 <FileUp size={24} />
                             </div>
                             <div className="flex-1 min-w-0">
-                                <p className="text-sm font-medium text-gray-200 truncate">{file.name}</p>
+                                <p className="text-sm font-medium text-gray-900 dark:text-gray-200 truncate">{file.name}</p>
                                 <p className="text-xs text-gray-500">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
                             </div>
                             <button
@@ -101,9 +101,9 @@ export default function UnlockPdfPage() {
 
                 {/* Password Input (Optional depending on file, but usually needed for unlock) */}
                 {file && (
-                    <div className="bg-gray-900 border border-gray-800 rounded-2xl p-8 shadow-lg animate-in fade-in slide-in-from-bottom-4 duration-500">
+                    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-8 shadow-sm dark:shadow-2xl dark:shadow-black/20 animate-in fade-in slide-in-from-bottom-4 duration-500 transition-colors">
                         <div className="max-w-md mx-auto">
-                            <h3 className="text-lg font-bold text-gray-200 mb-6 flex items-center gap-2 justify-center">
+                            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-200 mb-6 flex items-center gap-2 justify-center">
                                 <Unlock size={20} className="text-blue-500" /> Unlock Settings
                             </h3>
 
@@ -118,8 +118,8 @@ export default function UnlockPdfPage() {
                                         onChange={(e) => { setPassword(e.target.value); setError(""); }}
                                         placeholder="Enter password if encrypted..."
                                         className={cn(
-                                            "w-full bg-gray-950 border rounded-xl px-4 py-3 text-gray-200 outline-none transition-colors placeholder:text-gray-700",
-                                            error ? "border-red-500 focus:border-red-500" : "border-gray-800 focus:border-blue-500/50"
+                                            "w-full bg-gray-50 dark:bg-gray-950 border rounded-xl px-4 py-3 text-gray-900 dark:text-gray-200 outline-none transition-colors placeholder:text-gray-400 dark:placeholder:text-gray-700",
+                                            error ? "border-red-500 focus:border-red-500" : "border-gray-200 dark:border-gray-800 focus:border-blue-500/50"
                                         )}
                                     />
                                     {error && (

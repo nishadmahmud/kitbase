@@ -44,12 +44,14 @@ export default function ConvertImagePage() {
     const ext = format === "image/png" ? "png" : format === "image/webp" ? "webp" : "jpg";
 
     return (
-        <div className="max-w-[1280px] mx-auto px-6 py-10">
-            <ToolHeader
-                title="Convert Image"
-                description="Convert images between JPG, PNG, WebP, and other formats instantly."
-                breadcrumbs={[{ label: "Image Tools", href: "/category/image" }, { label: "Convert Image" }]}
-            />
+        <div className="min-h-screen bg-slate-50 dark:bg-gray-950 pb-12 transition-colors duration-300">
+            <div className="max-w-7xl mx-auto px-6 pt-10">
+                <ToolHeader
+                    title="Convert Image"
+                    description="Convert images between JPG, PNG, WebP, and other formats instantly."
+                    breadcrumbs={[{ label: "Image Tools", href: "/category/image" }, { label: "Convert Image" }]}
+                />
+            </div>
             <div className="max-w-7xl mx-auto">
                 {!file ? (
                     <ToolDropzone
@@ -96,7 +98,7 @@ export default function ConvertImagePage() {
                         {/* Main */}
                         <div className="flex-1 min-w-0 flex flex-col gap-6 w-full">
                             {/* Preview */}
-                            <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4 flex flex-col items-center justify-center min-h-[300px]">
+                            <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-4 flex flex-col items-center justify-center min-h-[300px] shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
                                 <img
                                     src={preview}
                                     alt="Preview"
@@ -111,9 +113,9 @@ export default function ConvertImagePage() {
 
                             {resultBlob && (
                                 <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                                    <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6 text-center">
+                                    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 text-center shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
                                         <div className="flex items-center justify-between mb-6">
-                                            <h3 className="text-sm font-semibold text-gray-400 uppercase m-0">Conversion Complete</h3>
+                                            <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase m-0">Conversion Complete</h3>
                                             <span className="text-xs font-mono text-gray-500">{ext.toUpperCase()}</span>
                                         </div>
                                         <ToolResult success message={`Successfully converted to ${ext.toUpperCase()}`} />
@@ -121,7 +123,7 @@ export default function ConvertImagePage() {
                                         <div className="mt-6 flex justify-center">
                                             <button
                                                 onClick={() => downloadBlob(resultBlob, `kitbase-converted.${ext}`)}
-                                                className="inline-flex items-center gap-2 px-8 py-3 bg-emerald-500 text-gray-950 font-semibold text-sm rounded-xl border-none cursor-pointer hover:bg-emerald-400 transition-colors shadow-lg shadow-emerald-500/20"
+                                                className="inline-flex items-center gap-2 px-8 py-3 bg-emerald-500 text-white dark:text-gray-950 font-semibold text-sm rounded-xl border-none cursor-pointer hover:bg-emerald-400 transition-colors shadow-lg shadow-emerald-500/20"
                                             >
                                                 <Download className="w-4 h-4" /> Download Converted Image
                                             </button>

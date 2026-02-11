@@ -52,7 +52,7 @@ export default function HashGeneratorPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-950 pb-12">
+        <div className="min-h-screen bg-white dark:bg-gray-950 pb-12 transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-6 pt-10">
                 <ToolHeader
                     title="Hash Generator"
@@ -63,12 +63,12 @@ export default function HashGeneratorPage() {
             <div className="max-w-4xl mx-auto px-6 -mt-8 relative z-10 flex flex-col gap-8">
 
                 {/* Input Area */}
-                <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden flex flex-col shadow-lg">
-                    <div className="px-5 py-3 border-b border-gray-800 bg-gray-950 flex justify-between items-center">
+                <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden flex flex-col shadow-lg transition-colors">
+                    <div className="px-5 py-3 border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950 flex justify-between items-center transition-colors">
                         <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Input Text</span>
                         <button
                             onClick={() => generateHashes("")}
-                            className="flex items-center gap-1.5 px-3 py-1 text-xs font-medium text-gray-400 hover:text-gray-200 bg-transparent hover:bg-gray-800 rounded-lg transition-colors"
+                            className="flex items-center gap-1.5 px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 bg-transparent hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg transition-colors"
                         >
                             <RotateCcw size={14} /> Clear
                         </button>
@@ -77,7 +77,7 @@ export default function HashGeneratorPage() {
                         value={input}
                         onChange={(e) => generateHashes(e.target.value)}
                         placeholder="Type something to hash..."
-                        className="w-full h-32 bg-transparent p-5 text-gray-200 text-lg leading-relaxed outline-none resize-none placeholder:text-gray-700 font-sans"
+                        className="w-full h-32 bg-transparent p-5 text-gray-900 dark:text-gray-200 text-lg leading-relaxed outline-none resize-none placeholder:text-gray-400 dark:placeholder:text-gray-700 font-sans"
                         spellCheck={false}
                     />
                 </div>
@@ -97,23 +97,23 @@ export default function HashGeneratorPage() {
 
 function ResultRow({ label, value, onCopy, copied }) {
     return (
-        <div className="bg-gray-900 border border-gray-800 rounded-xl p-4 flex flex-col gap-2 shadow-sm">
+        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-4 flex flex-col gap-2 shadow-sm transition-colors">
             <div className="flex justify-between items-center">
                 <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">{label}</span>
                 <button
                     onClick={onCopy}
                     disabled={!value}
                     className={`flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-lg transition-colors border ${copied
-                        ? "bg-green-500/10 text-green-500 border-green-500/20"
-                        : "bg-gray-950 text-gray-400 border-gray-800 hover:text-gray-200 hover:border-gray-700 disabled:opacity-50"
+                        ? "bg-green-500/10 text-green-600 dark:text-green-500 border-green-500/20"
+                        : "bg-gray-50 dark:bg-gray-950 text-gray-500 dark:text-gray-400 border-gray-200 dark:border-gray-800 hover:text-gray-900 dark:hover:text-gray-200 hover:border-gray-300 dark:hover:border-gray-700 disabled:opacity-50"
                         }`}
                 >
                     {copied ? <Check size={14} /> : <Copy size={14} />}
                     {copied ? "Copied" : "Copy"}
                 </button>
             </div>
-            <div className="font-mono text-sm text-gray-300 break-all bg-gray-950 p-3 rounded-lg border border-gray-800/50">
-                {value || <span className="text-gray-700 italic">Waiting for input...</span>}
+            <div className="font-mono text-sm text-gray-700 dark:text-gray-300 break-all bg-gray-50 dark:bg-gray-950 p-3 rounded-lg border border-gray-200 dark:border-gray-800/50 transition-colors">
+                {value || <span className="text-gray-400 dark:text-gray-700 italic">Waiting for input...</span>}
             </div>
         </div>
     );

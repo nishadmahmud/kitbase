@@ -78,12 +78,14 @@ export default function ImageFiltersPage() {
     };
 
     return (
-        <div className="max-w-[1280px] mx-auto px-6 py-10">
-            <ToolHeader
-                title="Image Filters"
-                description="Enhance your photos with adjustable brightness, contrast, and artistic effects."
-                breadcrumbs={[{ label: "Image Tools", href: "/category/image" }, { label: "Filters" }]}
-            />
+        <div className="min-h-screen bg-slate-50 dark:bg-gray-950 pb-12 transition-colors duration-300">
+            <div className="max-w-7xl mx-auto px-6 pt-10">
+                <ToolHeader
+                    title="Image Filters"
+                    description="Enhance your photos with adjustable brightness, contrast, and artistic effects."
+                    breadcrumbs={[{ label: "Image Tools", href: "/category/image" }, { label: "Filters" }]}
+                />
+            </div>
 
             <canvas ref={canvasRef} className="hidden" />
 
@@ -100,9 +102,9 @@ export default function ImageFiltersPage() {
                     <div className="flex flex-col md:flex-row gap-8 items-start">
                         {/* Controls */}
                         <div className="w-full md:w-[320px] flex-shrink-0 flex flex-col gap-6">
-                            <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+                            <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
                                 <div className="flex justify-between items-center mb-6">
-                                    <h3 className="text-sm font-semibold text-gray-400 uppercase flex items-center gap-2 m-0">
+                                    <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase flex items-center gap-2 m-0">
                                         <Sliders size={16} /> Adjustments
                                     </h3>
                                     <button
@@ -121,8 +123,8 @@ export default function ImageFiltersPage() {
                                     {FILTERS.map(filter => (
                                         <div key={filter.id} className="flex flex-col gap-2">
                                             <div className="flex justify-between items-center">
-                                                <label className="text-sm text-gray-200 font-medium">{filter.label}</label>
-                                                <span className="text-xs text-gray-400 font-mono">{settings[filter.id]}{filter.unit}</span>
+                                                <label className="text-sm text-gray-700 dark:text-gray-200 font-medium">{filter.label}</label>
+                                                <span className="text-xs text-gray-500 dark:text-gray-400 font-mono">{settings[filter.id]}{filter.unit}</span>
                                             </div>
                                             <input
                                                 type="range"
@@ -130,7 +132,7 @@ export default function ImageFiltersPage() {
                                                 max={filter.max}
                                                 value={settings[filter.id] || filter.default}
                                                 onChange={(e) => updateSetting(filter.id, Number(e.target.value))}
-                                                className="w-full cursor-pointer accent-gray-200 h-1.5 bg-gray-800 rounded-lg appearance-none"
+                                                className="w-full cursor-pointer accent-blue-600 dark:accent-gray-200 h-1.5 bg-gray-200 dark:bg-gray-800 rounded-lg appearance-none"
                                             />
                                         </div>
                                     ))}
@@ -144,7 +146,7 @@ export default function ImageFiltersPage() {
                         </div>
 
                         {/* Preview */}
-                        <div className="flex-1 min-w-0 w-full bg-black border border-gray-800 rounded-2xl overflow-hidden flex items-center justify-center min-h-[500px] p-6">
+                        <div className="flex-1 min-w-0 w-full bg-gray-100 dark:bg-black border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden flex items-center justify-center min-h-[500px] p-6 shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
                             <img
                                 ref={imageRef}
                                 src={previewUrl}

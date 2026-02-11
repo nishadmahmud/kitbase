@@ -151,7 +151,7 @@ export default function MetadataViewerPage() {
     }, {});
 
     return (
-        <div className="min-h-screen bg-gray-950 pb-12">
+        <div className="min-h-screen bg-slate-50 dark:bg-gray-950 pb-12 transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-6 pt-10">
                 <ToolHeader
                     title="Metadata Viewer"
@@ -162,7 +162,7 @@ export default function MetadataViewerPage() {
             <div className="max-w-5xl mx-auto px-6 -mt-8 relative z-10 flex flex-col gap-8">
 
                 {/* Upload Section */}
-                <div className="bg-gray-900 border border-gray-800 rounded-2xl p-8 shadow-lg">
+                <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-8 shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
                     {!file ? (
                         <ToolDropzone
                             onFilesSelected={handleFileSelect}
@@ -170,9 +170,9 @@ export default function MetadataViewerPage() {
                             multiple={false}
                         />
                     ) : (
-                        <div className="flex items-center justify-between gap-4 p-4 bg-gray-950 border border-gray-800 rounded-xl">
+                        <div className="flex items-center justify-between gap-4 p-4 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl">
                             <div className="flex items-center gap-4 relative group overflow-hidden">
-                                <div className="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 flex-shrink-0">
+                                <div className="w-12 h-12 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center text-gray-500 dark:text-gray-400 flex-shrink-0">
                                     {file.type.startsWith("image/") ? <ImageIcon size={24} /> :
                                         file.type.startsWith("video/") ? <Video size={24} /> :
                                             file.type.startsWith("audio/") ? <Music size={24} /> :
@@ -180,7 +180,7 @@ export default function MetadataViewerPage() {
                                                     <Info size={24} />}
                                 </div>
                                 <div className="min-w-0">
-                                    <p className="text-sm font-medium text-gray-200 truncate max-w-[200px] md:max-w-md">{file.name}</p>
+                                    <p className="text-sm font-medium text-gray-900 dark:text-gray-200 truncate max-w-[200px] md:max-w-md">{file.name}</p>
                                     <p className="text-xs text-gray-500">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
                                 </div>
                             </div>
@@ -188,13 +188,13 @@ export default function MetadataViewerPage() {
                                 <button
                                     onClick={downloadJson}
                                     title="Export JSON"
-                                    className="p-2 bg-gray-800 text-gray-400 hover:text-white rounded-lg transition-colors"
+                                    className="p-2 bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors cursor-pointer"
                                 >
                                     <Download size={18} />
                                 </button>
                                 <button
                                     onClick={() => { setFile(null); setMetadata([]); }}
-                                    className="p-2 bg-gray-800 hover:bg-gray-700 text-gray-400 hover:text-red-400 rounded-lg transition-colors"
+                                    className="p-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 rounded-lg transition-colors cursor-pointer"
                                 >
                                     <X size={18} />
                                 </button>
@@ -207,7 +207,7 @@ export default function MetadataViewerPage() {
                 {isProcessing && (
                     <div className="text-center py-12">
                         <div className="animate-spin w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full mx-auto mb-4"></div>
-                        <p className="text-gray-400">Extracting metadata...</p>
+                        <p className="text-gray-500 dark:text-gray-400">Extracting metadata...</p>
                     </div>
                 )}
 
@@ -215,15 +215,15 @@ export default function MetadataViewerPage() {
                 {!isProcessing && file && metadata.length > 0 && (
                     <div className="grid md:grid-cols-2 gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
                         {Object.entries(groupedMetadata).map(([group, items]) => (
-                            <div key={group} className="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden h-fit">
-                                <div className="bg-gray-800/50 px-6 py-3 border-b border-gray-800">
-                                    <h3 className="text-sm font-semibold text-gray-200">{group}</h3>
+                            <div key={group} className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden h-fit shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
+                                <div className="bg-gray-50 dark:bg-gray-800/50 px-6 py-3 border-b border-gray-200 dark:border-gray-800">
+                                    <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-200">{group}</h3>
                                 </div>
-                                <div className="divide-y divide-gray-800">
+                                <div className="divide-y divide-gray-200 dark:divide-gray-800">
                                     {items.map((item, idx) => (
-                                        <div key={idx} className="flex justify-between px-6 py-4 hover:bg-gray-800/30 transition-colors">
+                                        <div key={idx} className="flex justify-between px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors">
                                             <span className="text-sm text-gray-500 font-medium">{item.key}</span>
-                                            <span className="text-sm text-gray-200 text-right font-mono truncate max-w-[200px]" title={item.value}>
+                                            <span className="text-sm text-gray-900 dark:text-gray-200 text-right font-mono truncate max-w-[200px]" title={item.value}>
                                                 {item.value}
                                             </span>
                                         </div>

@@ -4,6 +4,7 @@ import { useState, useCallback } from "react";
 import { Download, FileText, Image as ImageIcon, Loader2, Archive, Settings, RefreshCw } from "lucide-react";
 import JSZip from "jszip";
 import ToolHeader from "@/components/tool/ToolHeader";
+import CustomSelect from "@/components/ui/CustomSelect";
 import ToolDropzone from "@/components/tool/ToolDropzone";
 import ToolActions, { ActionButton } from "@/components/tool/ToolActions";
 import ToolResult from "@/components/tool/ToolResult";
@@ -57,14 +58,15 @@ export default function PdfToImagePage() {
     };
 
     return (
-        <div className="container mx-auto py-10 px-6 max-w-7xl">
-            <ToolHeader
-                title="PDF to Image"
-                description="Convert PDF pages into high-quality JPG or PNG images."
-                breadcrumbs={[{ label: "PDF Tools", href: "/category/pdf" }, { label: "PDF to Image" }]}
-            />
-
-            <div className="max-w-3xl mx-auto">
+        <div className="min-h-screen bg-slate-50 dark:bg-gray-950 pb-12 transition-colors duration-300">
+            <div className="max-w-7xl mx-auto px-6 pt-10">
+                <ToolHeader
+                    title="PDF to Image"
+                    description="Convert PDF pages into high-quality JPG or PNG images."
+                    breadcrumbs={[{ label: "PDF Tools", href: "/category/pdf" }, { label: "PDF to Image" }]}
+                />
+            </div>
+            <div className="max-w-3xl mx-auto px-6">
                 {!file ? (
                     <ToolDropzone
                         onFiles={handleFiles}
@@ -76,17 +78,17 @@ export default function PdfToImagePage() {
                 ) : (
                     <div className="flex flex-col gap-6">
                         {/* File Info */}
-                        <div className="bg-gray-900 border border-gray-800 rounded-xl p-5 flex justify-between items-center">
+                        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-5 flex justify-between items-center shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
                             <div className="flex items-center gap-3">
-                                <FileText className="text-gray-100" />
+                                <FileText className="text-gray-500 dark:text-gray-100" />
                                 <div>
-                                    <p className="font-medium text-gray-200 m-0">{file.name}</p>
-                                    <p className="text-xs text-gray-400 m-0">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
+                                    <p className="font-medium text-gray-900 dark:text-gray-200 m-0">{file.name}</p>
+                                    <p className="text-xs text-gray-500 dark:text-gray-400 m-0">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
                                 </div>
                             </div>
                             <button
                                 onClick={() => { setFile(null); setImages([]); }}
-                                className="text-red-500 bg-transparent border-none cursor-pointer text-sm font-medium hover:text-red-400"
+                                className="text-red-500 bg-transparent border-none cursor-pointer text-sm font-medium hover:text-red-600 dark:hover:text-red-400"
                             >
                                 Change
                             </button>
@@ -94,21 +96,21 @@ export default function PdfToImagePage() {
 
                         {/* Settings */}
                         {images.length === 0 && (
-                            <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
-                                <h3 className="text-sm font-semibold text-gray-400 uppercase mb-4 flex items-center gap-2">
+                            <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-5 shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
+                                <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase mb-4 flex items-center gap-2">
                                     <Settings size={16} /> Conversion Settings
                                 </h3>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
-                                        <label className="block text-sm text-gray-200 mb-2 font-medium">Format</label>
+                                        <label className="block text-sm text-gray-700 dark:text-gray-200 mb-2 font-medium">Format</label>
                                         <div className="flex gap-2">
                                             {["jpeg", "png"].map(f => (
                                                 <button
                                                     key={f}
                                                     onClick={() => setFormat(f)}
                                                     className={`flex-1 py-2 rounded-lg border text-xs font-semibold uppercase transition-colors ${format === f
-                                                        ? "border-gray-500 bg-gray-800 text-gray-100"
-                                                        : "border-gray-700 bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-gray-200"
+                                                        ? "border-gray-400 bg-gray-100 text-gray-900 dark:border-gray-500 dark:bg-gray-800 dark:text-gray-100"
+                                                        : "border-gray-200 bg-white text-gray-500 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-200"
                                                         }`}
                                                 >
                                                     {f}
@@ -117,16 +119,16 @@ export default function PdfToImagePage() {
                                         </div>
                                     </div>
                                     <div>
-                                        <label className="block text-sm text-gray-200 mb-2 font-medium">Quality (Scale)</label>
-                                        <select
+                                        <label className="block text-sm text-gray-700 dark:text-gray-200 mb-2 font-medium">Quality (Scale)</label>
+                                        <CustomSelect
                                             value={scale}
                                             onChange={(e) => setScale(Number(e.target.value))}
-                                            className="w-full p-2.5 rounded-lg border border-gray-700 bg-gray-800 text-gray-200 outline-none focus:border-gray-500 transition-colors"
-                                        >
-                                            <option value={1}>1x (Screen)</option>
-                                            <option value={2}>2x (High Res)</option>
-                                            <option value={3}>3x (Print)</option>
-                                        </select>
+                                            options={[
+                                                { value: 1, label: "1x (Screen)" },
+                                                { value: 2, label: "2x (High Res)" },
+                                                { value: 3, label: "3x (Print)" },
+                                            ]}
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -148,7 +150,7 @@ export default function PdfToImagePage() {
 
                                 <div className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-4">
                                     {images.map((img, idx) => (
-                                        <div key={idx} className="relative group rounded-lg overflow-hidden border border-gray-800">
+                                        <div key={idx} className="relative group rounded-lg overflow-hidden border border-gray-200 dark:border-gray-800 shadow-sm dark:shadow-2xl dark:shadow-black/20 bg-gray-100 dark:bg-gray-800 transition-colors">
                                             <img src={img} alt={`Page ${idx + 1}`} className="w-full h-auto block" />
                                             <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/90 to-transparent flex justify-between items-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                                                 <span className="text-xs text-white font-medium pl-1">Page {idx + 1}</span>

@@ -99,12 +99,14 @@ export default function ImageCropperPage() {
     }
 
     return (
-        <div className="max-w-[1280px] mx-auto px-6 py-10">
-            <ToolHeader
-                title="Image Cropper"
-                description="Crop your images freely or with fixed aspect ratios."
-                breadcrumbs={[{ label: "Image Tools", href: "/category/image" }, { label: "Cropper" }]}
-            />
+        <div className="min-h-screen bg-slate-50 dark:bg-gray-950 pb-12 transition-colors duration-300">
+            <div className="max-w-7xl mx-auto px-6 pt-10">
+                <ToolHeader
+                    title="Image Cropper"
+                    description="Crop your images freely or with fixed aspect ratios."
+                    breadcrumbs={[{ label: "Image Tools", href: "/category/image" }, { label: "Cropper" }]}
+                />
+            </div>
 
             <div className="max-w-7xl mx-auto">
                 {!imgSrc ? (
@@ -118,8 +120,8 @@ export default function ImageCropperPage() {
                     <div className="flex flex-col md:flex-row gap-8 items-start">
                         {/* Controls */}
                         <div className="w-full md:w-[280px] flex-shrink-0 flex flex-col gap-6">
-                            <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
-                                <h3 className="text-sm font-semibold text-gray-400 uppercase mb-4 m-0">Aspect Ratio</h3>
+                            <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
+                                <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase mb-4 m-0">Aspect Ratio</h3>
                                 <div className="flex flex-col gap-2">
                                     {[
                                         { label: "Free", value: undefined },
@@ -132,8 +134,8 @@ export default function ImageCropperPage() {
                                             key={i}
                                             onClick={() => handleAspectChange(opt.value)}
                                             className={`w-full text-left px-3 py-2.5 rounded-lg border text-sm font-medium transition-colors cursor-pointer ${aspect === opt.value
-                                                ? "border-gray-500 bg-gray-800 text-gray-100"
-                                                : "border-transparent bg-gray-800 text-gray-200 hover:bg-gray-700"
+                                                ? "border-gray-300 dark:border-gray-500 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+                                                : "border-transparent bg-gray-50 dark:bg-gray-800/50 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                                                 }`}
                                         >
                                             {opt.label}
@@ -153,7 +155,7 @@ export default function ImageCropperPage() {
                         </div>
 
                         {/* Editor */}
-                        <div className="flex-1 min-w-0 w-full bg-black border border-gray-800 rounded-2xl overflow-hidden flex items-center justify-center min-h-[500px] p-6">
+                        <div className="flex-1 min-w-0 w-full bg-gray-100 dark:bg-black border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden flex items-center justify-center min-h-[500px] p-6 shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
                             <ReactCrop
                                 crop={crop}
                                 onChange={(_, percentCrop) => setCrop(percentCrop)}

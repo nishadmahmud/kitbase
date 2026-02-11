@@ -44,7 +44,7 @@ export default function ColorConverterPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-950 pb-12">
+        <div className="min-h-screen bg-slate-50 dark:bg-gray-950 pb-12 transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-6 pt-10">
                 <ToolHeader
                     title="Color Converter"
@@ -56,7 +56,7 @@ export default function ColorConverterPage() {
 
                 {/* Visualizer */}
                 <div
-                    className="w-full md:w-1/3 aspect-square rounded-3xl shadow-2xl border-4 border-gray-800 transition-colors duration-200"
+                    className="w-full md:w-1/3 aspect-square rounded-3xl shadow-2xl border-4 border-white dark:border-gray-800 transition-colors duration-200"
                     style={{ backgroundColor: hex }}
                 />
 
@@ -67,7 +67,7 @@ export default function ColorConverterPage() {
                     <ColorResult label="RGB" value={rgb} />
                     <ColorResult label="HSL" value={hsl} />
 
-                    <div className="mt-4 p-4 bg-gray-900 border border-gray-800 rounded-xl">
+                    <div className="mt-4 p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
                         <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 block">Picker</label>
                         <input
                             type="color"
@@ -85,13 +85,13 @@ export default function ColorConverterPage() {
 
 function ColorInput({ label, value, onChange }) {
     return (
-        <div className="bg-gray-900 border border-gray-800 rounded-xl p-4 shadow-sm">
+        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-4 shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
             <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1 block">{label}</label>
             <input
                 type="text"
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
-                className="w-full bg-transparent text-xl font-mono text-gray-200 outline-none"
+                className="w-full bg-transparent text-xl font-mono text-gray-900 dark:text-gray-200 outline-none"
                 maxLength={7}
             />
         </div>
@@ -107,16 +107,16 @@ function ColorResult({ label, value }) {
     };
 
     return (
-        <div className="bg-gray-900 border border-gray-800 rounded-xl p-4 shadow-sm flex items-center justify-between">
+        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-4 shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors flex items-center justify-between">
             <div>
                 <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1 block">{label}</label>
-                <div className="text-xl font-mono text-gray-200">{value}</div>
+                <div className="text-xl font-mono text-gray-900 dark:text-gray-200">{value}</div>
             </div>
             <button
                 onClick={handleCopy}
                 className={`p-2 rounded-lg transition-colors border ${copied
-                    ? "bg-green-500/10 text-green-500 border-green-500/20"
-                    : "bg-gray-950 text-gray-400 border-gray-800 hover:text-gray-200 hover:border-gray-700"
+                    ? "bg-green-100 dark:bg-green-500/10 text-green-600 dark:text-green-500 border-green-200 dark:border-green-500/20"
+                    : "bg-gray-50 dark:bg-gray-950 text-gray-500 dark:text-gray-400 border-gray-200 dark:border-gray-800 hover:text-gray-900 dark:hover:text-gray-200 hover:border-gray-300 dark:hover:border-gray-700"
                     }`}
             >
                 {copied ? <Check size={18} /> : <Copy size={18} />}

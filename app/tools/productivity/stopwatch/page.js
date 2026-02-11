@@ -46,13 +46,13 @@ export default function StopwatchPage() {
                 <span className="opacity-50 mx-1">:</span>
                 <span className="w-[1.2em] text-center">{secs.toString().padStart(2, '0')}</span>
                 <span className="opacity-50 mx-1">.</span>
-                <span className="w-[1.2em] text-center text-6xl text-gray-400">{centis.toString().padStart(2, '0')}</span>
+                <span className="w-[1.2em] text-center text-6xl text-gray-400 dark:text-gray-500">{centis.toString().padStart(2, '0')}</span>
             </div>
         );
     };
 
     return (
-        <div className="min-h-screen bg-gray-950 pb-12">
+        <div className="min-h-screen bg-white dark:bg-gray-950 pb-12 transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-6 pt-10">
                 <ToolHeader
                     title="Stopwatch"
@@ -63,8 +63,8 @@ export default function StopwatchPage() {
             <div className="max-w-2xl mx-auto px-6 -mt-8 relative z-10 flex flex-col gap-8">
 
                 {/* Display */}
-                <div className="bg-gray-900 border border-gray-800 rounded-[2.5rem] p-12 text-center shadow-2xl relative overflow-hidden">
-                    <div className="relative z-10 text-7xl sm:text-8xl md:text-9xl font-bold text-gray-100 tracking-tighter">
+                <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-[2.5rem] p-12 text-center shadow-2xl relative overflow-hidden transition-colors">
+                    <div className="relative z-10 text-7xl sm:text-8xl md:text-9xl font-bold text-gray-900 dark:text-gray-100 tracking-tighter">
                         {formatTime(time)}
                     </div>
                 </div>
@@ -73,7 +73,7 @@ export default function StopwatchPage() {
                 <div className="grid grid-cols-3 gap-4">
                     <button
                         onClick={handleReset}
-                        className="h-20 rounded-2xl flex items-center justify-center bg-gray-900 text-gray-400 border border-gray-800 hover:text-gray-200 hover:border-gray-700 transition-all shadow-lg"
+                        className="h-20 rounded-2xl flex items-center justify-center bg-white dark:bg-gray-900 text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-800 hover:text-gray-900 dark:hover:text-gray-200 hover:border-gray-300 dark:hover:border-gray-700 transition-all shadow-lg"
                     >
                         <RotateCcw size={24} />
                     </button>
@@ -91,7 +91,7 @@ export default function StopwatchPage() {
                     <button
                         onClick={handleLap}
                         disabled={!isActive}
-                        className="h-20 rounded-2xl flex items-center justify-center bg-gray-900 text-gray-400 border border-gray-800 hover:text-gray-200 hover:border-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg"
+                        className="h-20 rounded-2xl flex items-center justify-center bg-white dark:bg-gray-900 text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-800 hover:text-gray-900 dark:hover:text-gray-200 hover:border-gray-300 dark:hover:border-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg"
                     >
                         <Flag size={24} />
                     </button>
@@ -99,23 +99,23 @@ export default function StopwatchPage() {
 
                 {/* Laps */}
                 {laps.length > 0 && (
-                    <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6 shadow-lg transform transition-all animate-in fade-in slide-in-from-bottom-4">
-                        <div className="flex items-center justify-between mb-4 pb-4 border-b border-gray-800">
-                            <h3 className="text-gray-400 font-semibold uppercase tracking-wider text-sm flex items-center gap-2">
+                    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 shadow-lg transform transition-all animate-in fade-in slide-in-from-bottom-4">
+                        <div className="flex items-center justify-between mb-4 pb-4 border-b border-gray-100 dark:border-gray-800">
+                            <h3 className="text-gray-500 dark:text-gray-400 font-semibold uppercase tracking-wider text-sm flex items-center gap-2">
                                 <Clock size={16} /> Laps
                             </h3>
                             <span className="text-gray-500 text-xs font-mono">{laps.length} Total</span>
                         </div>
-                        <div className="max-h-60 overflow-y-auto pr-2 space-y-2 scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-transparent">
+                        <div className="max-h-60 overflow-y-auto pr-2 space-y-2 scrollbar-thin scrollbar-thumb-gray-200 dark:scrollbar-thumb-gray-800 scrollbar-track-transparent">
                             {[...laps].reverse().map((lapTime, i) => (
-                                <div key={i} className="flex justify-between items-center text-lg font-mono p-3 bg-gray-950 rounded-xl border border-gray-800/50">
-                                    <span className="text-gray-500 text-sm">#{laps.length - i}</span>
-                                    <span className="text-gray-200 font-medium">
+                                <div key={i} className="flex justify-between items-center text-lg font-mono p-3 bg-gray-50 dark:bg-gray-950 rounded-xl border border-gray-100 dark:border-gray-800/50">
+                                    <span className="text-gray-400 dark:text-gray-500 text-sm">#{laps.length - i}</span>
+                                    <span className="text-gray-900 dark:text-gray-200 font-medium">
                                         {Math.floor(lapTime / 60000).toString().padStart(2, '0')}:
                                         {Math.floor((lapTime % 60000) / 1000).toString().padStart(2, '0')}.
                                         {Math.floor((lapTime % 1000) / 10).toString().padStart(2, '0')}
                                     </span>
-                                    <span className="text-xs text-gray-600 w-16 text-right">
+                                    <span className="text-xs text-gray-500 dark:text-gray-600 w-16 text-right">
                                         {i === 0 ? "+0.00" : `+${((lapTime - laps[laps.length - i - 2]) / 1000).toFixed(2)}s`}
                                     </span>
                                 </div>

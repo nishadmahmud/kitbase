@@ -77,7 +77,7 @@ export default function JsonCsvConverterPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-950 pb-12">
+        <div className="min-h-screen bg-slate-50 dark:bg-gray-950 pb-12 transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-6 pt-10">
                 <ToolHeader
                     title="JSON <> CSV Converter"
@@ -88,20 +88,20 @@ export default function JsonCsvConverterPage() {
             <div className="max-w-7xl mx-auto px-6 -mt-8 relative z-10 flex flex-col gap-6">
 
                 {error && (
-                    <div className="bg-red-500/10 border border-red-500/20 text-red-500 px-4 py-3 rounded-xl text-sm font-medium text-center">
+                    <div className="bg-red-500/10 border border-red-500/20 text-red-600 dark:text-red-500 px-4 py-3 rounded-xl text-sm font-medium text-center">
                         {error}
                     </div>
                 )}
 
                 <div className="grid md:grid-cols-2 gap-6">
                     {/* JSON Area */}
-                    <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden flex flex-col h-[500px] shadow-lg">
-                        <div className="px-5 py-3 border-b border-gray-800 bg-gray-950 flex justify-between items-center">
-                            <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">JSON</span>
+                    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden flex flex-col h-[500px] shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
+                        <div className="px-5 py-3 border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950 flex justify-between items-center transition-colors">
+                            <span className="text-xs font-semibold text-gray-500 dark:text-gray-500 uppercase tracking-wider">JSON</span>
                             <div className="flex gap-2">
                                 <button
                                     onClick={() => setJson("")}
-                                    className="flex items-center gap-1.5 px-3 py-1 text-xs font-medium text-gray-400 hover:text-gray-200 bg-transparent hover:bg-gray-800 rounded-lg transition-colors"
+                                    className="flex items-center gap-1.5 px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
                                 >
                                     <RotateCcw size={14} /> Clear
                                 </button>
@@ -109,8 +109,8 @@ export default function JsonCsvConverterPage() {
                                     onClick={() => handleCopy(json, setCopiedJson)}
                                     disabled={!json}
                                     className={`flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-lg transition-colors border ${copiedJson
-                                        ? "bg-green-500/10 text-green-500 border-green-500/20"
-                                        : "bg-gray-800 text-gray-200 border-gray-700 hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                                        ? "bg-green-100 dark:bg-green-500/10 text-green-600 dark:text-green-500 border-green-200 dark:border-green-500/20"
+                                        : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
                                         }`}
                                 >
                                     {copiedJson ? <Check size={14} /> : <Copy size={14} />}
@@ -122,24 +122,20 @@ export default function JsonCsvConverterPage() {
                             value={json}
                             onChange={(e) => setJson(e.target.value)}
                             placeholder='[{"name": "John", "age": 30}]'
-                            className="flex-1 w-full bg-transparent p-5 text-gray-200 text-xs leading-relaxed outline-none resize-none placeholder:text-gray-700 font-mono"
+                            className="flex-1 w-full bg-transparent p-5 text-gray-900 dark:text-gray-200 text-xs leading-relaxed outline-none resize-none placeholder:text-gray-400 dark:placeholder:text-gray-700 font-mono"
                             spellCheck={false}
                         />
                     </div>
 
-                    {/* Controls (Mobile: Horizontal, Desktop: Vertical/Center? No, side by side panes usually have controls in middle or separate) */}
-                    {/* Let's put controls in the middle for desktop or top/bottom? 
-                        Actually standard UI is button to push left or push right.
-                    */}
-
+                    {/* Controls */}
                     {/* CSV Area */}
-                    <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden flex flex-col h-[500px] shadow-lg">
-                        <div className="px-5 py-3 border-b border-gray-800 bg-gray-950 flex justify-between items-center">
-                            <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">CSV</span>
+                    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden flex flex-col h-[500px] shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
+                        <div className="px-5 py-3 border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950 flex justify-between items-center transition-colors">
+                            <span className="text-xs font-semibold text-gray-500 dark:text-gray-500 uppercase tracking-wider">CSV</span>
                             <div className="flex gap-2">
                                 <button
                                     onClick={() => setCsv("")}
-                                    className="flex items-center gap-1.5 px-3 py-1 text-xs font-medium text-gray-400 hover:text-gray-200 bg-transparent hover:bg-gray-800 rounded-lg transition-colors"
+                                    className="flex items-center gap-1.5 px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
                                 >
                                     <RotateCcw size={14} /> Clear
                                 </button>
@@ -147,8 +143,8 @@ export default function JsonCsvConverterPage() {
                                     onClick={() => handleCopy(csv, setCopiedCsv)}
                                     disabled={!csv}
                                     className={`flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-lg transition-colors border ${copiedCsv
-                                        ? "bg-green-500/10 text-green-500 border-green-500/20"
-                                        : "bg-gray-800 text-gray-200 border-gray-700 hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                                        ? "bg-green-100 dark:bg-green-500/10 text-green-600 dark:text-green-500 border-green-200 dark:border-green-500/20"
+                                        : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
                                         }`}
                                 >
                                     {copiedCsv ? <Check size={14} /> : <Copy size={14} />}
@@ -160,7 +156,7 @@ export default function JsonCsvConverterPage() {
                             value={csv}
                             onChange={(e) => setCsv(e.target.value)}
                             placeholder="name,age&#10;John,30"
-                            className="flex-1 w-full bg-transparent p-5 text-gray-200 text-xs leading-relaxed outline-none resize-none placeholder:text-gray-700 font-mono"
+                            className="flex-1 w-full bg-transparent p-5 text-gray-900 dark:text-gray-200 text-xs leading-relaxed outline-none resize-none placeholder:text-gray-400 dark:placeholder:text-gray-700 font-mono"
                             spellCheck={false}
                         />
                     </div>
@@ -170,13 +166,13 @@ export default function JsonCsvConverterPage() {
                 <div className="flex justify-center gap-4">
                     <button
                         onClick={jsonToCsv}
-                        className="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold bg-gray-100 text-gray-900 hover:bg-white transition-all shadow-lg shadow-gray-100/10"
+                        className="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 hover:scale-105 transition-all shadow-lg shadow-gray-900/10 dark:shadow-gray-100/10"
                     >
                         JSON <ArrowRightLeft className="w-4 h-4" /> CSV
                     </button>
                     <button
                         onClick={csvToJson}
-                        className="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold bg-gray-800 text-gray-200 border border-gray-700 hover:bg-gray-700 transition-all text-opacity-80 hover:text-opacity-100"
+                        className="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-200 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all"
                     >
                         CSV <ArrowRightLeft className="w-4 h-4" /> JSON
                     </button>

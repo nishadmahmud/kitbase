@@ -31,30 +31,30 @@ export default function ToolHeader({ title, description, breadcrumbs = [] }) {
 
     return (
         <div className="mb-10">
-            <nav className="flex items-center gap-1.5 text-sm mb-4 text-gray-500 overflow-x-auto no-scrollbar whitespace-nowrap">
-                <Link href="/" className="hover:text-gray-300 transition-colors no-underline flex items-center gap-1">
+            <nav className="flex items-center gap-1.5 text-sm mb-4 text-gray-500 dark:text-gray-500 overflow-x-auto no-scrollbar whitespace-nowrap">
+                <Link href="/" className="hover:text-gray-900 dark:hover:text-gray-300 transition-colors no-underline flex items-center gap-1">
                     <Home size={14} />
                     <span className="hidden sm:inline">Home</span>
                 </Link>
 
                 {breadcrumbs.map((crumb, i) => (
                     <span key={i} className="flex items-center gap-1.5">
-                        <ChevronRight className="w-3.5 h-3.5 text-gray-700 block flex-shrink-0" />
+                        <ChevronRight className="w-3.5 h-3.5 text-gray-400 dark:text-gray-600 block flex-shrink-0" />
                         {crumb.href ? (
-                            <Link href={crumb.href} className="hover:text-gray-300 transition-colors no-underline">
+                            <Link href={crumb.href} className="hover:text-gray-900 dark:hover:text-gray-300 transition-colors no-underline">
                                 {crumb.label}
                             </Link>
                         ) : (
-                            <span className="text-gray-200 font-medium">{crumb.label}</span>
+                            <span className="text-gray-900 dark:text-gray-200 font-medium">{crumb.label}</span>
                         )}
                     </span>
                 ))}
             </nav>
 
-            <h1 className="text-3xl md:text-5xl font-extrabold text-gray-100 mb-4 tracking-tight leading-tight">{title}</h1>
-            <p className="text-lg text-gray-400 mb-6 leading-relaxed max-w-3xl">{description}</p>
+            <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 dark:text-gray-100 mb-4 tracking-tight leading-tight">{title}</h1>
+            <p className="text-lg text-gray-600 dark:text-gray-400 mb-6 leading-relaxed max-w-3xl">{description}</p>
 
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 text-emerald-700 dark:text-emerald-400 text-xs font-medium">
                 <Shield className="w-3.5 h-3.5" />
                 <span>Client-side only. Data never leaves your device.</span>
             </div>

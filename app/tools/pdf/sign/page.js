@@ -218,7 +218,7 @@ export default function SignPdfPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-950 pb-12"
+        <div className="min-h-screen bg-slate-50 dark:bg-gray-950 pb-12 transition-colors duration-300"
             onMouseMove={handleDragMove}
             onMouseUp={handleDragEnd}
             onTouchMove={handleDragMove}
@@ -235,7 +235,7 @@ export default function SignPdfPage() {
 
                 {/* 1. Upload */}
                 {!file && (
-                    <div className="bg-gray-900 border border-gray-800 rounded-2xl p-8 shadow-lg">
+                    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-8 shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
                         <ToolDropzone
                             onFilesSelected={handleFileSelect}
                             accept={{ "application/pdf": [".pdf"] }}
@@ -251,34 +251,34 @@ export default function SignPdfPage() {
                         <div className="lg:col-span-1 flex flex-col gap-6">
 
                             {/* File Info */}
-                            <div className="bg-gray-900 border border-gray-800 rounded-xl p-4 flex justify-between items-center">
+                            <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-4 flex justify-between items-center shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
                                 <div className="flex items-center gap-3 overflow-hidden">
                                     <FileUp size={20} className="text-blue-500 flex-shrink-0" />
-                                    <span className="text-sm text-gray-200 truncate">{file.name}</span>
+                                    <span className="text-sm text-gray-900 dark:text-gray-200 truncate">{file.name}</span>
                                 </div>
-                                <button onClick={() => { setFile(null); setPages([]); }} className="text-gray-500 hover:text-red-400"><X size={18} /></button>
+                                <button onClick={() => { setFile(null); setPages([]); }} className="text-gray-400 hover:text-red-500 dark:text-gray-500 dark:hover:text-red-400"><X size={18} /></button>
                             </div>
 
                             {/* Signature Creator */}
-                            <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
-                                <h3 className="text-sm font-semibold text-gray-400 uppercase mb-4">Create Signature</h3>
+                            <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-5 shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
+                                <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase mb-4">Create Signature</h3>
 
                                 <div className="flex gap-2 mb-4">
                                     <button
                                         onClick={() => setSigType("draw")}
-                                        className={cn("flex-1 py-2 text-xs font-semibold rounded-lg border", sigType === "draw" ? "bg-gray-800 border-blue-500 text-white" : "border-gray-700 text-gray-400 hover:bg-gray-800")}
+                                        className={cn("flex-1 py-2 text-xs font-semibold rounded-lg border transition-colors", sigType === "draw" ? "bg-blue-50 dark:bg-gray-800 border-blue-500 text-blue-600 dark:text-white" : "border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800")}
                                     >
                                         <PenTool size={14} className="inline mr-1" /> Draw
                                     </button>
                                     <button
                                         onClick={() => setSigType("type")}
-                                        className={cn("flex-1 py-2 text-xs font-semibold rounded-lg border", sigType === "type" ? "bg-gray-800 border-blue-500 text-white" : "border-gray-700 text-gray-400 hover:bg-gray-800")}
+                                        className={cn("flex-1 py-2 text-xs font-semibold rounded-lg border transition-colors", sigType === "type" ? "bg-blue-50 dark:bg-gray-800 border-blue-500 text-blue-600 dark:text-white" : "border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800")}
                                     >
                                         <Type size={14} className="inline mr-1" /> Type
                                     </button>
                                     <button
                                         onClick={() => setSigType("upload")}
-                                        className={cn("flex-1 py-2 text-xs font-semibold rounded-lg border", sigType === "upload" ? "bg-gray-800 border-blue-500 text-white" : "border-gray-700 text-gray-400 hover:bg-gray-800")}
+                                        className={cn("flex-1 py-2 text-xs font-semibold rounded-lg border transition-colors", sigType === "upload" ? "bg-blue-50 dark:bg-gray-800 border-blue-500 text-blue-600 dark:text-white" : "border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800")}
                                     >
                                         <ImageIcon size={14} className="inline mr-1" /> Upload
                                     </button>
@@ -287,7 +287,7 @@ export default function SignPdfPage() {
                                 {/* Draw Area */}
                                 {sigType === "draw" && (
                                     <div className="space-y-3">
-                                        <div className="bg-white rounded-xl overflow-hidden border border-gray-700 h-40 relative touch-none">
+                                        <div className="bg-white rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 h-40 relative touch-none shadow-inner">
                                             <canvas
                                                 ref={canvasRef}
                                                 width={300}
@@ -303,7 +303,7 @@ export default function SignPdfPage() {
                                             />
                                             <button
                                                 onClick={clearCanvas}
-                                                className="absolute top-2 right-2 p-1.5 bg-gray-100/80 hover:bg-gray-200 text-gray-600 rounded-lg backdrop-blur-sm"
+                                                className="absolute top-2 right-2 p-1.5 bg-gray-100/80 hover:bg-gray-200 text-gray-600 rounded-lg backdrop-blur-sm shadow-sm"
                                                 title="Clear"
                                             >
                                                 <Eraser size={16} />
@@ -321,7 +321,7 @@ export default function SignPdfPage() {
                                             value={typedName}
                                             onChange={e => setTypedName(e.target.value)}
                                             placeholder="Type your name..."
-                                            className="w-full bg-gray-950 border border-gray-700 rounded-lg px-3 py-2 text-gray-200 outline-none focus:border-blue-500"
+                                            className="w-full bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2 text-gray-900 dark:text-gray-200 outline-none focus:border-blue-500 transition-colors placeholder:text-gray-400"
                                         />
                                         <div className="flex gap-2">
                                             {['cursive', 'serif', 'sans-serif'].map(f => (
@@ -329,8 +329,8 @@ export default function SignPdfPage() {
                                                     key={f}
                                                     onClick={() => setTypedFont(f)}
                                                     className={cn(
-                                                        "flex-1 py-2 text-xs border rounded-lg",
-                                                        typedFont === f ? "bg-blue-500/10 border-blue-500 text-blue-400" : "border-gray-700 text-gray-400"
+                                                        "flex-1 py-2 text-xs border rounded-lg transition-colors",
+                                                        typedFont === f ? "bg-blue-50 dark:bg-blue-500/10 border-blue-500 text-blue-600 dark:text-blue-400" : "border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800"
                                                     )}
                                                     style={{ fontFamily: f === 'cursive' ? 'Brush Script MT, cursive' : f }}
                                                 >
@@ -343,11 +343,11 @@ export default function SignPdfPage() {
 
                                 {/* Upload Area */}
                                 {sigType === "upload" && (
-                                    <div className="border border-dashed border-gray-700 rounded-xl p-6 text-center hover:bg-gray-800/50 transition-colors">
+                                    <div className="border border-dashed border-gray-300 dark:border-gray-700 rounded-xl p-6 text-center hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
                                         <input type="file" accept="image/*" onChange={handleSigUpload} className="hidden" id="sig-upload" />
                                         <label htmlFor="sig-upload" className="cursor-pointer block">
-                                            <ImageIcon size={24} className="mx-auto text-gray-500 mb-2" />
-                                            <span className="text-sm text-gray-400">Click to upload image</span>
+                                            <ImageIcon size={24} className="mx-auto text-gray-400 dark:text-gray-500 mb-2" />
+                                            <span className="text-sm text-gray-500 dark:text-gray-400">Click to upload image</span>
                                         </label>
                                     </div>
                                 )}
@@ -355,8 +355,8 @@ export default function SignPdfPage() {
 
                             {/* Scale Control */}
                             {signature && (
-                                <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
-                                    <label className="text-xs font-semibold text-gray-400 uppercase mb-2 block">Signature Size</label>
+                                <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-5 shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
+                                    <label className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase mb-2 block">Signature Size</label>
                                     <input
                                         type="range"
                                         min="0.5"
@@ -364,7 +364,7 @@ export default function SignPdfPage() {
                                         step="0.1"
                                         value={sigScale}
                                         onChange={e => setSigScale(Number(e.target.value))}
-                                        className="w-full h-2 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                                        className="w-full h-2 bg-gray-200 dark:bg-gray-800 rounded-lg appearance-none cursor-pointer accent-blue-500"
                                     />
                                 </div>
                             )}
@@ -376,7 +376,7 @@ export default function SignPdfPage() {
                                 className={cn(
                                     "w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg",
                                     !signature
-                                        ? "bg-gray-800 text-gray-500 cursor-not-allowed"
+                                        ? "bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-500 cursor-not-allowed"
                                         : "bg-green-600 hover:bg-green-500 text-white shadow-green-500/20 hover:scale-[1.02]"
                                 )}
                             >
@@ -387,22 +387,22 @@ export default function SignPdfPage() {
 
                         {/* Right: PDF Preview & placement */}
                         <div className="lg:col-span-2">
-                            <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden shadow-2xl">
+                            <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
                                 {/* Toolbar */}
-                                <div className="p-3 border-b border-gray-800 bg-gray-950 flex justify-between items-center">
-                                    <span className="text-sm font-medium text-gray-400">Page {currentPage + 1} of {pages.length}</span>
+                                <div className="p-3 border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950 flex justify-between items-center">
+                                    <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Page {currentPage + 1} of {pages.length}</span>
                                     <div className="flex gap-2">
                                         <button
                                             onClick={() => setCurrentPage(p => Math.max(0, p - 1))}
                                             disabled={currentPage === 0}
-                                            className="p-2 bg-gray-900 border border-gray-700 rounded-lg text-gray-400 hover:text-white disabled:opacity-30"
+                                            className="p-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white disabled:opacity-30 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                                         >
                                             <ChevronLeft size={16} />
                                         </button>
                                         <button
                                             onClick={() => setCurrentPage(p => Math.min(pages.length - 1, p + 1))}
                                             disabled={currentPage === pages.length - 1}
-                                            className="p-2 bg-gray-900 border border-gray-700 rounded-lg text-gray-400 hover:text-white disabled:opacity-30"
+                                            className="p-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white disabled:opacity-30 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                                         >
                                             <ChevronRight size={16} />
                                         </button>
@@ -410,11 +410,11 @@ export default function SignPdfPage() {
                                 </div>
 
                                 {/* Page View */}
-                                <div className="relative bg-gray-800/50 p-4 md:p-8 flex justify-center overflow-auto min-h-[500px]">
+                                <div className="relative bg-gray-100 dark:bg-gray-800/50 p-4 md:p-8 flex justify-center overflow-auto min-h-[500px]">
                                     {pages[currentPage] ? (
                                         <div
                                             ref={containerRef}
-                                            className="relative shadow-xl ring-1 ring-black/10 select-none"
+                                            className="relative shadow-xl ring-1 ring-black/10 select-none bg-white"
                                             style={{ maxHeight: '70vh', width: 'fit-content' }}
                                         >
                                             <img

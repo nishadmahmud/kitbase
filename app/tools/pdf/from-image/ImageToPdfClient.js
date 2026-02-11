@@ -23,7 +23,7 @@ function SortableImage({ id, file, onRemove }) {
     };
 
     return (
-        <div ref={setNodeRef} style={style} className="group relative aspect-[3/4] bg-gray-900 border border-gray-800 rounded-xl overflow-hidden flex items-center justify-center cursor-grab touch-none" {...attributes} {...listeners}>
+        <div ref={setNodeRef} style={style} className="group relative aspect-[3/4] bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden flex items-center justify-center cursor-grab touch-none shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors" {...attributes} {...listeners}>
             <img
                 src={file.preview}
                 alt="preview"
@@ -121,14 +121,16 @@ export default function ImageToPdfClient() {
     };
 
     return (
-        <div className="container mx-auto py-10 px-6 max-w-7xl">
-            <ToolHeader
-                title="Image to PDF"
-                description="Convert JPG and PNG images into a single PDF document."
-                breadcrumbs={[{ label: "PDF Tools", href: "/category/pdf" }, { label: "Image to PDF" }]}
-            />
+        <div className="min-h-screen bg-slate-50 dark:bg-gray-950 pb-12 transition-colors duration-300">
+            <div className="max-w-7xl mx-auto px-6 pt-10">
+                <ToolHeader
+                    title="Image to PDF"
+                    description="Convert JPG and PNG images into a single PDF document."
+                    breadcrumbs={[{ label: "PDF Tools", href: "/category/pdf" }, { label: "Image to PDF" }]}
+                />
+            </div>
 
-            <div className="max-w-3xl mx-auto">
+            <div className="max-w-3xl mx-auto px-6">
                 <div className="mb-6">
                     <ToolDropzone
                         onFiles={handleFiles}
@@ -157,7 +159,7 @@ export default function ImageToPdfClient() {
 
                             <DragOverlay>
                                 {activeId ? (
-                                    <div className="w-[120px] aspect-[3/4] border border-gray-500 rounded-xl overflow-hidden bg-gray-900 shadow-xl">
+                                    <div className="w-[120px] aspect-[3/4] border border-gray-200 dark:border-gray-500 rounded-xl overflow-hidden bg-white dark:bg-gray-900 shadow-xl">
                                         <img
                                             src={files.find(f => f.id === activeId)?.preview}
                                             className="w-full h-full object-contain"
@@ -192,7 +194,7 @@ export default function ImageToPdfClient() {
                         <div className="mt-4 text-center">
                             <button
                                 onClick={() => downloadBlob(pdfBlob, "images-converted.pdf")}
-                                className="inline-flex items-center gap-2 px-7 py-3.5 bg-emerald-500 text-gray-950 font-semibold text-[15px] rounded-xl hover:bg-emerald-400 transition-colors"
+                                className="inline-flex items-center gap-2 px-7 py-3.5 bg-emerald-500 text-white dark:text-gray-950 font-semibold text-[15px] rounded-xl hover:bg-emerald-600 dark:hover:bg-emerald-400 transition-colors shadow-lg shadow-emerald-500/20"
                             >
                                 <Download size={18} /> Download PDF
                             </button>
