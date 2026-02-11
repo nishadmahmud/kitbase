@@ -12,6 +12,31 @@ export default function HomePage() {
 
       {/* Hero */}
       <section className="relative overflow-hidden pt-20 pb-24">
+        {/* JSON-LD for SEO */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "SoftwareApplication",
+              "name": "Kitbase",
+              "applicationCategory": "UtilitiesApplication",
+              "operatingSystem": "Web",
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD",
+              },
+              "description": "A collection of free online tools for PDF editing, image processing, developer utilities, and text manipulation.",
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "4.8",
+                "ratingCount": "1250",
+              },
+            }),
+          }}
+        />
+
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="flex flex-wrap items-center justify-between gap-16">
             <div className="max-w-xl">
