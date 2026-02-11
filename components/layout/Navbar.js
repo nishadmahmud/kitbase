@@ -44,6 +44,22 @@ export default function Navbar() {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
+    // Global Search Shortcut (Ctrl/Cmd + K)
+    useEffect(() => {
+        function handleKeyDown(e) {
+            if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+                e.preventDefault();
+                const input = searchRef.current?.querySelector("input");
+                if (input) {
+                    input.focus();
+                    setShowSearch(true);
+                }
+            }
+        }
+        document.addEventListener("keydown", handleKeyDown);
+        return () => document.removeEventListener("keydown", handleKeyDown);
+    }, []);
+
     const navLinks = [
         { label: "Tools", href: "/all-tools" },
         ...categories.slice(0, 3).map((c) => ({

@@ -111,9 +111,9 @@ export default function WatermarkPdfPage() {
                 <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-8 shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
                     {!file ? (
                         <ToolDropzone
-                            onFilesSelected={handleFileSelect}
+                            onFiles={handleFileSelect}
                             accept={{ "application/pdf": [".pdf"] }}
-                            title="Click or drag PDF to watermark"
+                            label="Click or drag PDF to watermark"
                         />
                     ) : (
                         <div className="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl relative group transition-colors">

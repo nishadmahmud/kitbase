@@ -165,8 +165,8 @@ export default function MetadataViewerPage() {
                 <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-8 shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
                     {!file ? (
                         <ToolDropzone
-                            onFilesSelected={handleFileSelect}
-                            title="Click or drag file to view metadata"
+                            onFiles={handleFileSelect}
+                            label="Click or drag file to view metadata"
                             multiple={false}
                         />
                     ) : (

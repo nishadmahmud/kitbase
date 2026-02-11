@@ -18,7 +18,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata = {
   title: "Kitbase - All Your Everyday Tools. One Clean Place.",
   description:
-    "PDF, images, text, and developer utilities — fast, private, and free. No uploads, no ads, just pure utility.",
+    "PDF, images, text, and developer utilities - fast, private, and free. No uploads, no ads, just pure utility.",
   verification: {
     google: "FUFdJgc3ly_bHapVPlCnmIoUlsVQtLm6EL723I-rcA8",
   },

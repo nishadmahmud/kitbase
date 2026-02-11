@@ -237,9 +237,9 @@ export default function SignPdfPage() {
                 {!file && (
                     <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-8 shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
                         <ToolDropzone
-                            onFilesSelected={handleFileSelect}
+                            onFiles={handleFileSelect}
                             accept={{ "application/pdf": [".pdf"] }}
-                            title="Click or drag PDF to sign"
+                            label="Click or drag PDF to sign"
                         />
                         {isRendering && <p className="text-center text-gray-400 mt-4 animate-pulse">Rendering PDF pages...</p>}
                     </div>

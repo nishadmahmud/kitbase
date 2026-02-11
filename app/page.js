@@ -20,7 +20,7 @@ export default function HomePage() {
                 <span className="text-gray-500 dark:text-gray-500">One clean place.</span>
               </h1>
               <p className="mt-6 text-xl text-gray-600 dark:text-gray-400 leading-relaxed m-0 font-medium">
-                PDF, images, text, and developer utilities — fast, private, and free. No uploads, no ads, just pure utility.
+                PDF, images, text, and developer utilities - fast, private, and free. No uploads, no ads, just pure utility.
               </p>
               <div className="mt-10 flex flex-wrap gap-4">
                 <Link
