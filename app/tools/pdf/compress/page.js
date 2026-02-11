@@ -53,9 +53,9 @@ export default function CompressPdfPage() {
                     />
                 ) : (
                     <div>
-                        <div className="bg-[#171a21] border border-gray-800 rounded-2xl p-5 mb-6">
+                        <div className="bg-gray-900 border border-gray-800 rounded-2xl p-5 mb-6">
                             <div className="flex items-center gap-3">
-                                <FileText className="w-5 h-5 text-blue-500" />
+                                <FileText className="w-5 h-5 text-gray-100" />
                                 <div>
                                     <p className="text-sm font-medium text-gray-200 m-0">{file.name}</p>
                                     <p className="text-xs text-gray-500 m-0">{(file.size / 1024 / 1024).toFixed(2)} MB</p>

@@ -13,7 +13,7 @@ export function SettingInput({ type = "number", value, onChange, ...props }) {
             type={type}
             value={value}
             onChange={onChange}
-            className="w-[120px] px-3 py-2 text-sm bg-gray-800 border border-gray-800 rounded-lg text-gray-200 outline-none text-right focus:border-blue-500 transition-colors"
+            className="w-[120px] px-3 py-2 text-sm bg-gray-800 border border-gray-800 rounded-lg text-gray-200 outline-none text-right focus:border-gray-500 transition-colors"
             {...props}
         />
     );
@@ -24,7 +24,7 @@ export function SettingSelect({ value, onChange, options }) {
         <select
             value={value}
             onChange={onChange}
-            className="px-3 py-2 text-sm bg-gray-800 border border-gray-800 rounded-lg text-gray-200 outline-none cursor-pointer focus:border-blue-500 transition-colors"
+            className="px-3 py-2 text-sm bg-gray-800 border border-gray-800 rounded-lg text-gray-200 outline-none cursor-pointer focus:border-gray-500 transition-colors"
         >
             {options.map((opt) => (
                 <option key={opt.value} value={opt.value}>{opt.label}</option>

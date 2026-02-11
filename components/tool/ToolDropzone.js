@@ -30,14 +30,14 @@ export default function ToolDropzone({ onFiles, accept = "*", multiple = true, l
             onDragLeave={() => setDragActive(false)}
             onDrop={handleDrop}
             className={`flex flex-col items-center justify-center py-12 px-6 cursor-pointer border-2 border-dashed rounded-2xl transition-all duration-200 group ${dragActive
-                    ? "border-blue-500 bg-blue-500/5"
-                    : "border-gray-800 bg-gray-900/50 hover:border-gray-700 hover:bg-gray-900"
+                ? "border-gray-500 bg-gray-800"
+                : "border-gray-800 bg-gray-900/50 hover:border-gray-700 hover:bg-gray-900"
                 }`}
         >
             <input type="file" accept={accept} multiple={multiple} onChange={handleChange} className="hidden" />
-            <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-4 transition-colors ${dragActive ? "bg-blue-500/10" : "bg-blue-500/10 group-hover:bg-blue-500/20"
+            <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-4 transition-colors ${dragActive ? "bg-gray-800" : "bg-gray-800 group-hover:bg-gray-700"
                 }`}>
-                <Upload className="w-6 h-6 text-blue-500" />
+                <Upload className="w-6 h-6 text-gray-200" />
             </div>
             <p className="font-semibold text-gray-200 m-0 mb-1 text-[15px]">
                 {label || "Drag & drop files here"}

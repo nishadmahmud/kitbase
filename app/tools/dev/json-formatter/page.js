@@ -65,8 +65,8 @@ export default function JsonFormatterPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5 min-h-[400px]">
                 {/* Input */}
-                <div className="bg-[#171a21] border border-gray-800 rounded-2xl overflow-hidden flex flex-col">
-                    <div className="px-5 py-3 border-b border-gray-800 text-xs font-semibold text-gray-500 uppercase tracking-wider bg-[#1a1e27]">
+                <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden flex flex-col">
+                    <div className="px-5 py-3 border-b border-gray-800 text-xs font-semibold text-gray-500 uppercase tracking-wider bg-gray-950">
                         Input
                     </div>
                     <textarea
@@ -78,12 +78,12 @@ export default function JsonFormatterPage() {
                 </div>
 
                 {/* Output */}
-                <div className="bg-[#171a21] border border-gray-800 rounded-2xl overflow-hidden flex flex-col">
-                    <div className="px-5 py-3 border-b border-gray-800 flex items-center justify-between bg-[#1a1e27]">
+                <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden flex flex-col">
+                    <div className="px-5 py-3 border-b border-gray-800 flex items-center justify-between bg-gray-950">
                         <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Output</span>
                         <button
                             onClick={handleCopy}
-                            className="flex items-center gap-1 text-xs text-blue-500 bg-transparent border-none cursor-pointer hover:text-blue-400 transition-colors"
+                            className="flex items-center gap-1 text-xs text-gray-400 bg-transparent border-none cursor-pointer hover:text-gray-200 transition-colors"
                         >
                             {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                             {copied ? "Copied!" : "Copy"}
@@ -103,8 +103,8 @@ export default function JsonFormatterPage() {
 
             {validation && (
                 <div className={`mt-4 px-5 py-4 rounded-xl text-sm border ${validation.valid
-                        ? "bg-emerald-500/5 border-emerald-500/20 text-emerald-400"
-                        : "bg-red-500/5 border-red-500/20 text-red-400"
+                    ? "bg-emerald-500/5 border-emerald-500/20 text-emerald-400"
+                    : "bg-red-500/5 border-red-500/20 text-red-400"
                     }`}>
                     {validation.valid ? "✓ Valid JSON" : `✗ Invalid: ${validation.error}`}
                 </div>

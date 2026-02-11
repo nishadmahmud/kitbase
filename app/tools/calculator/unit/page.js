@@ -125,8 +125,8 @@ export default function UnitConverterPage() {
                             key={key}
                             onClick={() => setCategory(key)}
                             className={`flex items-center gap-2 px-5 py-3 rounded-xl border text-sm font-semibold whitespace-nowrap flex-none justify-center transition-colors ${category === key
-                                    ? "border-blue-500 bg-blue-500/10 text-blue-500"
-                                    : "border-gray-800 bg-gray-900 text-gray-400 hover:text-gray-200 hover:bg-gray-800"
+                                ? "border-gray-500 bg-gray-800 text-gray-100"
+                                : "border-gray-800 bg-gray-900 text-gray-400 hover:text-gray-200 hover:bg-gray-800"
                                 }`}
                         >
                             <data.icon size={18} /> {data.label}
@@ -146,12 +146,12 @@ export default function UnitConverterPage() {
                                     type="number"
                                     value={amount}
                                     onChange={(e) => setAmount(Number(e.target.value))}
-                                    className="w-full p-4 rounded-xl border border-gray-700 bg-gray-950 text-gray-200 outline-none text-2xl font-bold focus:border-blue-500 transition-colors"
+                                    className="w-full p-4 rounded-xl border border-gray-700 bg-gray-950 text-gray-200 outline-none text-2xl font-bold focus:border-gray-500 transition-colors"
                                 />
                                 <select
                                     value={fromUnit}
                                     onChange={(e) => setFromUnit(e.target.value)}
-                                    className="w-full p-3 rounded-lg border border-gray-700 bg-gray-800 text-gray-200 outline-none text-sm cursor-pointer hover:border-blue-500 transition-colors"
+                                    className="w-full p-3 rounded-lg border border-gray-700 bg-gray-800 text-gray-200 outline-none text-sm cursor-pointer hover:border-gray-500 transition-colors"
                                 >
                                     {UNITS[category].units.map(u => (
                                         <option key={u.id} value={u.id}>{u.label}</option>
@@ -167,7 +167,7 @@ export default function UnitConverterPage() {
                                         setFromUnit(toUnit);
                                         setToUnit(temp);
                                     }}
-                                    className="w-12 h-12 rounded-full bg-gray-800 border border-gray-700 text-blue-500 flex items-center justify-center hover:bg-gray-700 hover:text-blue-400 transition-colors mx-auto"
+                                    className="w-12 h-12 rounded-full bg-gray-800 border border-gray-700 text-gray-200 flex items-center justify-center hover:bg-gray-700 hover:text-white transition-colors mx-auto"
                                     title="Swap Units"
                                 >
                                     <ArrowRightLeft size={20} />
@@ -177,13 +177,13 @@ export default function UnitConverterPage() {
                             {/* TO */}
                             <div className="flex flex-col gap-3">
                                 <label className="text-sm font-semibold text-gray-400 uppercase tracking-wide">To</label>
-                                <div className="w-full p-4 rounded-xl border border-gray-700 bg-gray-950 text-blue-500 text-2xl font-bold h-[66px] flex items-center overflow-hidden">
+                                <div className="w-full p-4 rounded-xl border border-gray-700 bg-gray-950 text-gray-100 text-2xl font-bold h-[66px] flex items-center overflow-hidden">
                                     {formatNumber(result)}
                                 </div>
                                 <select
                                     value={toUnit}
                                     onChange={(e) => setToUnit(e.target.value)}
-                                    className="w-full p-3 rounded-lg border border-gray-700 bg-gray-800 text-gray-200 outline-none text-sm cursor-pointer hover:border-blue-500 transition-colors"
+                                    className="w-full p-3 rounded-lg border border-gray-700 bg-gray-800 text-gray-200 outline-none text-sm cursor-pointer hover:border-gray-500 transition-colors"
                                 >
                                     {UNITS[category].units.map(u => (
                                         <option key={u.id} value={u.id}>{u.label}</option>

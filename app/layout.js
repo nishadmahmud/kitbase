@@ -22,7 +22,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning className={`dark ${inter.variable} ${jetbrainsMono.variable}`}>
-      <body className="bg-[#0f1115] text-gray-200 font-sans min-h-screen m-0 p-0 flex flex-col antialiased">
+      <body className="bg-gray-950 text-gray-200 font-sans min-h-screen m-0 p-0 flex flex-col antialiased">
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />

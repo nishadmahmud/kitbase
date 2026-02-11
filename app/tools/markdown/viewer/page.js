@@ -66,8 +66,8 @@ export default function MarkdownViewerPage() {
             {/* Editor + Preview */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5 min-h-[480px]">
                 {/* Editor */}
-                <div className="bg-[#171a21] border border-gray-800 rounded-2xl overflow-hidden flex flex-col">
-                    <div className="px-5 py-3 border-b border-gray-800 text-xs font-semibold text-gray-500 uppercase tracking-wider bg-[#1a1e27]">
+                <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden flex flex-col">
+                    <div className="px-5 py-3 border-b border-gray-800 text-xs font-semibold text-gray-500 uppercase tracking-wider bg-gray-950">
                         Editor
                     </div>
                     <textarea
@@ -79,8 +79,8 @@ export default function MarkdownViewerPage() {
                 </div>
 
                 {/* Preview */}
-                <div className="bg-[#171a21] border border-gray-800 rounded-2xl overflow-hidden flex flex-col">
-                    <div className="px-5 py-3 border-b border-gray-800 text-xs font-semibold text-gray-500 uppercase tracking-wider bg-[#1a1e27]">
+                <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden flex flex-col">
+                    <div className="px-5 py-3 border-b border-gray-800 text-xs font-semibold text-gray-500 uppercase tracking-wider bg-gray-950">
                         Preview
                     </div>
                     <div className="markdown-body flex-1 p-5 text-sm leading-[1.8] text-gray-200 overflow-y-auto"
@@ -107,7 +107,7 @@ export default function MarkdownViewerPage() {
                         .markdown-body pre { padding: 16px; overflow: auto; font-size: 85%; line-height: 1.45; background-color: #0d1117; border-radius: 6px; margin-bottom: 16px; border: 1px solid #30363d; }
                         .markdown-body pre code { background-color: transparent; padding: 0; margin: 0; font-size: 100%; word-break: normal; white-space: pre; border: 0; }
                         
-                        .markdown-body a { color: #4f8cff; text-decoration: none; }
+                        .markdown-body a { color: #94a3b8; text-decoration: none; }
                         .markdown-body a:hover { text-decoration: underline; }
                         
                         .markdown-body img { max-width: 100%; box-sizing: content-box; background-color: #0d1117; }

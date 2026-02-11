@@ -36,16 +36,16 @@ export default function GpaCalculatorPage() {
 
             <div className="max-w-[800px] mx-auto">
                 {/* GPA Display */}
-                <div className="bg-[#171a21] border border-gray-800 rounded-3xl p-9 text-center mb-8">
+                <div className="bg-gray-900 border border-gray-800 rounded-3xl p-9 text-center mb-8">
                     <p className="text-[13px] text-gray-500 m-0 mb-2 uppercase tracking-wide font-semibold">Your GPA</p>
-                    <p className="text-[56px] font-extrabold text-blue-500 m-0 mb-2 leading-none">{gpa.toFixed(2)}</p>
-                    <p className="text-base text-[#9aa0aa] m-0">
+                    <p className="text-[56px] font-extrabold text-gray-100 m-0 mb-2 leading-none">{gpa.toFixed(2)}</p>
+                    <p className="text-base text-gray-400 m-0">
                         {letterGrade} · {totalCredits} credit{totalCredits !== 1 ? "s" : ""}
                     </p>
                 </div>
 
                 {/* Course Table */}
-                <div className="bg-[#171a21] border border-gray-800 rounded-2xl overflow-hidden mb-6">
+                <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden mb-6">
                     {/* Header */}
                     <div className="grid grid-cols-[1fr_120px_100px_48px] gap-3 px-5 py-3.5 border-b border-gray-800">
                         <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Course</span>
@@ -55,18 +55,18 @@ export default function GpaCalculatorPage() {
                     </div>
                     {/* Rows */}
                     {courses.map((course, i) => (
-                        <div key={i} className={`grid grid-cols-[1fr_120px_100px_48px] gap-3 px-5 py-2.5 items-center ${i < courses.length - 1 ? "border-b border-[#1e2230]" : ""}`}>
+                        <div key={i} className={`grid grid-cols-[1fr_120px_100px_48px] gap-3 px-5 py-2.5 items-center ${i < courses.length - 1 ? "border-b border-gray-800" : ""}`}>
                             <input
                                 type="text"
                                 placeholder={`Course ${i + 1}`}
                                 value={course.name}
                                 onChange={(e) => updateCourse(i, "name", e.target.value)}
-                                className="w-full px-3 py-2 text-sm bg-[#1a1e27] border border-gray-800 rounded-lg text-gray-200 outline-none focus:border-blue-500 transition-colors"
+                                className="w-full px-3 py-2 text-sm bg-gray-950 border border-gray-800 rounded-lg text-gray-200 outline-none focus:border-gray-500 transition-colors"
                             />
                             <select
                                 value={course.grade}
                                 onChange={(e) => updateCourse(i, "grade", e.target.value)}
-                                className="w-full px-3 py-2 text-sm bg-[#1a1e27] border border-gray-800 rounded-lg text-gray-200 outline-none cursor-pointer focus:border-blue-500 transition-colors"
+                                className="w-full px-3 py-2 text-sm bg-gray-950 border border-gray-800 rounded-lg text-gray-200 outline-none cursor-pointer focus:border-gray-500 transition-colors"
                             >
                                 {gradeOptions.map((g) => <option key={g} value={g}>{g}</option>)}
                             </select>
@@ -76,14 +76,14 @@ export default function GpaCalculatorPage() {
                                 onChange={(e) => updateCourse(i, "credits", e.target.value)}
                                 min={0}
                                 max={12}
-                                className="w-full px-3 py-2 text-sm bg-[#1a1e27] border border-gray-800 rounded-lg text-gray-200 outline-none text-center focus:border-blue-500 transition-colors"
+                                className="w-full px-3 py-2 text-sm bg-gray-950 border border-gray-800 rounded-lg text-gray-200 outline-none text-center focus:border-gray-500 transition-colors"
                             />
                             <button
                                 onClick={() => removeCourse(i)}
                                 disabled={courses.length <= 1}
                                 className={`flex items-center justify-center w-9 h-9 rounded-lg border-none bg-transparent transition-colors ${courses.length <= 1
-                                        ? "text-[#2a2f3a] cursor-not-allowed"
-                                        : "text-gray-500 hover:text-red-500 hover:bg-red-500/10 cursor-pointer"
+                                    ? "text-gray-700 cursor-not-allowed"
+                                    : "text-gray-500 hover:text-red-500 hover:bg-red-500/10 cursor-pointer"
                                     }`}
                             >
                                 <Trash2 className="w-4 h-4" />
@@ -96,7 +96,7 @@ export default function GpaCalculatorPage() {
                 <div className="flex justify-center gap-3">
                     <button
                         onClick={addCourse}
-                        className="inline-flex items-center gap-1.5 px-6 py-3 bg-blue-500 text-white font-semibold text-sm rounded-xl border-none cursor-pointer hover:bg-blue-600 transition-colors"
+                        className="inline-flex items-center gap-1.5 px-6 py-3 bg-gray-100 text-gray-900 font-semibold text-sm rounded-xl border-none cursor-pointer hover:bg-white transition-colors"
                     >
                         <Plus className="w-4 h-4" /> Add Course
                     </button>

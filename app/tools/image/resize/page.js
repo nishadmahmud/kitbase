@@ -106,7 +106,7 @@ export default function ResizeImagePage() {
                                             type="checkbox"
                                             checked={maintainAspect}
                                             onChange={(e) => setMaintainAspect(e.target.checked)}
-                                            className="accent-blue-500 w-[18px] h-[18px]"
+                                            className="accent-gray-200 w-[18px] h-[18px]"
                                         />
                                         <span className="text-[13px] text-gray-400">{maintainAspect ? "Yes" : "No"}</span>
                                     </label>
@@ -142,7 +142,7 @@ export default function ResizeImagePage() {
                         {/* Main: Preview & Result */}
                         <div className="flex-1 min-w-0 flex flex-col gap-6 w-full">
                             {/* Preview */}
-                            <div className="bg-[#171a21] border border-gray-800 rounded-2xl p-4 flex flex-col items-center justify-center min-h-[300px]">
+                            <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4 flex flex-col items-center justify-center min-h-[300px]">
                                 <img
                                     src={preview}
                                     alt="Preview"
@@ -157,7 +157,7 @@ export default function ResizeImagePage() {
 
                             {resultUrl && (
                                 <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                                    <div className="bg-[#171a21] border border-gray-800 rounded-2xl p-6">
+                                    <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
                                         <div className="flex items-center justify-between mb-6">
                                             <h3 className="text-sm font-semibold text-gray-400 uppercase m-0">Resized Result</h3>
                                             <span className="text-xs font-mono text-gray-500">{width}×{height}</span>

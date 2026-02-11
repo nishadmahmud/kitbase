@@ -4,8 +4,8 @@ export function ActionButton({ children, onClick, icon: Icon, variant = "primary
     const baseClasses = "inline-flex items-center justify-center gap-2 font-semibold text-[15px] rounded-xl px-7 py-3.5 transition-all duration-200 border border-transparent";
 
     const variants = {
-        primary: "bg-blue-500 text-white hover:bg-blue-600 shadow-lg shadow-blue-500/25 border-transparent",
-        secondary: "bg-transparent text-gray-200 border-gray-800 hover:bg-gray-800",
+        primary: "bg-gray-100 text-gray-900 hover:bg-white border-transparent shadow-lg shadow-gray-200/10",
+        secondary: "bg-transparent text-gray-400 border-gray-800 hover:bg-gray-900 hover:text-gray-200",
         danger: "bg-red-500 text-white hover:bg-red-600 border-transparent",
     };
 

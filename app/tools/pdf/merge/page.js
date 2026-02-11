@@ -81,7 +81,7 @@ export default function MergePdfPage() {
                     />
 
                     {files.length > 0 && (
-                        <div className="mt-6 bg-[#171a21] border border-gray-800 rounded-2xl overflow-hidden">
+                        <div className="mt-6 bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden">
                             <div className="px-5 py-3.5 border-b border-gray-800 flex items-center justify-between">
                                 <span className="text-sm font-semibold text-gray-400">
                                     {files.length} file{files.length !== 1 && "s"} added
@@ -102,10 +102,10 @@ export default function MergePdfPage() {
                                         onDragOver={(e) => handleDragOver(e, i)}
                                         onDragEnd={handleDragEnd}
                                         className={`flex items-center gap-3 px-5 py-3 cursor-grab transition-colors ${i < files.length - 1 ? "border-b border-gray-800" : ""
-                                            } ${dragIdx === i ? "bg-[#1e2230] opacity-60" : "bg-transparent hover:bg-gray-800/30"}`}
+                                            } ${dragIdx === i ? "bg-gray-800 opacity-60" : "bg-transparent hover:bg-gray-800/30"}`}
                                     >
                                         <GripVertical className="w-4 h-4 text-gray-500 flex-shrink-0" />
-                                        <FileText className="w-4 h-4 text-blue-500 flex-shrink-0" />
+                                        <FileText className="w-4 h-4 text-gray-100 flex-shrink-0" />
                                         <span className="flex-1 text-sm text-gray-200 truncate">{file.name}</span>
                                         <span className="text-xs text-gray-500 flex-shrink-0">{formatFileSize(file.size)}</span>
                                         <button
@@ -156,20 +156,20 @@ export default function MergePdfPage() {
 
                 {/* Sidebar */}
                 <div className="w-[280px] flex-shrink-0 flex flex-col gap-5">
-                    <div className="bg-[#171a21] border border-gray-800 rounded-2xl p-6">
+                    <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
                         <h3 className="flex items-center gap-2 text-sm font-bold text-gray-200 m-0 mb-4">
-                            <Info className="w-4 h-4 text-blue-500" />
+                            <Info className="w-4 h-4 text-gray-100" />
                             How it works
                         </h3>
                         <ul className="list-none p-0 m-0 flex flex-col gap-2.5">
                             <li className="flex items-start gap-2 text-sm text-gray-400">
-                                <span className="text-blue-500 font-bold">1.</span> Upload your PDF files
+                                <span className="text-gray-100 font-bold">1.</span> Upload your PDF files
                             </li>
                             <li className="flex items-start gap-2 text-sm text-gray-400">
-                                <span className="text-blue-500 font-bold">2.</span> Drag to reorder if needed
+                                <span className="text-gray-100 font-bold">2.</span> Drag to reorder if needed
                             </li>
                             <li className="flex items-start gap-2 text-sm text-gray-400">
-                                <span className="text-blue-500 font-bold">3.</span> Click Merge and download
+                                <span className="text-gray-100 font-bold">3.</span> Click Merge and download
                             </li>
                         </ul>
                     </div>

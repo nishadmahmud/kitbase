@@ -157,7 +157,7 @@ export default function ImageToPdfClient() {
 
                             <DragOverlay>
                                 {activeId ? (
-                                    <div className="w-[120px] aspect-[3/4] border border-blue-500 rounded-xl overflow-hidden bg-gray-900 shadow-xl">
+                                    <div className="w-[120px] aspect-[3/4] border border-gray-500 rounded-xl overflow-hidden bg-gray-900 shadow-xl">
                                         <img
                                             src={files.find(f => f.id === activeId)?.preview}
                                             className="w-full h-full object-contain"

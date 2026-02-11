@@ -38,15 +38,15 @@ export default function TextDiffPage() {
 
             <div className="flex flex-col gap-6">
                 {/* Controls */}
-                <div className="flex flex-col md:flex-row justify-between items-center bg-[#171a21] px-6 py-4 rounded-2xl border border-gray-800 gap-4">
+                <div className="flex flex-col md:flex-row justify-between items-center bg-gray-900 px-6 py-4 rounded-2xl border border-gray-800 gap-4">
                     <div className="flex gap-2">
                         {MODES.map(m => (
                             <button
                                 key={m.id}
                                 onClick={() => setMode(m.id)}
                                 className={`px-4 py-2 rounded-lg border text-sm font-semibold transition-colors cursor-pointer ${mode === m.id
-                                    ? "border-blue-500 bg-blue-500/10 text-blue-500"
-                                    : "border-gray-800 bg-[#1a1e27] text-gray-200 hover:bg-gray-800"
+                                    ? "border-gray-500 bg-gray-800 text-gray-100"
+                                    : "border-gray-800 bg-gray-950 text-gray-200 hover:bg-gray-800"
                                     }`}
                             >
                                 {m.label}
@@ -66,7 +66,7 @@ export default function TextDiffPage() {
                         <textarea
                             value={oldText}
                             onChange={(e) => setOldText(e.target.value)}
-                            className="flex-1 p-4 rounded-xl border border-gray-800 bg-[#171a21] text-gray-200 outline-none resize-none font-mono text-sm leading-relaxed focus:border-blue-500 transition-colors"
+                            className="flex-1 p-4 rounded-xl border border-gray-800 bg-gray-900 text-gray-200 outline-none resize-none font-mono text-sm leading-relaxed focus:border-gray-500 transition-colors"
                             placeholder="Paste original text here..."
                         />
                     </div>
@@ -75,19 +75,19 @@ export default function TextDiffPage() {
                         <textarea
                             value={newText}
                             onChange={(e) => setNewText(e.target.value)}
-                            className="flex-1 p-4 rounded-xl border border-gray-800 bg-[#171a21] text-gray-200 outline-none resize-none font-mono text-sm leading-relaxed focus:border-blue-500 transition-colors"
+                            className="flex-1 p-4 rounded-xl border border-gray-800 bg-gray-900 text-gray-200 outline-none resize-none font-mono text-sm leading-relaxed focus:border-gray-500 transition-colors"
                             placeholder="Paste new text here..."
                         />
                     </div>
                 </div>
 
                 {/* Diff Output */}
-                <div className="bg-[#171a21] rounded-2xl border border-gray-800 overflow-hidden">
-                    <div className="px-6 py-3 border-b border-gray-800 flex justify-between items-center bg-[#1a1e27]">
+                <div className="bg-gray-900 rounded-2xl border border-gray-800 overflow-hidden">
+                    <div className="px-6 py-3 border-b border-gray-800 flex justify-between items-center bg-gray-950">
                         <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Difference Result</span>
                         <button
                             onClick={copyResult}
-                            className="text-blue-500 flex items-center gap-1.5 text-sm font-medium hover:text-blue-400 transition-colors bg-transparent border-none cursor-pointer"
+                            className="text-gray-400 flex items-center gap-1.5 text-sm font-medium hover:text-gray-200 transition-colors bg-transparent border-none cursor-pointer"
                         >
                             <Copy size={14} /> Copy New Text
                         </button>

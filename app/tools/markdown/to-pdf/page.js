@@ -114,8 +114,8 @@ console.log("Hello, World!");
 
             <div className="grid grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-6 min-h-[800px]">
                 {/* Editor */}
-                <div className="flex flex-col bg-[#171a21] border border-gray-800 rounded-2xl overflow-hidden h-[800px]">
-                    <div className="px-5 py-3 border-b border-gray-800 bg-[#1a1e27]">
+                <div className="flex flex-col bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden h-[800px]">
+                    <div className="px-5 py-3 border-b border-gray-800 bg-gray-950">
                         <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Editor (Markdown)</span>
                     </div>
                     <textarea
@@ -128,14 +128,14 @@ console.log("Hello, World!");
 
                 {/* Preview / PDF Target */}
                 <div className="flex flex-col gap-4 h-[800px]">
-                    <div className="flex-1 bg-[#52565e] rounded-2xl overflow-hidden flex flex-col relative border border-gray-800">
+                    <div className="flex-1 bg-gray-800 rounded-2xl overflow-hidden flex flex-col relative border border-gray-800">
                         {/* Preview Toolbar */}
-                        <div className="px-5 py-3 bg-[#1a1e27] border-b border-gray-800 flex flex-wrap justify-between items-center gap-3 z-10 relative">
+                        <div className="px-5 py-3 bg-gray-950 border-b border-gray-800 flex flex-wrap justify-between items-center gap-3 z-10 relative">
                             <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">PDF Preview</span>
 
                             <div className="flex gap-3 items-center">
                                 {/* Zoom Controls */}
-                                <div className="flex items-center bg-[#2a2f3a] rounded-md border border-[#3f4451] px-2 py-0.5">
+                                <div className="flex items-center bg-gray-800 rounded-md border border-gray-700 px-2 py-0.5">
                                     <button
                                         onClick={() => setZoom(z => Math.max(0.3, z - 0.1))}
                                         className="text-gray-200 bg-transparent border-none cursor-pointer p-1 hover:text-white"
@@ -158,7 +158,7 @@ console.log("Hello, World!");
                                     <select
                                         value={paperSize}
                                         onChange={(e) => setPaperSize(e.target.value)}
-                                        className="appearance-none bg-[#2a2f3a] text-gray-200 border border-[#3f4451] rounded-md py-1 pl-2 pr-6 text-xs font-medium cursor-pointer outline-none hover:bg-[#323846]"
+                                        className="appearance-none bg-gray-800 text-gray-200 border border-gray-700 rounded-md py-1 pl-2 pr-6 text-xs font-medium cursor-pointer outline-none hover:bg-gray-700"
                                     >
                                         {Object.entries(PAPER_SIZES).map(([key, size]) => (
                                             <option key={key} value={key}>{size.name}</option>
@@ -172,7 +172,7 @@ console.log("Hello, World!");
                                     <select
                                         value={marginSize}
                                         onChange={(e) => setMarginSize(e.target.value)}
-                                        className="appearance-none bg-[#2a2f3a] text-gray-200 border border-[#3f4451] rounded-md py-1 pl-2 pr-6 text-xs font-medium cursor-pointer outline-none hover:bg-[#323846]"
+                                        className="appearance-none bg-gray-800 text-gray-200 border border-gray-700 rounded-md py-1 pl-2 pr-6 text-xs font-medium cursor-pointer outline-none hover:bg-gray-700"
                                     >
                                         {Object.entries(MARGINS).map(([key, margin]) => (
                                             <option key={key} value={key}>Margin: {margin.name}</option>
@@ -183,7 +183,7 @@ console.log("Hello, World!");
                             </div>
                         </div>
 
-                        <div className="flex-1 overflow-auto relative bg-[#52565e] flex p-10">
+                        <div className="flex-1 overflow-auto relative bg-gray-700 flex p-10">
                             {/* 
                                 Scaled Wrapper Pattern with 'margin: auto' for safe centering
                                 If content < container => centered.

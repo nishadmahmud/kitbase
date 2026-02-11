@@ -19,10 +19,9 @@ export default function AllToolsPage() {
                         <div key={cat.slug}>
                             <div className="flex items-center gap-3.5 mb-6">
                                 <div
-                                    className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
-                                    style={{ backgroundColor: `${cat.color}15` }}
+                                    className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 bg-gray-800"
                                 >
-                                    <Icon className="w-[22px] h-[22px]" style={{ color: cat.color }} />
+                                    <Icon className="w-[22px] h-[22px] text-gray-200" />
                                 </div>
                                 <div>
                                     <h2 className="text-lg font-bold text-gray-200 m-0">{cat.name}</h2>
@@ -36,10 +35,10 @@ export default function AllToolsPage() {
                                         <Link
                                             key={tool.href}
                                             href={tool.href}
-                                            className="flex items-center gap-4 bg-[#171a21] border border-gray-800 rounded-[14px] px-6 py-5 no-underline transition-all hover:bg-[#1e2230] hover:border-gray-700 group h-full"
+                                            className="flex items-center gap-4 bg-gray-900 border border-gray-800 rounded-[14px] px-6 py-5 no-underline transition-all hover:bg-gray-800 hover:border-gray-700 group h-full"
                                         >
-                                            <div className="w-11 h-11 rounded-[10px] bg-blue-500/10 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-500/20 transition-colors">
-                                                <ToolIcon className="w-[22px] h-[22px] text-blue-500" />
+                                            <div className="w-11 h-11 rounded-[10px] bg-gray-800 flex items-center justify-center flex-shrink-0 group-hover:bg-gray-700 transition-colors">
+                                                <ToolIcon className="w-[22px] h-[22px] text-gray-200" />
                                             </div>
                                             <div className="min-w-0">
                                                 <h3 className="font-semibold text-gray-200 text-[15px] m-0">{tool.name}</h3>

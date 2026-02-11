@@ -74,8 +74,8 @@ export default function QrCodePage() {
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
                                 className={`flex items-center gap-2 px-4 py-2.5 rounded-lg border text-sm font-semibold whitespace-nowrap transition-colors cursor-pointer ${activeTab === tab.id
-                                    ? "border-blue-500 bg-blue-500/10 text-blue-500"
-                                    : "border-gray-800 bg-[#171a21] text-gray-400 hover:text-gray-200"
+                                    ? "border-gray-500 bg-gray-800 text-gray-100"
+                                    : "border-gray-800 bg-gray-950 text-gray-400 hover:text-gray-200"
                                     }`}
                             >
                                 <tab.icon size={16} /> {tab.label}
@@ -83,7 +83,7 @@ export default function QrCodePage() {
                         ))}
                     </div>
 
-                    <div className="bg-[#171a21] border border-gray-800 rounded-2xl p-6">
+                    <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
                         {activeTab === "url" && (
                             <div>
                                 <label className="block text-sm text-gray-200 mb-2 font-medium">Website URL</label>
@@ -92,7 +92,7 @@ export default function QrCodePage() {
                                     value={content}
                                     onChange={(e) => setContent(e.target.value)}
                                     placeholder="https://example.com"
-                                    className="w-full p-3 rounded-lg border border-gray-700 bg-[#1a1e27] text-gray-200 outline-none focus:border-blue-500 transition-colors"
+                                    className="w-full p-3 rounded-lg border border-gray-700 bg-gray-800 text-gray-200 outline-none focus:border-gray-500 transition-colors"
                                 />
                             </div>
                         )}
@@ -104,7 +104,7 @@ export default function QrCodePage() {
                                     onChange={(e) => setContent(e.target.value)}
                                     placeholder="Enter text to encode..."
                                     rows={4}
-                                    className="w-full p-3 rounded-lg border border-gray-700 bg-[#1a1e27] text-gray-200 outline-none focus:border-blue-500 transition-colors resize-y"
+                                    className="w-full p-3 rounded-lg border border-gray-700 bg-gray-800 text-gray-200 outline-none focus:border-gray-500 transition-colors resize-y"
                                 />
                             </div>
                         )}
@@ -116,7 +116,7 @@ export default function QrCodePage() {
                                         type="text"
                                         value={wifiSsid}
                                         onChange={(e) => setWifiSsid(e.target.value)}
-                                        className="w-full p-3 rounded-lg border border-gray-700 bg-[#1a1e27] text-gray-200 outline-none focus:border-blue-500 transition-colors"
+                                        className="w-full p-3 rounded-lg border border-gray-700 bg-gray-800 text-gray-200 outline-none focus:border-gray-500 transition-colors"
                                     />
                                 </div>
                                 <div>
@@ -125,7 +125,7 @@ export default function QrCodePage() {
                                         type="text"
                                         value={wifiPassword}
                                         onChange={(e) => setWifiPassword(e.target.value)}
-                                        className="w-full p-3 rounded-lg border border-gray-700 bg-[#1a1e27] text-gray-200 outline-none focus:border-blue-500 transition-colors"
+                                        className="w-full p-3 rounded-lg border border-gray-700 bg-gray-800 text-gray-200 outline-none focus:border-gray-500 transition-colors"
                                     />
                                 </div>
                                 <div>
@@ -133,7 +133,7 @@ export default function QrCodePage() {
                                     <select
                                         value={wifiEncryption}
                                         onChange={(e) => setWifiEncryption(e.target.value)}
-                                        className="w-full p-3 rounded-lg border border-gray-700 bg-[#1a1e27] text-gray-200 outline-none focus:border-blue-500 transition-colors"
+                                        className="w-full p-3 rounded-lg border border-gray-700 bg-gray-800 text-gray-200 outline-none focus:border-gray-500 transition-colors"
                                     >
                                         <option value="WPA">WPA/WPA2</option>
                                         <option value="WEP">WEP</option>
@@ -150,7 +150,7 @@ export default function QrCodePage() {
                                         type="email"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
-                                        className="w-full p-3 rounded-lg border border-gray-700 bg-[#1a1e27] text-gray-200 outline-none focus:border-blue-500 transition-colors"
+                                        className="w-full p-3 rounded-lg border border-gray-700 bg-gray-800 text-gray-200 outline-none focus:border-gray-500 transition-colors"
                                     />
                                 </div>
                                 <div>
@@ -159,7 +159,7 @@ export default function QrCodePage() {
                                         type="text"
                                         value={subject}
                                         onChange={(e) => setSubject(e.target.value)}
-                                        className="w-full p-3 rounded-lg border border-gray-700 bg-[#1a1e27] text-gray-200 outline-none focus:border-blue-500 transition-colors"
+                                        className="w-full p-3 rounded-lg border border-gray-700 bg-gray-800 text-gray-200 outline-none focus:border-gray-500 transition-colors"
                                     />
                                 </div>
                                 <div>
@@ -168,14 +168,14 @@ export default function QrCodePage() {
                                         value={body}
                                         onChange={(e) => setBody(e.target.value)}
                                         rows={3}
-                                        className="w-full p-3 rounded-lg border border-gray-700 bg-[#1a1e27] text-gray-200 outline-none focus:border-blue-500 transition-colors resize-y"
+                                        className="w-full p-3 rounded-lg border border-gray-700 bg-gray-800 text-gray-200 outline-none focus:border-gray-500 transition-colors resize-y"
                                     />
                                 </div>
                             </div>
                         )}
                     </div>
 
-                    <div className="bg-[#171a21] border border-gray-800 rounded-2xl p-6">
+                    <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
                         <h3 className="text-sm font-semibold text-gray-400 uppercase mb-4 flex items-center gap-2 m-0">
                             <Settings size={16} /> Appearance
                         </h3>
@@ -196,7 +196,7 @@ export default function QrCodePage() {
                             </div>
                             <div>
                                 <label className="block text-sm text-gray-200 mb-2 font-medium">Error Correction</label>
-                                <select value={level} onChange={(e) => setLevel(e.target.value)} className="w-full p-2.5 rounded-lg border border-gray-700 bg-[#1a1e27] text-gray-200 outline-none focus:border-blue-500 transition-colors">
+                                <select value={level} onChange={(e) => setLevel(e.target.value)} className="w-full p-2.5 rounded-lg border border-gray-700 bg-gray-800 text-gray-200 outline-none focus:border-gray-500 transition-colors">
                                     <option value="L">Low (7%)</option>
                                     <option value="M">Medium (15%)</option>
                                     <option value="Q">Quartile (25%)</option>
@@ -205,7 +205,7 @@ export default function QrCodePage() {
                             </div>
                             <div>
                                 <label className="block text-sm text-gray-200 mb-2 font-medium">Size (px)</label>
-                                <input type="number" value={size} onChange={(e) => setSize(Number(e.target.value))} min={128} max={1024} step={32} className="w-full p-2.5 rounded-lg border border-gray-700 bg-[#1a1e27] text-gray-200 outline-none focus:border-blue-500 transition-colors" />
+                                <input type="number" value={size} onChange={(e) => setSize(Number(e.target.value))} min={128} max={1024} step={32} className="w-full p-2.5 rounded-lg border border-gray-700 bg-gray-800 text-gray-200 outline-none focus:border-gray-500 transition-colors" />
                             </div>
                         </div>
                     </div>

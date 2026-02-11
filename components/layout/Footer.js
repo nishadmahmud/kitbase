@@ -8,8 +8,8 @@ export default function Footer() {
                 <div className="flex flex-wrap justify-between gap-8">
                     <div>
                         <Link href="/" className="flex items-center gap-2.5 no-underline mb-3 group">
-                            <div className="flex items-center justify-center w-8 h-8 bg-blue-500 rounded-lg group-hover:scale-105 transition-transform">
-                                <LayoutGrid className="w-4 h-4 text-white" />
+                            <div className="flex items-center justify-center w-8 h-8 bg-gray-100 rounded-lg group-hover:scale-105 transition-transform">
+                                <LayoutGrid className="w-4 h-4 text-gray-900" />
                             </div>
                             <span className="text-lg font-bold text-gray-100">Kitbase</span>
                         </Link>

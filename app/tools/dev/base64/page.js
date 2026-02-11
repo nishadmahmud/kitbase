@@ -42,14 +42,14 @@ export default function Base64Page() {
 
             <div className="max-w-3xl mx-auto flex flex-col gap-4">
                 {/* Mode toggle */}
-                <div className="flex gap-1 bg-[#171a21] border border-gray-800 rounded-xl p-1">
+                <div className="flex gap-1 bg-gray-900 border border-gray-800 rounded-xl p-1">
                     {["encode", "decode"].map((m) => (
                         <button
                             key={m}
                             onClick={() => { setMode(m); setOutput(""); setError(null); }}
                             className={`flex-1 p-2.5 text-sm font-medium rounded-lg border-none cursor-pointer transition-all duration-200 ${mode === m
-                                    ? "bg-blue-500 text-white shadow-md"
-                                    : "bg-transparent text-gray-400 hover:text-gray-200"
+                                ? "bg-gray-100 text-gray-900 shadow-md"
+                                : "bg-transparent text-gray-400 hover:text-gray-200"
                                 }`}
                         >
                             {m === "encode" ? "Encode" : "Decode"}
@@ -58,8 +58,8 @@ export default function Base64Page() {
                 </div>
 
                 {/* Input */}
-                <div className="bg-[#171a21] border border-gray-800 rounded-2xl overflow-hidden">
-                    <div className="px-5 py-3 border-b border-gray-800 text-xs font-semibold text-gray-500 uppercase tracking-wider bg-[#1a1e27]">
+                <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden">
+                    <div className="px-5 py-3 border-b border-gray-800 text-xs font-semibold text-gray-500 uppercase tracking-wider bg-gray-950">
                         {mode === "encode" ? "Text Input" : "Base64 Input"}
                     </div>
                     <textarea
@@ -84,14 +84,14 @@ export default function Base64Page() {
                 )}
 
                 {output && (
-                    <div className="bg-[#171a21] border border-gray-800 rounded-2xl overflow-hidden">
-                        <div className="flex items-center justify-between px-5 py-3 border-b border-gray-800 bg-[#1a1e27]">
+                    <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden">
+                        <div className="flex items-center justify-between px-5 py-3 border-b border-gray-800 bg-gray-950">
                             <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
                                 {mode === "encode" ? "Base64 Output" : "Text Output"}
                             </span>
                             <button
                                 onClick={handleCopy}
-                                className="flex items-center gap-1 text-xs text-blue-500 bg-transparent border-none cursor-pointer hover:text-blue-400 transition-colors"
+                                className="flex items-center gap-1 text-xs text-gray-400 bg-transparent border-none cursor-pointer hover:text-gray-200 transition-colors"
                             >
                                 <Copy className="w-3.5 h-3.5" />{copied ? "Copied!" : "Copy"}
                             </button>

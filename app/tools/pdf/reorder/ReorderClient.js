@@ -35,12 +35,12 @@ function SortableItem({ id, page, onRemove, onMove }) {
 
     return (
         <div ref={setNodeRef} style={style} className="group h-full">
-            <div className="bg-[#1a1e27] border border-gray-800 rounded-xl p-3 relative flex flex-col items-center gap-2 h-full">
+            <div className="bg-gray-800 border border-gray-700 rounded-xl p-3 relative flex flex-col items-center gap-2 h-full hover:border-gray-600 transition-colors">
                 {/* Drag Handle Area */}
                 <div
                     {...attributes}
                     {...listeners}
-                    className="relative w-full aspect-[3/4] bg-[#0f1115] rounded overflow-hidden flex items-center justify-center border border-gray-800 cursor-grab"
+                    className="relative w-full aspect-[3/4] bg-gray-950 rounded overflow-hidden flex items-center justify-center border border-gray-800 cursor-grab"
                 >
                     {page.thumbnail ? (
                         <img src={page.thumbnail} alt={`Page ${page.originalIndex + 1}`} className="w-full h-full object-contain pointer-events-none" />
@@ -61,14 +61,14 @@ function SortableItem({ id, page, onRemove, onMove }) {
                 <div className="flex gap-1 w-full justify-center">
                     <button
                         onClick={(e) => { e.stopPropagation(); onMove(id, "up"); }}
-                        className="p-1.5 bg-[#2a2f3a] border-none rounded-md cursor-pointer text-gray-200 hover:bg-[#3a4050] transition-colors"
+                        className="p-1.5 bg-gray-700 border-none rounded-md cursor-pointer text-gray-200 hover:bg-gray-600 transition-colors"
                         title="Move Left/Up"
                     >
                         <ArrowUp className="w-3.5 h-3.5" />
                     </button>
                     <button
                         onClick={(e) => { e.stopPropagation(); onMove(id, "down"); }}
-                        className="p-1.5 bg-[#2a2f3a] border-none rounded-md cursor-pointer text-gray-200 hover:bg-[#3a4050] transition-colors"
+                        className="p-1.5 bg-gray-700 border-none rounded-md cursor-pointer text-gray-200 hover:bg-gray-600 transition-colors"
                         title="Move Right/Down"
                     >
                         <ArrowDown className="w-3.5 h-3.5" />
@@ -80,7 +80,7 @@ function SortableItem({ id, page, onRemove, onMove }) {
                         e.stopPropagation();
                         onRemove(page.id);
                     }}
-                    className="absolute -top-2 -right-2 p-1 bg-red-500 border-2 border-[#1a1e27] rounded-full cursor-pointer text-white flex items-center justify-center z-10 w-6 h-6 hover:bg-red-600 transition-colors"
+                    className="absolute -top-2 -right-2 p-1 bg-red-500 border-2 border-gray-900 rounded-full cursor-pointer text-white flex items-center justify-center z-10 w-6 h-6 hover:bg-red-600 transition-colors"
                     title="Remove Page"
                 >
                     <X className="w-3.5 h-3.5" />
@@ -204,9 +204,9 @@ export default function ReorderPdfClient() {
                     />
                 ) : (
                     <div>
-                        <div className="bg-[#171a21] border border-gray-800 rounded-2xl p-5 mb-6">
+                        <div className="bg-gray-900 border border-gray-800 rounded-2xl p-5 mb-6">
                             <div className="flex items-center gap-3">
-                                <FileText className="w-5 h-5 text-blue-500" />
+                                <FileText className="w-5 h-5 text-gray-100" />
                                 <div>
                                     <p className="text-sm font-medium text-gray-200 m-0">{file.name}</p>
                                     <p className="text-xs text-gray-500 m-0">{(file.size / 1024 / 1024).toFixed(2)} MB • {pageOrder.length} Pages</p>
@@ -237,8 +237,8 @@ export default function ReorderPdfClient() {
                                 <DragOverlay>
                                     {activeId ? (
                                         <div className="scale-105 cursor-grabbing">
-                                            <div className="bg-[#1a1e27] border border-blue-500 rounded-xl p-3 relative flex flex-col items-center gap-2 shadow-2xl">
-                                                <div className="relative w-full aspect-[3/4] bg-[#0f1115] rounded overflow-hidden flex items-center justify-center border border-gray-800">
+                                            <div className="bg-gray-800 border border-gray-500 rounded-xl p-3 relative flex flex-col items-center gap-2 shadow-2xl">
+                                                <div className="relative w-full aspect-[3/4] bg-gray-950 rounded overflow-hidden flex items-center justify-center border border-gray-700">
                                                     {(() => {
                                                         const p = pageOrder.find(x => x.id === activeId);
                                                         return p?.thumbnail ? (

@@ -100,7 +100,7 @@ export default function ImageFiltersPage() {
                     <div className="flex flex-col md:flex-row gap-8 items-start">
                         {/* Controls */}
                         <div className="w-full md:w-[320px] flex-shrink-0 flex flex-col gap-6">
-                            <div className="bg-[#171a21] border border-gray-800 rounded-2xl p-6">
+                            <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
                                 <div className="flex justify-between items-center mb-6">
                                     <h3 className="text-sm font-semibold text-gray-400 uppercase flex items-center gap-2 m-0">
                                         <Sliders size={16} /> Adjustments
@@ -130,7 +130,7 @@ export default function ImageFiltersPage() {
                                                 max={filter.max}
                                                 value={settings[filter.id] || filter.default}
                                                 onChange={(e) => updateSetting(filter.id, Number(e.target.value))}
-                                                className="w-full cursor-pointer accent-blue-500 h-1.5 bg-gray-800 rounded-lg appearance-none"
+                                                className="w-full cursor-pointer accent-gray-200 h-1.5 bg-gray-800 rounded-lg appearance-none"
                                             />
                                         </div>
                                     ))}

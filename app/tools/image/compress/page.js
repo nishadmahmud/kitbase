@@ -84,7 +84,7 @@ export default function CompressImagePage() {
                         {/* Main */}
                         <div className="flex-1 min-w-0 flex flex-col gap-6 w-full">
                             {/* Preview */}
-                            <div className="bg-[#171a21] border border-gray-800 rounded-2xl p-4 flex flex-col items-center justify-center min-h-[300px]">
+                            <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4 flex flex-col items-center justify-center min-h-[300px]">
                                 <img
                                     src={preview}
                                     alt="Preview"

@@ -1,19 +1,34 @@
 @import "tailwindcss";
 
+@theme {
+  /* Override Gray with Slate for a cool, blue-tinted neutral */
+  --color-gray-50: #f8fafc;
+  --color-gray-100: #f1f5f9;
+  --color-gray-200: #e2e8f0;
+  --color-gray-300: #cbd5e1;
+  --color-gray-400: #94a3b8;
+  --color-gray-500: #64748b;
+  --color-gray-600: #475569;
+  --color-gray-700: #334155;
+  --color-gray-800: #1e293b;
+  --color-gray-900: #0f172a;
+  --color-gray-950: #020617;
+}
+
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0f1115;
+  background: var(--color-gray-950);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2a2f3a;
+  background: var(--color-gray-800);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3a4050;
+  background: var(--color-gray-700);
 }

@@ -48,14 +48,14 @@ export default function PercentageCalculatorPage() {
 
             <div className="max-w-[480px] mx-auto flex flex-col gap-6">
                 {/* Mode selector */}
-                <div className="flex gap-1 bg-[#171a21] border border-gray-800 rounded-xl p-1">
+                <div className="flex gap-1 bg-gray-900 border border-gray-800 rounded-xl p-1">
                     {modes.map((m) => (
                         <button
                             key={m.key}
                             onClick={() => { setMode(m.key); setA(""); setB(""); }}
                             className={`flex-1 p-2.5 text-xs font-medium rounded-lg border-none cursor-pointer transition-all duration-200 ${mode === m.key
-                                    ? "bg-blue-500 text-white shadow-sm"
-                                    : "bg-transparent text-[#9aa0aa] hover:text-gray-200"
+                                ? "bg-gray-100 text-gray-900 shadow-sm"
+                                : "bg-transparent text-gray-400 hover:text-gray-200"
                                 }`}
                         >
                             {m.label}
@@ -64,34 +64,34 @@ export default function PercentageCalculatorPage() {
                 </div>
 
                 {/* Inputs */}
-                <div className="bg-[#171a21] border border-gray-800 rounded-2xl p-7 flex flex-col gap-4">
+                <div className="bg-gray-900 border border-gray-800 rounded-2xl p-7 flex flex-col gap-4">
                     <div>
-                        <label className="block text-sm font-medium text-[#9aa0aa] mb-2">Value A</label>
+                        <label className="block text-sm font-medium text-gray-400 mb-2">Value A</label>
                         <input
                             type="number"
                             value={a}
                             onChange={(e) => setA(e.target.value)}
                             placeholder={currentMode?.placeholderA}
-                            className="w-full px-4 py-3.5 bg-[#1a1e27] border border-gray-800 rounded-xl text-gray-200 text-lg outline-none focus:border-blue-500 transition-colors placeholder:text-gray-700"
+                            className="w-full px-4 py-3.5 bg-gray-950 border border-gray-800 rounded-xl text-gray-200 text-lg outline-none focus:border-gray-500 transition-colors placeholder:text-gray-700"
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-[#9aa0aa] mb-2">Value B</label>
+                        <label className="block text-sm font-medium text-gray-400 mb-2">Value B</label>
                         <input
                             type="number"
                             value={b}
                             onChange={(e) => setB(e.target.value)}
                             placeholder={currentMode?.placeholderB}
-                            className="w-full px-4 py-3.5 bg-[#1a1e27] border border-gray-800 rounded-xl text-gray-200 text-lg outline-none focus:border-blue-500 transition-colors placeholder:text-gray-700"
+                            className="w-full px-4 py-3.5 bg-gray-950 border border-gray-800 rounded-xl text-gray-200 text-lg outline-none focus:border-gray-500 transition-colors placeholder:text-gray-700"
                         />
                     </div>
                 </div>
 
                 {/* Result */}
                 {result && (
-                    <div className="bg-blue-500/5 border border-blue-500/20 rounded-2xl p-7 text-center">
-                        <p className="text-sm text-[#9aa0aa] m-0 mb-2">{result.label}</p>
-                        <p className="text-[40px] font-extrabold text-blue-500 m-0 leading-tight">{result.value}</p>
+                    <div className="bg-gray-800 border border-gray-700 rounded-2xl p-7 text-center">
+                        <p className="text-sm text-gray-400 m-0 mb-2">{result.label}</p>
+                        <p className="text-[40px] font-extrabold text-gray-100 m-0 leading-tight">{result.value}</p>
                     </div>
                 )}
 

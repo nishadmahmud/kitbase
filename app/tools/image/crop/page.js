@@ -118,7 +118,7 @@ export default function ImageCropperPage() {
                     <div className="flex flex-col md:flex-row gap-8 items-start">
                         {/* Controls */}
                         <div className="w-full md:w-[280px] flex-shrink-0 flex flex-col gap-6">
-                            <div className="bg-[#171a21] border border-gray-800 rounded-2xl p-6">
+                            <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
                                 <h3 className="text-sm font-semibold text-gray-400 uppercase mb-4 m-0">Aspect Ratio</h3>
                                 <div className="flex flex-col gap-2">
                                     {[
@@ -132,8 +132,8 @@ export default function ImageCropperPage() {
                                             key={i}
                                             onClick={() => handleAspectChange(opt.value)}
                                             className={`w-full text-left px-3 py-2.5 rounded-lg border text-sm font-medium transition-colors cursor-pointer ${aspect === opt.value
-                                                ? "border-blue-500 bg-blue-500/10 text-blue-500"
-                                                : "border-transparent bg-[#1a1e27] text-gray-200 hover:bg-gray-800"
+                                                ? "border-gray-500 bg-gray-800 text-gray-100"
+                                                : "border-transparent bg-gray-800 text-gray-200 hover:bg-gray-700"
                                                 }`}
                                         >
                                             {opt.label}

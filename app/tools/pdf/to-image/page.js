@@ -78,7 +78,7 @@ export default function PdfToImagePage() {
                         {/* File Info */}
                         <div className="bg-gray-900 border border-gray-800 rounded-xl p-5 flex justify-between items-center">
                             <div className="flex items-center gap-3">
-                                <FileText className="text-blue-500" />
+                                <FileText className="text-gray-100" />
                                 <div>
                                     <p className="font-medium text-gray-200 m-0">{file.name}</p>
                                     <p className="text-xs text-gray-400 m-0">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
@@ -107,8 +107,8 @@ export default function PdfToImagePage() {
                                                     key={f}
                                                     onClick={() => setFormat(f)}
                                                     className={`flex-1 py-2 rounded-lg border text-xs font-semibold uppercase transition-colors ${format === f
-                                                            ? "border-blue-500 bg-blue-500/10 text-blue-500"
-                                                            : "border-gray-700 bg-gray-800 text-gray-200 hover:bg-gray-700"
+                                                        ? "border-gray-500 bg-gray-800 text-gray-100"
+                                                        : "border-gray-700 bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-gray-200"
                                                         }`}
                                                 >
                                                     {f}
@@ -121,7 +121,7 @@ export default function PdfToImagePage() {
                                         <select
                                             value={scale}
                                             onChange={(e) => setScale(Number(e.target.value))}
-                                            className="w-full p-2.5 rounded-lg border border-gray-700 bg-gray-800 text-gray-200 outline-none focus:border-blue-500 transition-colors"
+                                            className="w-full p-2.5 rounded-lg border border-gray-700 bg-gray-800 text-gray-200 outline-none focus:border-gray-500 transition-colors"
                                         >
                                             <option value={1}>1x (Screen)</option>
                                             <option value={2}>2x (High Res)</option>

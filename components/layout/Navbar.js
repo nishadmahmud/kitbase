@@ -53,7 +53,7 @@ export default function Navbar() {
     ];
 
     return (
-        <nav className="sticky top-0 z-50 border-b border-gray-800 bg-[#0f1115]/85 backdrop-blur-xl">
+        <nav className="sticky top-0 z-50 border-b border-gray-800 bg-gray-950/85 backdrop-blur-xl">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="flex h-16 items-center justify-between gap-4">
                     {/* Logo */}
@@ -76,8 +76,8 @@ export default function Navbar() {
                                 <Link
                                     href={link.href}
                                     className={`block px-3.5 py-2 text-sm rounded-lg no-underline transition-all duration-200 ${pathname === link.href || hoveredCategory === link.slug
-                                            ? "text-blue-500 bg-blue-500/10"
-                                            : "text-gray-400 hover:text-gray-200 hover:bg-gray-800/50"
+                                        ? "text-blue-500 bg-blue-500/10"
+                                        : "text-gray-400 hover:text-gray-200 hover:bg-gray-800/50"
                                         }`}
                                 >
                                     {link.label}
@@ -184,8 +184,8 @@ export default function Navbar() {
                                 key={link.href}
                                 href={link.href}
                                 className={`block px-3 py-2.5 text-sm rounded-lg no-underline ${pathname === link.href
-                                        ? "text-blue-500 bg-blue-500/10"
-                                        : "text-gray-400 hover:text-gray-200 hover:bg-gray-800"
+                                    ? "text-blue-500 bg-blue-500/10"
+                                    : "text-gray-400 hover:text-gray-200 hover:bg-gray-800"
                                     }`}
                             >
                                 {link.label}

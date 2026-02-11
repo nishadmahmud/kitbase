@@ -52,9 +52,9 @@ export default function SplitPdfPage() {
                     />
                 ) : (
                     <div>
-                        <div className="bg-[#171a21] border border-gray-800 rounded-2xl p-5 mb-6">
+                        <div className="bg-gray-900 border border-gray-800 rounded-2xl p-5 mb-6">
                             <div className="flex items-center gap-3">
-                                <FileText className="w-5 h-5 text-blue-500" />
+                                <FileText className="w-5 h-5 text-gray-100" />
                                 <div>
                                     <p className="text-sm font-medium text-gray-200 m-0">{file.name}</p>
                                     <p className="text-xs text-gray-500 m-0">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
@@ -78,11 +78,11 @@ export default function SplitPdfPage() {
                                 <ToolResult success message={`Split into ${resultFiles.length} pages`} />
                                 <div className="mt-4 flex flex-col gap-2">
                                     {resultFiles.map((f, i) => (
-                                        <div key={i} className="flex items-center justify-between px-4 py-3 bg-[#171a21] border border-gray-800 rounded-xl">
+                                        <div key={i} className="flex items-center justify-between px-4 py-3 bg-gray-900 border border-gray-800 rounded-xl">
                                             <span className="text-sm text-gray-200">{f.name}</span>
                                             <button
                                                 onClick={() => downloadBlob(f.blob, f.name)}
-                                                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#1a1e27] text-blue-500 text-[13px] font-medium rounded-lg border border-gray-800 cursor-pointer hover:bg-[#1e2230] hover:border-gray-700 transition-colors"
+                                                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-800 text-gray-200 text-[13px] font-medium rounded-lg border border-gray-700 cursor-pointer hover:bg-gray-700 hover:text-white transition-colors"
                                             >
                                                 <Download className="w-3.5 h-3.5" /> Download
                                             </button>

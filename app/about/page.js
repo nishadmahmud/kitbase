@@ -14,7 +14,7 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-6 py-12">
             <div className="max-w-3xl mx-auto text-center mb-16">
                 <h1 className="text-4xl font-extrabold text-gray-100 m-0">
-                    About <span className="text-blue-500">Kitbase</span>
+                    About <span className="text-gray-400">Kitbase</span>
                 </h1>
                 <p className="mt-4 mb-0 text-lg text-gray-400 leading-relaxed">
                     A free, privacy-first toolkit that runs entirely in your browser. No uploads, no servers, no BS.
@@ -27,10 +27,10 @@ export default function AboutPage() {
                     return (
                         <div
                             key={i}
-                            className="bg-[#171a21] border border-gray-800 rounded-2xl p-8"
+                            className="bg-gray-900 border border-gray-800 rounded-2xl p-8"
                         >
-                            <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mb-5">
-                                <Icon className="w-6 h-6 text-blue-500" />
+                            <div className="w-12 h-12 rounded-xl bg-gray-800 flex items-center justify-center mb-5">
+                                <Icon className="w-6 h-6 text-gray-200" />
                             </div>
                             <h3 className="font-semibold text-gray-200 m-0 mb-2 text-base">{p.title}</h3>
                             <p className="text-sm text-gray-400 leading-relaxed m-0">{p.description}</p>
@@ -39,13 +39,13 @@ export default function AboutPage() {
                 })}
             </div>
 
-            <div className="bg-[#171a21] border border-gray-800 rounded-2xl p-9 text-center">
+            <div className="bg-gray-900 border border-gray-800 rounded-2xl p-9 text-center">
                 <h2 className="text-xl font-bold text-gray-100 m-0 mb-6">Built With</h2>
                 <div className="flex flex-wrap justify-center gap-3">
                     {techs.map((tech) => (
                         <span
                             key={tech}
-                            className="px-4 py-2 text-[13px] font-medium bg-[#1a1e27] border border-gray-800 rounded-xl text-gray-400"
+                            className="px-4 py-2 text-[13px] font-medium bg-gray-800 border border-gray-800 rounded-xl text-gray-400"
                         >
                             {tech}
                         </span>
