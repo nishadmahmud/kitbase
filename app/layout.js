@@ -5,6 +5,8 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Providers from "@/components/providers";
 
+import MobileBottomNav from "@/components/layout/MobileBottomNav";
+
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -27,7 +29,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning className={`${inter.variable} ${jetbrainsMono.variable}`}>
-      <body className="bg-slate-50 dark:bg-gray-950 text-gray-900 dark:text-gray-200 font-sans min-h-screen m-0 p-0 flex flex-col antialiased transition-colors duration-300 relative">
+      <body className="bg-slate-50 dark:bg-gray-950 text-gray-900 dark:text-gray-200 font-sans min-h-screen m-0 p-0 flex flex-col antialiased transition-colors duration-300 relative pb-16 md:pb-0">
         {/* Background Grid Pattern - Global */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none z-0" />
 
@@ -35,6 +37,7 @@ export default function RootLayout({ children }) {
           <Navbar />
           <main className="flex-1 relative z-10">{children}</main>
           <Footer />
+          <MobileBottomNav />
           <Analytics />
         </Providers>
       </body>

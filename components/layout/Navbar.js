@@ -5,14 +5,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
-import { Search, X, Menu, Sun, Moon } from "lucide-react";
+import { Search, X, Sun, Moon } from "lucide-react";
 import { searchTools, categories, getToolsByCategory } from "@/lib/toolsRegistry";
 
 export default function Navbar() {
     const [searchQuery, setSearchQuery] = useState("");
     const [searchResults, setSearchResults] = useState([]);
     const [showSearch, setShowSearch] = useState(false);
-    const [mobileMenu, setMobileMenu] = useState(false);
     const [hoveredCategory, setHoveredCategory] = useState(null);
     const searchRef = useRef(null);
     const pathname = usePathname();
@@ -28,7 +27,6 @@ export default function Navbar() {
     }, [searchQuery]);
 
     useEffect(() => {
-        setMobileMenu(false);
         setSearchQuery("");
         setShowSearch(false);
         setHoveredCategory(null);
@@ -197,32 +195,8 @@ export default function Navbar() {
 
                         {/* Theme Toggle */}
                         <ThemeToggle />
-
-                        <button
-                            onClick={() => setMobileMenu(!mobileMenu)}
-                            className="md:hidden p-2 text-gray-500 dark:text-gray-400 bg-transparent border-none cursor-pointer rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-200 transition-colors"
-                        >
-                            {mobileMenu ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-                        </button>
                     </div>
                 </div>
-
-                {mobileMenu && (
-                    <div className="md:hidden py-4 border-t border-gray-200 dark:border-gray-800 mt-2 space-y-1">
-                        {navLinks.map((link) => (
-                            <Link
-                                key={link.href}
-                                href={link.href}
-                                className={`block px-3 py-2.5 text-sm rounded-lg no-underline ${pathname === link.href
-                                    ? "text-blue-600 dark:text-blue-500 bg-blue-50 dark:bg-blue-500/10"
-                                    : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
-                                    }`}
-                            >
-                                {link.label}
-                            </Link>
-                        ))}
-                    </div>
-                )}
             </div>
         </nav>
     );
