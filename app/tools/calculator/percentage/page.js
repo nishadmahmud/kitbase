@@ -39,12 +39,14 @@ export default function PercentageCalculatorPage() {
     const currentMode = modes.find((m) => m.key === mode);
 
     return (
-        <div className="max-w-[1280px] mx-auto px-6 py-10">
-            <ToolHeader
-                title="Percentage Calculator"
-                description="Quick percentage calculations for discounts, tips, grades, and more."
-                breadcrumbs={[{ label: "Calculators", href: "/category/calculator" }, { label: "Percentage Calculator" }]}
-            />
+        <div className="min-h-screen bg-gray-950 pb-12">
+            <div className="max-w-7xl mx-auto px-6 pt-10">
+                <ToolHeader
+                    title="Percentage Calculator"
+                    description="Quick percentage calculations for discounts, tips, grades, and more."
+                    breadcrumbs={[{ label: "Calculators", href: "/category/calculator" }, { label: "Percentage Calculator" }]}
+                />
+            </div>
 
             <div className="max-w-[480px] mx-auto flex flex-col gap-6">
                 {/* Mode selector */}

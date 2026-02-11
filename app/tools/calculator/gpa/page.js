@@ -27,12 +27,14 @@ export default function GpaCalculatorPage() {
     const letterGrade = gpa >= 3.7 ? "A" : gpa >= 3.3 ? "A-" : gpa >= 3.0 ? "B+" : gpa >= 2.7 ? "B" : gpa >= 2.3 ? "B-" : gpa >= 2.0 ? "C+" : gpa >= 1.7 ? "C" : gpa >= 1.0 ? "D" : "F";
 
     return (
-        <div className="max-w-[1280px] mx-auto px-6 py-10">
-            <ToolHeader
-                title="GPA Calculator"
-                description="Calculate your Grade Point Average instantly with an easy-to-use course table."
-                breadcrumbs={[{ label: "Calculators", href: "/category/calculator" }, { label: "GPA Calculator" }]}
-            />
+        <div className="min-h-screen bg-gray-950 pb-12">
+            <div className="max-w-7xl mx-auto px-6 pt-10">
+                <ToolHeader
+                    title="GPA Calculator"
+                    description="Calculate your Grade Point Average instantly with an easy-to-use course table."
+                    breadcrumbs={[{ label: "Calculators", href: "/category/calculator" }, { label: "GPA Calculator" }]}
+                />
+            </div>
 
             <div className="max-w-[800px] mx-auto">
                 {/* GPA Display */}
