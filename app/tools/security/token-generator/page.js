@@ -45,7 +45,7 @@ export default function TokenGeneratorPage() {
     // useEffect(() => generate(), [type, count]); // Causes loop if not careful, better manual or careful effect
 
     return (
-        <div className="min-h-screen bg-white dark:bg-gray-950 pb-12 transition-colors duration-300">
+        <div className="min-h-screen pb-12 transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-6 pt-10">
                 <ToolHeader
                     title="Token Generator"

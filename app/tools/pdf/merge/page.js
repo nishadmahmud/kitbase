@@ -61,7 +61,7 @@ export default function MergePdfPage() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-gray-950 pb-12 transition-colors duration-300">
+        <div className="min-h-screen pb-12 transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-6 pt-10">
                 <ToolHeader
                     title="Merge PDF"

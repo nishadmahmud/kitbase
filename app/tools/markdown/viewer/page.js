@@ -49,7 +49,7 @@ export default function MarkdownViewerPage() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-gray-950 pb-12 transition-colors duration-300">
+        <div className="min-h-screen pb-12 transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-6 pt-10">
                 <ToolHeader
                     title="Markdown Viewer"
@@ -58,37 +58,39 @@ export default function MarkdownViewerPage() {
                 />
             </div>
 
-            {/* Stats bar */}
-            <div className="flex items-center gap-5 mb-5 text-xs text-gray-500">
-                <span className="flex items-center gap-1">
-                    <BarChart3 className="w-3.5 h-3.5" /> {wordCount} words · {lineCount} lines
-                </span>
-            </div>
 
-            {/* Editor + Preview */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 min-h-[480px]">
-                {/* Editor */}
-                <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden flex flex-col shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
-                    <div className="px-5 py-3 border-b border-gray-200 dark:border-gray-800 text-xs font-semibold text-gray-500 dark:text-gray-500 uppercase tracking-wider bg-gray-50 dark:bg-gray-950">
-                        Editor
-                    </div>
-                    <textarea
-                        value={md}
-                        onChange={(e) => setMd(e.target.value)}
-                        spellCheck={false}
-                        className="flex-1 p-5 bg-transparent text-gray-900 dark:text-gray-200 text-sm font-mono leading-relaxed border-none outline-none resize-none"
-                    />
+            <div className="max-w-7xl mx-auto px-6 -mt-8 relative z-10">
+                {/* Stats bar */}
+                <div className="flex items-center gap-5 mb-5 text-xs text-gray-500">
+                    <span className="flex items-center gap-1">
+                        <BarChart3 className="w-3.5 h-3.5" /> {wordCount} words · {lineCount} lines
+                    </span>
                 </div>
 
-                {/* Preview */}
-                <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden flex flex-col shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
-                    <div className="px-5 py-3 border-b border-gray-200 dark:border-gray-800 text-xs font-semibold text-gray-500 dark:text-gray-500 uppercase tracking-wider bg-gray-50 dark:bg-gray-950">
-                        Preview
+                {/* Editor + Preview */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 min-h-[480px]">
+                    {/* Editor */}
+                    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden flex flex-col shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
+                        <div className="px-5 py-3 border-b border-gray-200 dark:border-gray-800 text-xs font-semibold text-gray-500 dark:text-gray-500 uppercase tracking-wider bg-gray-50 dark:bg-gray-950">
+                            Editor
+                        </div>
+                        <textarea
+                            value={md}
+                            onChange={(e) => setMd(e.target.value)}
+                            spellCheck={false}
+                            className="flex-1 p-5 bg-transparent text-gray-900 dark:text-gray-200 text-sm font-mono leading-relaxed border-none outline-none resize-none"
+                        />
                     </div>
-                    <div className="markdown-body flex-1 p-5 text-sm leading-[1.8] text-gray-900 dark:text-gray-200 overflow-y-auto"
-                        dangerouslySetInnerHTML={{ __html: html }}
-                    />
-                    <style jsx global>{`
+
+                    {/* Preview */}
+                    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden flex flex-col shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
+                        <div className="px-5 py-3 border-b border-gray-200 dark:border-gray-800 text-xs font-semibold text-gray-500 dark:text-gray-500 uppercase tracking-wider bg-gray-50 dark:bg-gray-950">
+                            Preview
+                        </div>
+                        <div className="markdown-body flex-1 p-5 text-sm leading-[1.8] text-gray-900 dark:text-gray-200 overflow-y-auto"
+                            dangerouslySetInnerHTML={{ __html: html }}
+                        />
+                        <style jsx global>{`
                         .markdown-body h1 { font-size: 2em; font-weight: 800; border-bottom: 1px solid #e5e7eb; padding-bottom: 0.3em; margin-top: 24px; margin-bottom: 16px; color: #111827; }
                         .markdown-body h2 { font-size: 1.5em; font-weight: 700; border-bottom: 1px solid #e5e7eb; padding-bottom: 0.3em; margin-top: 24px; margin-bottom: 16px; color: #111827; }
                         .markdown-body h3 { font-size: 1.25em; font-weight: 600; margin-top: 24px; margin-bottom: 16px; color: #111827; }
@@ -137,17 +139,18 @@ export default function MarkdownViewerPage() {
                         .dark .markdown-body table tr { background-color: #0d1117; border-top-color: #21262d; }
                         .dark .markdown-body table tr:nth-child(2n) { background-color: #161b22; }
                     `}</style>
+                    </div>
                 </div>
-            </div>
 
-            <ToolActions>
-                <ActionButton onClick={handleCopy} icon={Copy} variant="secondary">
-                    {copied ? "Copied!" : "Copy HTML"}
-                </ActionButton>
-                <ActionButton onClick={handleExport} icon={Download} variant="secondary">
-                    Export HTML
-                </ActionButton>
-            </ToolActions>
+                <ToolActions>
+                    <ActionButton onClick={handleCopy} icon={Copy} variant="secondary">
+                        {copied ? "Copied!" : "Copy HTML"}
+                    </ActionButton>
+                    <ActionButton onClick={handleExport} icon={Download} variant="secondary">
+                        Export HTML
+                    </ActionButton>
+                </ToolActions>
+            </div>
         </div>
     );
 }
