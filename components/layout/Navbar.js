@@ -68,14 +68,19 @@ export default function Navbar() {
         return () => document.removeEventListener("keydown", handleKeyDown);
     }, []);
 
+    // Specific category nav links
+    const categoryNavSlugs = ["pdf", "image", "dev", "text", "visualization"];
     const navLinks = [
-        { label: "Tools", href: "/all-tools" },
-        ...categories.slice(0, 3).map((c) => ({
-            label: c.name.replace(" Tools", ""),
-            href: `/category/${c.slug}`,
-            slug: c.slug,
-            isCategory: true,
-        })),
+        { label: "Tools", href: "/all-tools", isToolsDropdown: true },
+        ...categories
+            .filter((c) => categoryNavSlugs.includes(c.slug))
+            .sort((a, b) => categoryNavSlugs.indexOf(a.slug) - categoryNavSlugs.indexOf(b.slug))
+            .map((c) => ({
+                label: c.name.replace(" Tools", ""),
+                href: `/category/${c.slug}`,
+                slug: c.slug,
+                isCategory: true,
+            })),
     ];
 
     return (
@@ -96,20 +101,64 @@ export default function Navbar() {
                             <div
                                 key={link.href}
                                 className="relative"
-                                onMouseEnter={() => link.isCategory && setHoveredCategory(link.slug)}
+                                onMouseEnter={() => {
+                                    if (link.isCategory) setHoveredCategory(link.slug);
+                                    if (link.isToolsDropdown) setHoveredCategory("__tools__");
+                                }}
                                 onMouseLeave={() => setHoveredCategory(null)}
                             >
                                 <Link
                                     href={link.href}
-                                    className={`block px-3.5 py-2 text-sm rounded-lg no-underline transition-all duration-200 ${pathname === link.href || hoveredCategory === link.slug
-                                        ? "text-blue-600 dark:text-blue-500 bg-blue-50 dark:bg-blue-500/10"
-                                        : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800/50"
+                                    className={`block px-3.5 py-2 text-sm rounded-lg no-underline transition-all duration-200 ${pathname === link.href ||
+                                            hoveredCategory === link.slug ||
+                                            (link.isToolsDropdown && hoveredCategory === "__tools__")
+                                            ? "text-blue-600 dark:text-blue-500 bg-blue-50 dark:bg-blue-500/10"
+                                            : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800/50"
                                         }`}
                                 >
                                     {link.label}
                                 </Link>
 
-                                {/* Dropdown */}
+                                {/* Tools mega-menu — shows all categories */}
+                                {link.isToolsDropdown && hoveredCategory === "__tools__" && (
+                                    <div className="absolute top-full left-0 mt-1 bg-white dark:bg-[#171a21] border border-gray-200 dark:border-gray-800 rounded-xl shadow-2xl shadow-black/10 dark:shadow-black/50 p-3 z-[100] w-[560px]">
+                                        <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider px-2 mb-2">Browse by category</p>
+                                        <div className="grid grid-cols-2 gap-1">
+                                            {categories.map((cat) => {
+                                                const CatIcon = cat.icon;
+                                                const count = getToolsByCategory(cat.slug).length;
+                                                return (
+                                                    <Link
+                                                        key={cat.slug}
+                                                        href={`/category/${cat.slug}`}
+                                                        className="flex items-center gap-3 p-2.5 rounded-lg no-underline transition-colors hover:bg-gray-50 dark:hover:bg-[#1e2230] group"
+                                                    >
+                                                        <div
+                                                            className="flex items-center justify-center w-8 h-8 rounded-lg flex-shrink-0 transition-opacity group-hover:opacity-90"
+                                                            style={{ backgroundColor: `${cat.color}18` }}
+                                                        >
+                                                            <CatIcon className="w-4 h-4" style={{ color: cat.color }} />
+                                                        </div>
+                                                        <div className="min-w-0 flex-1">
+                                                            <div className="text-sm font-medium text-gray-900 dark:text-gray-200 truncate">{cat.name}</div>
+                                                            <div className="text-xs text-gray-400">{count} tools</div>
+                                                        </div>
+                                                    </Link>
+                                                );
+                                            })}
+                                        </div>
+                                        <div className="mt-2 pt-2 border-t border-gray-100 dark:border-gray-800">
+                                            <Link
+                                                href="/all-tools"
+                                                className="flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-sm font-medium text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-500/10 no-underline transition-colors"
+                                            >
+                                                View all tools →
+                                            </Link>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Per-category tool dropdown */}
                                 {link.isCategory && hoveredCategory === link.slug && (
                                     <div
                                         className="absolute top-full left-1/2 -translate-x-1/2 mt-1 bg-white dark:bg-[#171a21] border border-gray-200 dark:border-gray-800 rounded-xl shadow-2xl shadow-black/10 dark:shadow-black/50 p-2 z-[100]"
