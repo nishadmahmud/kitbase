@@ -1,13 +1,13 @@
 import { getToolByHref } from "@/lib/toolsRegistry";
-import CompressPdfClient from "./client";
+import ChartGeneratorClient from "./client";
 
 export async function generateMetadata() {
-    const tool = getToolByHref("/tools/pdf/compress");
+    const tool = getToolByHref("/tools/visualization/chart-generator");
 
     return {
         title: `${tool.name} | Kitbase - Free Online Tools`,
         description: tool.description,
-        keywords: ["compress pdf", "reduce pdf size", "optimize pdf", "shrink pdf", "pdf compressor free", "online pdf compression", "kitbase"],
+        keywords: ["chart generator", "data visualization", "bar chart", "line chart", "pie chart", "csv to chart", "online graph maker", "kitbase"],
         openGraph: {
             title: `${tool.name} | Kitbase`,
             description: tool.description,
@@ -16,6 +16,6 @@ export async function generateMetadata() {
     };
 }
 
-export default function CompressPdfPage() {
-    return <CompressPdfClient />;
+export default function ChartGeneratorPage() {
+    return <ChartGeneratorClient />;
 }

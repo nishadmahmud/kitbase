@@ -32,7 +32,8 @@ export const metadata = {
     "word counter", "case converter", "text cleaner", "lorem ipsum generator",
     "password generator", "hash generator", "token generator",
     "pomodoro timer", "stopwatch", "loan calculator", "unit converter",
-    "developer tools", "web utilities", "free software", "productivity tools"
+    "developer tools", "web utilities", "free software", "productivity tools",
+    "eda tool", "data visualization", "chart generator", "csv analysis"
   ],
   authors: [{ name: "Nishad Mahmud", url: "https://kitbase.tech" }],
   creator: "Nishad Mahmud",
@@ -87,9 +88,27 @@ export const viewport = {
   ],
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Kitbase",
+  "url": "https://kitbase.tech",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://kitbase.tech/all-tools?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning className={`${inter.variable} ${jetbrainsMono.variable}`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="bg-slate-50 dark:bg-gray-950 text-gray-900 dark:text-gray-200 font-sans min-h-screen m-0 p-0 flex flex-col antialiased transition-colors duration-300 relative pb-16 md:pb-0">
         {/* Background Grid Pattern - Global */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none z-0" />
