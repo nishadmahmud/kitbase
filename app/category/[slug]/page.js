@@ -2,7 +2,7 @@ import { categories } from "@/lib/toolsRegistry";
 import CategoryClient from "./client";
 
 export async function generateMetadata({ params }) {
-    const { slug } = params;
+    const { slug } = await params;
     const category = categories.find((c) => c.slug === slug);
 
     if (!category) {

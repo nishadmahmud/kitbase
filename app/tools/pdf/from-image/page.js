@@ -1,5 +1,4 @@
-"use client";
-
+import { getToolByHref } from "@/lib/toolsRegistry";
 import dynamic from "next/dynamic";
 import { Loader2 } from "lucide-react";
 
@@ -12,6 +11,21 @@ const ImageToPdfClient = dynamic(() => import("./ImageToPdfClient"), {
         </div>
     )
 });
+
+export async function generateMetadata() {
+    const tool = getToolByHref("/tools/pdf/from-image");
+
+    return {
+        title: `${tool.name} | Kitbase - Free Online Tools`,
+        description: tool.description,
+        keywords: ["image to pdf", "jpg to pdf", "png to pdf", "images to pdf converter", "kitbase"],
+        openGraph: {
+            title: `${tool.name} | Kitbase`,
+            description: tool.description,
+            type: "website",
+        },
+    };
+}
 
 export default function ImageToPdfPage() {
     return <ImageToPdfClient />;

@@ -1,124 +1,21 @@
-"use client";
+import { getToolByHref } from "@/lib/toolsRegistry";
+import JsonFormatterClient from "./client";
 
-import { useState, useCallback } from "react";
-import { Braces, Copy, Check, AlertTriangle } from "lucide-react";
-import ToolHeader from "@/components/tool/ToolHeader";
-import ToolActions, { ActionButton } from "@/components/tool/ToolActions";
-import { formatJson, minifyJson, validateJson } from "@/lib/dev/json";
+export async function generateMetadata() {
+    const tool = getToolByHref("/tools/dev/json-formatter");
 
-const sampleJson = `{
-  "name": "Kitbase",
-  "version": "1.0.0",
-  "features": ["PDF", "Image", "Markdown", "JSON"],
-  "settings": {
-    "theme": "dark",
-    "privacy": true
-  }
-}`;
+    return {
+        title: `${tool.name} | Kitbase - Free Online Tools`,
+        description: tool.description,
+        keywords: ["json formatter", "json validator", "json minify", "json beautifier", "json parser", "kitbase"],
+        openGraph: {
+            title: `${tool.name} | Kitbase`,
+            description: tool.description,
+            type: "website",
+        },
+    };
+}
 
 export default function JsonFormatterPage() {
-    const [input, setInput] = useState(sampleJson);
-    const [output, setOutput] = useState("");
-    const [error, setError] = useState(null);
-    const [copied, setCopied] = useState(false);
-    const [validation, setValidation] = useState(null);
-
-    const handleFormat = useCallback(() => {
-        setError(null);
-        setValidation(null);
-        try {
-            setOutput(formatJson(input));
-        } catch (e) {
-            setError(e.message);
-        }
-    }, [input]);
-
-    const handleMinify = useCallback(() => {
-        setError(null);
-        setValidation(null);
-        try {
-            setOutput(minifyJson(input));
-        } catch (e) {
-            setError(e.message);
-        }
-    }, [input]);
-
-    const handleValidate = useCallback(() => {
-        setError(null);
-        const result = validateJson(input);
-        setValidation(result);
-    }, [input]);
-
-    const handleCopy = async () => {
-        await navigator.clipboard.writeText(output || input);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-    };
-
-    return (
-        <div className="min-h-screen pb-12 transition-colors duration-300">
-            <div className="max-w-7xl mx-auto px-6 pt-10">
-                <ToolHeader
-                    title="JSON Formatter"
-                    description="Prettify and validate complex JSON data for better readability."
-                    breadcrumbs={[{ label: "Developer Tools", href: "/category/dev" }, { label: "JSON Formatter" }]}
-                />
-            </div>
-
-            <div className="max-w-7xl mx-auto px-6 -mt-8 relative z-10 flex flex-col gap-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 min-h-[400px]">
-                    {/* Input */}
-                    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden flex flex-col shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
-                        <div className="px-5 py-3 border-b border-gray-200 dark:border-gray-800 text-xs font-semibold text-gray-500 dark:text-gray-500 uppercase tracking-wider bg-gray-50 dark:bg-gray-950 transition-colors">
-                            Input
-                        </div>
-                        <textarea
-                            value={input}
-                            onChange={(e) => setInput(e.target.value)}
-                            spellCheck={false}
-                            className="flex-1 p-5 bg-transparent text-gray-900 dark:text-gray-200 text-sm font-mono leading-relaxed border-none outline-none resize-none"
-                        />
-                    </div>
-
-                    {/* Output */}
-                    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden flex flex-col shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
-                        <div className="px-5 py-3 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between bg-gray-50 dark:bg-gray-950 transition-colors">
-                            <span className="text-xs font-semibold text-gray-500 dark:text-gray-500 uppercase tracking-wider">Output</span>
-                            <button
-                                onClick={handleCopy}
-                                className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400 bg-transparent border-none cursor-pointer hover:text-gray-900 dark:hover:text-gray-200 transition-colors"
-                            >
-                                {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                                {copied ? "Copied!" : "Copy"}
-                            </button>
-                        </div>
-                        <pre className="flex-1 p-5 m-0 text-gray-900 dark:text-gray-200 text-sm font-mono leading-relaxed overflow-y-auto whitespace-pre-wrap break-word">
-                            {output || "Output will appear here..."}
-                        </pre>
-                    </div>
-                </div>
-
-                {error && (
-                    <div className="px-5 py-4 bg-red-500/5 border border-red-500/20 rounded-xl text-sm text-red-400 flex items-center gap-2">
-                        <AlertTriangle className="w-4 h-4 flex-shrink-0" /> {error}
-                    </div>
-                )}
-
-                {validation && (
-                    <div className={`px-5 py-4 rounded-xl text-sm border ${validation.valid
-                        ? "bg-emerald-500/5 border-emerald-500/20 text-emerald-400"
-                        : "bg-red-500/5 border-red-500/20 text-red-400"
-                        }`}>
-                        {validation.valid ? "✓ Valid JSON" : `✗ Invalid: ${validation.error}`}
-                    </div>
-                )}
-
-                <ToolActions>
-                    <ActionButton onClick={handleFormat} icon={Braces}>Format</ActionButton>
-                    <ActionButton onClick={handleMinify} variant="secondary">Minify</ActionButton>
-                    <ActionButton onClick={handleValidate} variant="secondary">Validate</ActionButton>
-                </ToolActions>
-            </div>
-        </div>
-    );
+    return <JsonFormatterClient />;
 }
