@@ -30,8 +30,8 @@ export default function Footer() {
                         <div>
                             <h4 className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-3 mt-0">Legal</h4>
                             <ul className="list-none p-0 m-0 flex flex-col gap-2">
-                                <li><Link href="/about" className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 transition-colors no-underline">Privacy</Link></li>
-                                <li><Link href="/about" className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 transition-colors no-underline">Terms</Link></li>
+                                <li><Link href="/privacy" className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 transition-colors no-underline">Privacy</Link></li>
+                                <li><Link href="/terms" className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 transition-colors no-underline">Terms</Link></li>
                             </ul>
                         </div>
                     </div>

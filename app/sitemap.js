@@ -8,6 +8,9 @@ export default function sitemap() {
     const routes = [
         { path: "", priority: 1.0, freq: "daily" },
         { path: "/all-tools", priority: 0.9, freq: "weekly" },
+        { path: "/about", priority: 0.7, freq: "monthly" },
+        { path: "/privacy", priority: 0.5, freq: "yearly" },
+        { path: "/terms", priority: 0.5, freq: "yearly" },
     ].map(({ path, priority, freq }) => ({
         url: `${baseUrl}${path}`,
         lastModified: now,
