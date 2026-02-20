@@ -1,8 +1,5 @@
 import { ImageResponse } from "next/og";
 
-export const runtime = "edge";
-
-// Category color map
 const categoryColors = {
     pdf: "#4f8cff",
     image: "#a78bfa",
@@ -16,7 +13,6 @@ const categoryColors = {
     visualization: "#db2777",
 };
 
-// Category label map
 const categoryLabels = {
     pdf: "PDF Tools",
     image: "Image Tools",
@@ -30,6 +26,8 @@ const categoryLabels = {
     visualization: "Visualization",
 };
 
+const tags = ["Free", "No Signup", "Browser-based", "Private"];
+
 export async function GET(request) {
     const { searchParams } = new URL(request.url);
 
@@ -39,9 +37,44 @@ export async function GET(request) {
 
     const accentColor = categoryColors[cat] || "#6366f1";
     const categoryLabel = categoryLabels[cat] || "Tools";
-
-    // Truncate description if too long
     const shortDesc = desc.length > 110 ? desc.slice(0, 107) + "..." : desc;
+
+    // Grid cell size
+    const gridSize = 40;
+    // Build horizontal grid lines
+    const hLines = [];
+    for (let y = 0; y <= 630; y += gridSize) {
+        hLines.push(
+            <div
+                key={`h${y}`}
+                style={{
+                    position: "absolute",
+                    top: `${y}px`,
+                    left: "0px",
+                    width: "1200px",
+                    height: "1px",
+                    backgroundColor: "#e5e7eb",
+                }}
+            />
+        );
+    }
+    // Build vertical grid lines
+    const vLines = [];
+    for (let x = 0; x <= 1200; x += gridSize) {
+        vLines.push(
+            <div
+                key={`v${x}`}
+                style={{
+                    position: "absolute",
+                    left: `${x}px`,
+                    top: "0px",
+                    width: "1px",
+                    height: "630px",
+                    backgroundColor: "#e5e7eb",
+                }}
+            />
+        );
+    }
 
     return new ImageResponse(
         <div
@@ -50,35 +83,26 @@ export async function GET(request) {
                 height: "630px",
                 display: "flex",
                 flexDirection: "column",
-                background: "#0f1117",
-                fontFamily: "system-ui, -apple-system, sans-serif",
+                backgroundColor: "#ffffff",
+                fontFamily: "sans-serif",
                 position: "relative",
-                overflow: "hidden",
             }}
         >
-            {/* Background grid */}
-            <div
-                style={{
-                    position: "absolute",
-                    inset: 0,
-                    backgroundImage:
-                        "linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)",
-                    backgroundSize: "40px 40px",
-                }}
-            />
+            {/* Grid lines */}
+            {hLines}
+            {vLines}
 
-            {/* Accent glow blob */}
+            {/* Accent color glow circle top-right */}
             <div
                 style={{
                     position: "absolute",
-                    top: "-80px",
-                    right: "-80px",
-                    width: "400px",
-                    height: "400px",
-                    borderRadius: "50%",
-                    background: accentColor,
-                    opacity: 0.12,
-                    filter: "blur(80px)",
+                    top: "-100px",
+                    right: "-100px",
+                    width: "360px",
+                    height: "360px",
+                    borderRadius: "180px",
+                    backgroundColor: accentColor,
+                    opacity: 0.15,
                 }}
             />
 
@@ -86,44 +110,45 @@ export async function GET(request) {
             <div
                 style={{
                     position: "absolute",
-                    left: 0,
-                    top: 0,
-                    bottom: 0,
+                    left: "0px",
+                    top: "0px",
                     width: "6px",
-                    background: accentColor,
+                    height: "630px",
+                    backgroundColor: accentColor,
                 }}
             />
 
-            {/* Content */}
+            {/* Main content */}
             <div
                 style={{
                     display: "flex",
                     flexDirection: "column",
-                    padding: "60px 80px",
-                    flex: 1,
+                    padding: "56px 80px 56px 86px",
+                    height: "100%",
                     position: "relative",
                 }}
             >
-                {/* Top row: Kitbase + category badge */}
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "auto" }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                {/* Header row */}
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                    {/* Logo */}
+                    <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
                         <div
                             style={{
-                                width: "40px",
-                                height: "40px",
+                                width: "42px",
+                                height: "42px",
                                 borderRadius: "10px",
-                                background: accentColor,
+                                backgroundColor: accentColor,
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
-                                fontSize: "20px",
+                                fontSize: "22px",
                                 fontWeight: "900",
                                 color: "#fff",
                             }}
                         >
                             K
                         </div>
-                        <span style={{ color: "#ffffff", fontSize: "24px", fontWeight: "700", letterSpacing: "-0.5px" }}>
+                        <span style={{ color: "#111827", fontSize: "26px", fontWeight: "700" }}>
                             Kitbase
                         </span>
                     </div>
@@ -133,89 +158,83 @@ export async function GET(request) {
                         style={{
                             display: "flex",
                             alignItems: "center",
-                            padding: "8px 18px",
+                            padding: "8px 20px",
                             borderRadius: "999px",
-                            border: `1.5px solid ${accentColor}`,
+                            border: `2px solid ${accentColor}`,
                             color: accentColor,
-                            fontSize: "16px",
+                            fontSize: "18px",
                             fontWeight: "600",
+                            backgroundColor: "#fff",
                         }}
                     >
                         {categoryLabel}
                     </div>
                 </div>
 
+                {/* Spacer */}
+                <div style={{ height: "60px" }} />
+
                 {/* Tool name */}
-                <div style={{ marginBottom: "24px", marginTop: "60px" }}>
-                    <div
-                        style={{
-                            fontSize: "72px",
-                            fontWeight: "800",
-                            color: "#ffffff",
-                            letterSpacing: "-2px",
-                            lineHeight: 1.1,
-                        }}
-                    >
-                        {name}
-                    </div>
+                <div
+                    style={{
+                        fontSize: "76px",
+                        fontWeight: "800",
+                        color: "#111827",
+                        letterSpacing: "-2px",
+                        lineHeight: "1.1",
+                        marginBottom: "24px",
+                    }}
+                >
+                    {name}
                 </div>
 
                 {/* Description */}
                 <div
                     style={{
                         fontSize: "26px",
-                        color: "#9ca3af",
-                        lineHeight: 1.5,
+                        color: "#6b7280",
+                        lineHeight: "1.5",
                         fontWeight: "400",
-                        maxWidth: "800px",
+                        maxWidth: "860px",
                     }}
                 >
                     {shortDesc}
                 </div>
 
-                {/* Bottom row */}
-                <div
-                    style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "24px",
-                        marginTop: "auto",
-                        paddingTop: "40px",
-                    }}
-                >
-                    {["Free", "No Signup", "Browser-based", "Private"].map((tag) => (
+                {/* Push tags to bottom */}
+                <div style={{ flexGrow: 1 }} />
+
+                {/* Tag row */}
+                <div style={{ display: "flex", alignItems: "center", gap: "28px" }}>
+                    {tags.map((tag) => (
                         <div
                             key={tag}
                             style={{
                                 display: "flex",
                                 alignItems: "center",
-                                gap: "6px",
+                                gap: "8px",
                                 color: "#6b7280",
-                                fontSize: "16px",
+                                fontSize: "18px",
                                 fontWeight: "500",
                             }}
                         >
                             <div
                                 style={{
-                                    width: "6px",
-                                    height: "6px",
-                                    borderRadius: "50%",
-                                    background: accentColor,
+                                    width: "7px",
+                                    height: "7px",
+                                    borderRadius: "4px",
+                                    backgroundColor: accentColor,
                                 }}
                             />
                             {tag}
                         </div>
                     ))}
-
-                    <div style={{ marginLeft: "auto", color: "#4b5563", fontSize: "18px", fontWeight: "500" }}>
+                    <div style={{ color: "#9ca3af", fontSize: "20px", fontWeight: "500", marginLeft: "auto" }}>
                         kitbase.tech
                     </div>
                 </div>
             </div>
         </div>,
-        {
-            width: 1200,
-            height: 630,
-        }
+        { width: 1200, height: 630 }
     );
 }

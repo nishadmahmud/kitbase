@@ -48,9 +48,9 @@ export default function ResizeImagePage() {
         ]
     };
 
-    const howToSchema = getHowToSchema(tool, steps);
+    const howToSchema = getHowToSchema(tool, content.steps);
 
-    const faqSchema = getFaqSchema(faq);
+    const faqSchema = getFaqSchema(content.faq);
 
     return (
         <>
