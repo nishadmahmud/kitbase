@@ -57,14 +57,6 @@ export const metadata = {
     description: "PDF, images, text, and developer utilities - fast, private, and free. No uploads, no ads, just pure utility.",
     url: "https://kitbase.tech",
     siteName: "Kitbase",
-    images: [
-      {
-        url: "/og-image.png", // We should ideally have an og-image
-        width: 1200,
-        height: 630,
-        alt: "Kitbase Tools Preview",
-      },
-    ],
     locale: "en_US",
     type: "website",
   },
