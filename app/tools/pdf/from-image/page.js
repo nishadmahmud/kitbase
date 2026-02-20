@@ -1,16 +1,5 @@
 import { getToolByHref } from "@/lib/toolsRegistry";
-import dynamic from "next/dynamic";
-import { Loader2 } from "lucide-react";
-
-const ImageToPdfClient = dynamic(() => import("./ImageToPdfClient"), {
-    ssr: false,
-    loading: () => (
-        <div className="flex justify-center items-center min-h-[400px] text-gray-400">
-            <Loader2 className="w-6 h-6 animate-spin mr-2" />
-            Loading Image Tools...
-        </div>
-    )
-});
+import ImageToPdfClient from "./ImageToPdfClient";
 
 export async function generateMetadata() {
     const tool = getToolByHref("/tools/pdf/from-image");
@@ -28,10 +17,31 @@ export async function generateMetadata() {
 }
 
 import { getToolSchema } from "@/lib/seo";
+import ToolContent from "@/components/global/ToolContent";
 
 export default function ImageToPdfPage() {
     const tool = getToolByHref("/tools/pdf/from-image");
     const jsonLd = getToolSchema(tool);
+
+    const steps = [
+        "Select or drag and drop your image files (JPG, PNG).",
+        "Arrage the images in the order you want them to appear.",
+        "Set page orientation (Portrait/Landscape) and margins.",
+        "Click 'Create PDF' to combine them into a single document."
+    ];
+
+    const features = [
+        { title: "One-Click Combine", description: "Merge multiple images into a single professional PDF file." },
+        { title: "Adjustable Layout", description: "Control orientation and fit to make your document look perfect." },
+        { title: "Universal Compatibility", description: "Accepts JPG, PNG, and WebP image formats." },
+        { title: "Fast & Private", description: "Images are processed locally, ensuring your photos remain private." }
+    ];
+
+    const faq = [
+        { question: "Does it reduce image quality?", answer: "We maintain high image quality by default, but optimize for reasonable file sizes." },
+        { question: "can I reorder images?", answer: "Yes, simply drag and drop the thumbnails before generating the PDF." },
+        { question: "Is there a limit?", answer: "You can add as many images as your device memory allows." }
+    ];
 
     return (
         <>
@@ -40,6 +50,7 @@ export default function ImageToPdfPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <ImageToPdfClient />
+            <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );
 }

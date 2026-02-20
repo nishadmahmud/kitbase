@@ -17,10 +17,31 @@ export async function generateMetadata() {
 }
 
 import { getToolSchema } from "@/lib/seo";
+import ToolContent from "@/components/global/ToolContent";
 
 export default function CaseConverterPage() {
     const tool = getToolByHref("/tools/text/case-converter");
     const jsonLd = getToolSchema(tool);
+
+    const steps = [
+        "Type or paste your text into the input field.",
+        "Click the button for the format you want (UPPERCASE, lowercase, Title Case, etc.).",
+        "The text converts instantly.",
+        "Copy your converted text with one click."
+    ];
+
+    const features = [
+        { title: "Multiple Formats", description: "Convert to UPPERCASE, lowercase, Title Case, Sentence case, and camelCase." },
+        { title: "Instant Conversion", description: "Zero latency text transformation." },
+        { title: "Clipboard Ready", description: "One-click copy to clipboard for fast workflow." },
+        { title: "Secure Processing", description: "Your text never leaves your browser." }
+    ];
+
+    const faq = [
+        { question: "What is Title Case?", answer: "Title Case capitalizes the first letter of every major word, useful for headlines." },
+        { question: "Does it fix accidental Caps Lock?", answer: "Yes, use 'Sentence case' or 'lowercase' to fix text typed with Caps Lock on." },
+        { question: "Is there a character limit?", answer: "Practically none, it handles large blocks of text easily." }
+    ];
 
     return (
         <>
@@ -29,6 +50,7 @@ export default function CaseConverterPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <CaseConverterClient />
+            <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );
 }

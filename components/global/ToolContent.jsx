@@ -19,23 +19,6 @@ export default function ToolContent({ title, steps, features, faq }) {
                         ))}
                     </div>
 
-                    {/* Features */}
-                    <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8">
-                        Why use Kitbase {title}?
-                    </h2>
-                    <div className="grid sm:grid-cols-2 gap-8 mb-16">
-                        {features.map((feature, index) => (
-                            <div key={index} className="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-2xl">
-                                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
-                                    {feature.title}
-                                </h3>
-                                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                                    {feature.description}
-                                </p>
-                            </div>
-                        ))}
-                    </div>
-
                     {/* FAQ */}
                     <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8">
                         Frequently Asked Questions
@@ -48,6 +31,23 @@ export default function ToolContent({ title, steps, features, faq }) {
                                 </h3>
                                 <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
                                     {item.answer}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Features */}
+                    <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8">
+                        Why use Kitbase {title}?
+                    </h2>
+                    <div className="grid sm:grid-cols-2 gap-8 mb-16">
+                        {features.map((feature, index) => (
+                            <div key={index} className="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-2xl">
+                                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
+                                    {feature.title}
+                                </h3>
+                                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                                    {feature.description}
                                 </p>
                             </div>
                         ))}

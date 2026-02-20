@@ -17,10 +17,31 @@ export async function generateMetadata() {
 }
 
 import { getToolSchema } from "@/lib/seo";
+import ToolContent from "@/components/global/ToolContent";
 
 export default function PercentageCalculatorPage() {
     const tool = getToolByHref("/tools/calculator/percentage");
     const jsonLd = getToolSchema(tool);
+
+    const steps = [
+        "Select the type of calculation (e.g., 'What is X% of Y?').",
+        "Enter the required numbers into the fields.",
+        "Click 'Calculate' to see the result immediately.",
+        "Use different modes for increase, decrease, or difference calculations."
+    ];
+
+    const features = [
+        { title: "Multiple Modes", description: "Calculate percentage of, increase, decrease, and difference." },
+        { title: "Reverse Calculation", description: "Find the original number when you only know the result." },
+        { title: "Simple Interface", description: "Straightforward inputs without confusing formulas." },
+        { title: "Instant Results", description: "Answers appear as you type." }
+    ];
+
+    const faq = [
+        { question: "How do I find what % one number is of another?", answer: "Use the 'X is what % of Y?' mode. Divide X by Y and multiply by 100." },
+        { question: "How to calculate a discount?", answer: "Use 'Percentage decrease' mode with the original price and discount rate." },
+        { question: "What's the percentage change formula?", answer: "((New Value - Old Value) / Old Value) × 100. Our tool does this automatically." }
+    ];
 
     return (
         <>
@@ -29,6 +50,7 @@ export default function PercentageCalculatorPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <PercentageCalculatorClient />
+            <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );
 }

@@ -17,10 +17,31 @@ export async function generateMetadata() {
 }
 
 import { getToolSchema } from "@/lib/seo";
+import ToolContent from "@/components/global/ToolContent";
 
 export default function CompressImagePage() {
     const tool = getToolByHref("/tools/image/compress");
     const jsonLd = getToolSchema(tool);
+
+    const steps = [
+        "Upload your JPG, PNG, or WebP images.",
+        "Select the compression level (Low, Medium, High).",
+        "The tool automatically reduces file size while maintaining quality.",
+        "Download your optimized images individually or as a ZIP."
+    ];
+
+    const features = [
+        { title: "Smart Compression", description: "Drastically reduce file size without visible loss in quality." },
+        { title: "Bulk Processing", description: "Compress multiple images at once to save time." },
+        { title: "Privacy First", description: "Images are processed locally in your browser and never uploaded." },
+        { title: "Format Support", description: "Works with all major web image formats." }
+    ];
+
+    const faq = [
+        { question: "How much space can I save?", answer: "You can often reduce file size by 50-80% depending on the image complexity." },
+        { question: "Will my photos look blurry?", answer: "No, our smart algorithm removes invisible data first to preserve visual quality." },
+        { question: "Is there a limit?", answer: "No daily limits. Process as many images as you need." }
+    ];
 
     return (
         <>
@@ -29,6 +50,7 @@ export default function CompressImagePage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <CompressImageClient />
+            <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );
 }

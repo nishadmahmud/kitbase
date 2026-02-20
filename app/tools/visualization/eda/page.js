@@ -17,10 +17,31 @@ export async function generateMetadata() {
 }
 
 import { getToolSchema } from "@/lib/seo";
+import ToolContent from "@/components/global/ToolContent";
 
 export default function EdaPage() {
     const tool = getToolByHref("/tools/visualization/eda");
     const jsonLd = getToolSchema(tool);
+
+    const steps = [
+        "Upload a CSV file containing your dataset.",
+        "The tool auto-generates summary statistics for every column.",
+        "View correlation heatmaps, histograms, and distribution charts.",
+        "Identify outliers and missing values at a glance."
+    ];
+
+    const features = [
+        { title: "Statistical Summary", description: "Get mean, median, std deviation, min/max for every column." },
+        { title: "Correlation Heatmap", description: "Visualize which variables are most correlated." },
+        { title: "Histograms", description: "See the distribution of any numerical column." },
+        { title: "Missing Value Analysis", description: "Identify and visualize gaps in your dataset." }
+    ];
+
+    const faq = [
+        { question: "What is EDA?", answer: "Exploratory Data Analysis is the process of visually and statistically summarizing a dataset." },
+        { question: "What file format does it need?", answer: "CSV files with a header row are the standard supported format." },
+        { question: "Is my data uploaded to a server?", answer: "No, all analysis is performed locally in your browser." }
+    ];
 
     return (
         <>
@@ -29,6 +50,7 @@ export default function EdaPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <EdaClient />
+            <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );
 }

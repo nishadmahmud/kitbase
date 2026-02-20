@@ -17,10 +17,31 @@ export async function generateMetadata() {
 }
 
 import { getToolSchema } from "@/lib/seo";
+import ToolContent from "@/components/global/ToolContent";
 
 export default function ColorConverterPage() {
     const tool = getToolByHref("/tools/design/color-converter");
     const jsonLd = getToolSchema(tool);
+
+    const steps = [
+        "Enter a color value in any supported format (HEX, RGB, HSL).",
+        "The tool instantly converts it to all other formats.",
+        "Use the visual color picker to select a color by eye.",
+        "Copy any of the converted values with one click."
+    ];
+
+    const features = [
+        { title: "Multi-Format", description: "Converts between HEX, RGB, HSL, and HSV color models." },
+        { title: "Visual Picker", description: "Select colors visually with an interactive color wheel." },
+        { title: "Instant Conversion", description: "All formats update simultaneously as you type or pick." },
+        { title: "Copy Any Format", description: "One-click copy for each color format output." }
+    ];
+
+    const faq = [
+        { question: "What is HEX?", answer: "HEX is a 6-digit code used in web design, e.g., #FF5733." },
+        { question: "What is HSL?", answer: "HSL stands for Hue, Saturation, Lightness and is more intuitive for designers." },
+        { question: "Can I use this for CSS?", answer: "Yes, all output formats are ready to paste directly into CSS." }
+    ];
 
     return (
         <>
@@ -29,6 +50,7 @@ export default function ColorConverterPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <ColorConverterClient />
+            <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );
 }

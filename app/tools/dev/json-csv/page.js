@@ -17,10 +17,31 @@ export async function generateMetadata() {
 }
 
 import { getToolSchema } from "@/lib/seo";
+import ToolContent from "@/components/global/ToolContent";
 
 export default function JsonCsvConverterPage() {
     const tool = getToolByHref("/tools/dev/json-csv");
     const jsonLd = getToolSchema(tool);
+
+    const steps = [
+        "Choose conversion direction: JSON to CSV or CSV to JSON.",
+        "Paste your data into the input panel.",
+        "View the converted data immediately in the output panel.",
+        "Download the result as a .csv or .json file."
+    ];
+
+    const features = [
+        { title: "Two-way Conversion", description: "Seamlessly convert between structured JSON and flat CSV formats." },
+        { title: "Table View", description: "Preview your data in a readable table format before downloading." },
+        { title: "Handling Nested Data", description: "Intelligently flattens nested JSON objects for CSV compatibility." },
+        { title: "Fast Processing", description: "Capable of handling large datasets without server delays." }
+    ];
+
+    const faq = [
+        { question: "How are nested objects handled?", answer: "Nested keys are typically flattened using dot notation (e.g., user.address.city)." },
+        { question: "Can I convert Excel files?", answer: "If you save your Excel file as CSV first, yes, you can convert it to JSON here." },
+        { question: "Is there a row limit?", answer: "Practically limited by your browser's memory, but suitable for most typical data files." }
+    ];
 
     return (
         <>
@@ -29,6 +50,7 @@ export default function JsonCsvConverterPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <JsonCsvConverterClient />
+            <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );
 }

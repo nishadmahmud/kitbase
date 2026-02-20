@@ -17,10 +17,31 @@ export async function generateMetadata() {
 }
 
 import { getToolSchema } from "@/lib/seo";
+import ToolContent from "@/components/global/ToolContent";
 
 export default function InterestCalculatorPage() {
     const tool = getToolByHref("/tools/calculator/interest");
     const jsonLd = getToolSchema(tool);
+
+    const steps = [
+        "Enter your principal (starting) amount.",
+        "Input the annual interest rate percentage.",
+        "Select Simple or Compound interest and the time period.",
+        "Click 'Calculate' to see the total amount and interest earned."
+    ];
+
+    const features = [
+        { title: "Simple & Compound", description: "Calculate both simple and compound interest scenarios." },
+        { title: "Growth Chart", description: "Visual chart showing investment growth over time." },
+        { title: "Compound Frequency", description: "Choose daily, monthly, quarterly, or annual compounding." },
+        { title: "Breakdown Table", description: "Year-by-year breakdown of principal and interest." }
+    ];
+
+    const faq = [
+        { question: "What is compound interest?", answer: "Compound interest is interest calculated on both the initial principal and the accumulated interest." },
+        { question: "Is compound better than simple?", answer: "For savings, compound interest earns more. For loans, simple interest costs less." },
+        { question: "How often should interest compound?", answer: "The more frequently it compounds, the more you earn (or owe). Daily is the most common for savings." }
+    ];
 
     return (
         <>
@@ -29,6 +50,7 @@ export default function InterestCalculatorPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <InterestCalculatorClient />
+            <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );
 }
