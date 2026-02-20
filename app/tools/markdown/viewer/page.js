@@ -12,17 +12,22 @@ export async function generateMetadata() {
             title: `${tool.name} | Kitbase`,
             description: tool.description,
             type: "website",
+            images: [{ url: `https://kitbase.tech/og?name=${encodeURIComponent(tool.name)}&desc=${encodeURIComponent(tool.description)}&cat=markdown`, width: 1200, height: 630, alt: `${tool.name} | Kitbase` }],
+        },
+        alternates: {
+            canonical: `https://kitbase.tech/tools/markdown/viewer`,
         },
     };
 }
 
-import { getToolSchema } from "@/lib/seo";
+import { getToolSchema, getBreadcrumbSchema, getHowToSchema, getFaqSchema } from "@/lib/seo";
 import ToolContent from "@/components/global/ToolContent";
 import RelatedTools from "@/components/global/RelatedTools";
 
 export default function MarkdownViewerPage() {
     const tool = getToolByHref("/tools/markdown/viewer");
     const jsonLd = getToolSchema(tool);
+    const breadcrumbSchema = getBreadcrumbSchema(tool);
 
     const steps = [
         "Paste your Markdown text into the editor pane.",
@@ -44,12 +49,19 @@ export default function MarkdownViewerPage() {
         { question: "Can I use this for README files?", answer: "Absolutely, it's perfect for previewing README.md files before committing." }
     ];
 
+    const howToSchema = getHowToSchema(tool, steps);
+
+    const faqSchema = getFaqSchema(faq);
+
     return (
         <>
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
             <MarkdownViewerClient />
             <RelatedTools currentHref="/tools/markdown/viewer" />
             <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />

@@ -12,17 +12,22 @@ export async function generateMetadata() {
             title: `${tool.name} | Kitbase`,
             description: tool.description,
             type: "website",
+            images: [{ url: `https://kitbase.tech/og?name=${encodeURIComponent(tool.name)}&desc=${encodeURIComponent(tool.description)}&cat=security`, width: 1200, height: 630, alt: `${tool.name} | Kitbase` }],
+        },
+        alternates: {
+            canonical: `https://kitbase.tech/tools/security/token-generator`,
         },
     };
 }
 
-import { getToolSchema } from "@/lib/seo";
+import { getToolSchema, getBreadcrumbSchema, getHowToSchema, getFaqSchema } from "@/lib/seo";
 import ToolContent from "@/components/global/ToolContent";
 import RelatedTools from "@/components/global/RelatedTools";
 
 export default function TokenGeneratorPage() {
     const tool = getToolByHref("/tools/security/token-generator");
     const jsonLd = getToolSchema(tool);
+    const breadcrumbSchema = getBreadcrumbSchema(tool);
 
     const steps = [
         "Select the token format (UUID v4, hex, alphanumeric).",
@@ -44,12 +49,19 @@ export default function TokenGeneratorPage() {
         { question: "Can I use this for API keys?", answer: "Yes, hex tokens are perfect for API keys and session tokens." }
     ];
 
+    const howToSchema = getHowToSchema(tool, steps);
+
+    const faqSchema = getFaqSchema(faq);
+
     return (
         <>
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
             <TokenGeneratorClient />
             <RelatedTools currentHref="/tools/security/token-generator" />
             <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />

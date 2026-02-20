@@ -12,17 +12,22 @@ export async function generateMetadata() {
             title: `${tool.name} | Kitbase`,
             description: tool.description,
             type: "website",
+            images: [{ url: `https://kitbase.tech/og?name=${encodeURIComponent(tool.name)}&desc=${encodeURIComponent(tool.description)}&cat=design`, width: 1200, height: 630, alt: `${tool.name} | Kitbase` }],
+        },
+        alternates: {
+            canonical: `https://kitbase.tech/tools/design/color-converter`,
         },
     };
 }
 
-import { getToolSchema } from "@/lib/seo";
+import { getToolSchema, getBreadcrumbSchema, getHowToSchema, getFaqSchema } from "@/lib/seo";
 import ToolContent from "@/components/global/ToolContent";
 import RelatedTools from "@/components/global/RelatedTools";
 
 export default function ColorConverterPage() {
     const tool = getToolByHref("/tools/design/color-converter");
     const jsonLd = getToolSchema(tool);
+    const breadcrumbSchema = getBreadcrumbSchema(tool);
 
     const steps = [
         "Enter a color value in any supported format (HEX, RGB, HSL).",
@@ -44,12 +49,19 @@ export default function ColorConverterPage() {
         { question: "Can I use this for CSS?", answer: "Yes, all output formats are ready to paste directly into CSS." }
     ];
 
+    const howToSchema = getHowToSchema(tool, steps);
+
+    const faqSchema = getFaqSchema(faq);
+
     return (
         <>
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
             <ColorConverterClient />
             <RelatedTools currentHref="/tools/design/color-converter" />
             <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />

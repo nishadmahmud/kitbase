@@ -12,17 +12,22 @@ export async function generateMetadata() {
             title: `${tool.name} | Kitbase`,
             description: tool.description,
             type: "website",
+            images: [{ url: `https://kitbase.tech/og?name=${encodeURIComponent(tool.name)}&desc=${encodeURIComponent(tool.description)}&cat=pdf`, width: 1200, height: 630, alt: `${tool.name} | Kitbase` }],
+        },
+        alternates: {
+            canonical: `https://kitbase.tech/tools/pdf/from-image`,
         },
     };
 }
 
-import { getToolSchema } from "@/lib/seo";
+import { getToolSchema, getBreadcrumbSchema, getHowToSchema, getFaqSchema } from "@/lib/seo";
 import ToolContent from "@/components/global/ToolContent";
 import RelatedTools from "@/components/global/RelatedTools";
 
 export default function ImageToPdfPage() {
     const tool = getToolByHref("/tools/pdf/from-image");
     const jsonLd = getToolSchema(tool);
+    const breadcrumbSchema = getBreadcrumbSchema(tool);
 
     const steps = [
         "Select or drag and drop your image files (JPG, PNG).",
@@ -44,12 +49,19 @@ export default function ImageToPdfPage() {
         { question: "Is there a limit?", answer: "You can add as many images as your device memory allows." }
     ];
 
+    const howToSchema = getHowToSchema(tool, steps);
+
+    const faqSchema = getFaqSchema(faq);
+
     return (
         <>
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
             <ImageToPdfClient />
             <RelatedTools currentHref="/tools/pdf/from-image" />
             <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />

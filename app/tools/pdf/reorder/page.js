@@ -12,17 +12,22 @@ export async function generateMetadata() {
             title: `${tool.name} | Kitbase`,
             description: tool.description,
             type: "website",
+            images: [{ url: `https://kitbase.tech/og?name=${encodeURIComponent(tool.name)}&desc=${encodeURIComponent(tool.description)}&cat=pdf`, width: 1200, height: 630, alt: `${tool.name} | Kitbase` }],
+        },
+        alternates: {
+            canonical: `https://kitbase.tech/tools/pdf/reorder`,
         },
     };
 }
 
-import { getToolSchema } from "@/lib/seo";
+import { getToolSchema, getBreadcrumbSchema, getHowToSchema, getFaqSchema } from "@/lib/seo";
 import ToolContent from "@/components/global/ToolContent";
 import RelatedTools from "@/components/global/RelatedTools";
 
 export default function ReorderPdfPage() {
     const tool = getToolByHref("/tools/pdf/reorder");
     const jsonLd = getToolSchema(tool);
+    const breadcrumbSchema = getBreadcrumbSchema(tool);
 
     const steps = [
         "Upload a PDF file to see its pages displayed as thumbnails.",
@@ -44,12 +49,19 @@ export default function ReorderPdfPage() {
         { question: "Do I need to sign up?", answer: "No, the tool is free to use without registration." }
     ];
 
+    const howToSchema = getHowToSchema(tool, steps);
+
+    const faqSchema = getFaqSchema(faq);
+
     return (
         <>
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
             <ReorderPdfClient />
             <RelatedTools currentHref="/tools/pdf/reorder" />
             <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />

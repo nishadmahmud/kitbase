@@ -108,6 +108,28 @@ export default function RootLayout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "Kitbase",
+              "url": "https://kitbase.tech",
+              "hasPart": [
+                { "@type": "SiteNavigationElement", "name": "PDF Tools", "url": "https://kitbase.tech/category/pdf" },
+                { "@type": "SiteNavigationElement", "name": "Image Tools", "url": "https://kitbase.tech/category/image" },
+                { "@type": "SiteNavigationElement", "name": "Developer Tools", "url": "https://kitbase.tech/category/dev" },
+                { "@type": "SiteNavigationElement", "name": "Text Tools", "url": "https://kitbase.tech/category/text" },
+                { "@type": "SiteNavigationElement", "name": "Design Tools", "url": "https://kitbase.tech/category/design" },
+                { "@type": "SiteNavigationElement", "name": "Security Tools", "url": "https://kitbase.tech/category/security" },
+                { "@type": "SiteNavigationElement", "name": "Calculators", "url": "https://kitbase.tech/category/calculator" },
+                { "@type": "SiteNavigationElement", "name": "Productivity Tools", "url": "https://kitbase.tech/category/productivity" },
+                { "@type": "SiteNavigationElement", "name": "All Tools", "url": "https://kitbase.tech/all-tools" },
+              ],
+            }),
+          }}
+        />
       </head>
       <body className="bg-slate-50 dark:bg-gray-950 text-gray-900 dark:text-gray-200 font-sans min-h-screen m-0 p-0 flex flex-col antialiased transition-colors duration-300 relative pb-16 md:pb-0">
         {/* Background Grid Pattern - Global */}
