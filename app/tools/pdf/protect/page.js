@@ -18,6 +18,7 @@ export async function generateMetadata() {
 
 import { getToolSchema } from "@/lib/seo";
 import ToolContent from "@/components/global/ToolContent";
+import RelatedTools from "@/components/global/RelatedTools";
 
 export default function ProtectPdfPage() {
     const tool = getToolByHref("/tools/pdf/protect");
@@ -50,6 +51,7 @@ export default function ProtectPdfPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <ProtectPdfClient />
+            <RelatedTools currentHref="/tools/pdf/protect" />
             <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );

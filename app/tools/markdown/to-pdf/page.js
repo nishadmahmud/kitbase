@@ -18,6 +18,7 @@ export async function generateMetadata() {
 
 import { getToolSchema } from "@/lib/seo";
 import ToolContent from "@/components/global/ToolContent";
+import RelatedTools from "@/components/global/RelatedTools";
 
 export default function MarkdownToPdfPage() {
     const tool = getToolByHref("/tools/markdown/to-pdf");
@@ -50,6 +51,7 @@ export default function MarkdownToPdfPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <MarkdownToPdfClient />
+            <RelatedTools currentHref="/tools/markdown/to-pdf" />
             <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );

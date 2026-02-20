@@ -18,6 +18,7 @@ export async function generateMetadata() {
 
 import { getToolSchema } from "@/lib/seo";
 import ToolContent from "@/components/global/ToolContent";
+import RelatedTools from "@/components/global/RelatedTools";
 
 export default function LoanCalculatorPage() {
     const tool = getToolByHref("/tools/calculator/loan");
@@ -50,6 +51,7 @@ export default function LoanCalculatorPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <LoanCalculatorClient />
+            <RelatedTools currentHref="/tools/calculator/loan" />
             <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );

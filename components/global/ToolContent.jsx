@@ -1,6 +1,6 @@
 export default function ToolContent({ title, steps, features, faq }) {
     return (
-        <section className="bg-white dark:bg-gray-900 py-16 sm:py-24 border-t border-gray-100 dark:border-gray-800">
+        <section className="py-16 sm:py-24 border-t border-gray-100 dark:border-gray-800/60">
             <div className="max-w-4xl mx-auto px-6">
                 <div className="prose prose-lg dark:prose-invert max-w-none">
 

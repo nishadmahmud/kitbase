@@ -18,6 +18,7 @@ export async function generateMetadata() {
 
 import { getToolSchema } from "@/lib/seo";
 import ToolContent from "@/components/global/ToolContent";
+import RelatedTools from "@/components/global/RelatedTools";
 
 export default function PasswordGeneratorPage() {
     const tool = getToolByHref("/tools/security/password-generator");
@@ -50,6 +51,7 @@ export default function PasswordGeneratorPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <PasswordGeneratorClient />
+            <RelatedTools currentHref="/tools/security/password-generator" />
             <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );

@@ -18,6 +18,7 @@ export async function generateMetadata() {
 
 import { getToolSchema } from "@/lib/seo";
 import ToolContent from "@/components/global/ToolContent";
+import RelatedTools from "@/components/global/RelatedTools";
 
 export default function CaseConverterPage() {
     const tool = getToolByHref("/tools/text/case-converter");
@@ -50,6 +51,7 @@ export default function CaseConverterPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <CaseConverterClient />
+            <RelatedTools currentHref="/tools/text/case-converter" />
             <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );

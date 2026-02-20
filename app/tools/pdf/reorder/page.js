@@ -18,6 +18,7 @@ export async function generateMetadata() {
 
 import { getToolSchema } from "@/lib/seo";
 import ToolContent from "@/components/global/ToolContent";
+import RelatedTools from "@/components/global/RelatedTools";
 
 export default function ReorderPdfPage() {
     const tool = getToolByHref("/tools/pdf/reorder");
@@ -50,6 +51,7 @@ export default function ReorderPdfPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <ReorderPdfClient />
+            <RelatedTools currentHref="/tools/pdf/reorder" />
             <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );

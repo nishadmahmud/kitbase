@@ -19,6 +19,7 @@ export async function generateMetadata() {
 import { getToolSchema } from "@/lib/seo";
 
 import ToolContent from "@/components/global/ToolContent";
+import RelatedTools from "@/components/global/RelatedTools";
 
 export default function ResizeImagePage() {
     const tool = getToolByHref("/tools/image/resize");
@@ -49,6 +50,7 @@ export default function ResizeImagePage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <ResizeImageClient />
+            <RelatedTools currentHref="/tools/image/resize" />
             <ToolContent {...content} />
         </>
     );

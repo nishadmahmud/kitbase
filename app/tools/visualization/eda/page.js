@@ -18,6 +18,7 @@ export async function generateMetadata() {
 
 import { getToolSchema } from "@/lib/seo";
 import ToolContent from "@/components/global/ToolContent";
+import RelatedTools from "@/components/global/RelatedTools";
 
 export default function EdaPage() {
     const tool = getToolByHref("/tools/visualization/eda");
@@ -50,6 +51,7 @@ export default function EdaPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <EdaClient />
+            <RelatedTools currentHref="/tools/visualization/eda" />
             <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );

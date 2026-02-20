@@ -18,6 +18,7 @@ export async function generateMetadata() {
 
 import { getToolSchema } from "@/lib/seo";
 import ToolContent from "@/components/global/ToolContent";
+import RelatedTools from "@/components/global/RelatedTools";
 
 export default function UnlockPdfPage() {
     const tool = getToolByHref("/tools/pdf/unlock");
@@ -50,6 +51,7 @@ export default function UnlockPdfPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <UnlockPdfClient />
+            <RelatedTools currentHref="/tools/pdf/unlock" />
             <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );

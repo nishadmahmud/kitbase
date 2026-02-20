@@ -18,6 +18,7 @@ export async function generateMetadata() {
 
 import { getToolSchema } from "@/lib/seo";
 import ToolContent from "@/components/global/ToolContent";
+import RelatedTools from "@/components/global/RelatedTools";
 
 export default function XmlFormatterPage() {
     const tool = getToolByHref("/tools/dev/xml-formatter");
@@ -50,6 +51,7 @@ export default function XmlFormatterPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <XmlFormatterClient />
+            <RelatedTools currentHref="/tools/dev/xml-formatter" />
             <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );

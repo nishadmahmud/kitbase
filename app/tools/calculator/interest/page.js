@@ -18,6 +18,7 @@ export async function generateMetadata() {
 
 import { getToolSchema } from "@/lib/seo";
 import ToolContent from "@/components/global/ToolContent";
+import RelatedTools from "@/components/global/RelatedTools";
 
 export default function InterestCalculatorPage() {
     const tool = getToolByHref("/tools/calculator/interest");
@@ -50,6 +51,7 @@ export default function InterestCalculatorPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <InterestCalculatorClient />
+            <RelatedTools currentHref="/tools/calculator/interest" />
             <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );

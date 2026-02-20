@@ -18,6 +18,7 @@ export async function generateMetadata() {
 
 import { getToolSchema } from "@/lib/seo";
 import ToolContent from "@/components/global/ToolContent";
+import RelatedTools from "@/components/global/RelatedTools";
 
 export default function ImageToPdfPage() {
     const tool = getToolByHref("/tools/pdf/from-image");
@@ -50,6 +51,7 @@ export default function ImageToPdfPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <ImageToPdfClient />
+            <RelatedTools currentHref="/tools/pdf/from-image" />
             <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );

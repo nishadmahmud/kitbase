@@ -18,6 +18,7 @@ export async function generateMetadata() {
 
 import { getToolSchema } from "@/lib/seo";
 import ToolContent from "@/components/global/ToolContent";
+import RelatedTools from "@/components/global/RelatedTools";
 
 export default function SqlFormatterPage() {
     const tool = getToolByHref("/tools/dev/sql-formatter");
@@ -50,6 +51,7 @@ export default function SqlFormatterPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <SqlFormatterClient />
+            <RelatedTools currentHref="/tools/dev/sql-formatter" />
             <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );

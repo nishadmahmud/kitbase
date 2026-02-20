@@ -18,6 +18,7 @@ export async function generateMetadata() {
 
 import { getToolSchema } from "@/lib/seo";
 import ToolContent from "@/components/global/ToolContent";
+import RelatedTools from "@/components/global/RelatedTools";
 
 export default function UnitConverterPage() {
     const tool = getToolByHref("/tools/calculator/unit");
@@ -40,7 +41,7 @@ export default function UnitConverterPage() {
     const faq = [
         { question: "Can I convert Celsius to Fahrenheit?", answer: "Yes, temperature conversion is fully supported." },
         { question: "Does it do currency conversion?", answer: "No, this tool focuses on physical unit conversions." },
-        { question: "How accurate is it?", answer: "Very accurate — we use standard scientific conversion factors." }
+        { question: "How accurate is it?", answer: "Very accurate â€” we use standard scientific conversion factors." }
     ];
 
     return (
@@ -50,6 +51,7 @@ export default function UnitConverterPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <UnitConverterClient />
+            <RelatedTools currentHref="/tools/calculator/unit" />
             <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );

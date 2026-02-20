@@ -18,6 +18,7 @@ export async function generateMetadata() {
 
 import { getToolSchema } from "@/lib/seo";
 import ToolContent from "@/components/global/ToolContent";
+import RelatedTools from "@/components/global/RelatedTools";
 
 export default function ChartGeneratorPage() {
     const tool = getToolByHref("/tools/visualization/chart-generator");
@@ -50,6 +51,7 @@ export default function ChartGeneratorPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <ChartGeneratorClient />
+            <RelatedTools currentHref="/tools/visualization/chart-generator" />
             <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );

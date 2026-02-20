@@ -18,6 +18,7 @@ export async function generateMetadata() {
 
 import { getToolSchema } from "@/lib/seo";
 import ToolContent from "@/components/global/ToolContent";
+import RelatedTools from "@/components/global/RelatedTools";
 
 export default function LoremIpsumPage() {
     const tool = getToolByHref("/tools/text/lorem");
@@ -50,6 +51,7 @@ export default function LoremIpsumPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <LoremIpsumClient />
+            <RelatedTools currentHref="/tools/text/lorem" />
             <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );

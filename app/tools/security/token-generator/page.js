@@ -18,6 +18,7 @@ export async function generateMetadata() {
 
 import { getToolSchema } from "@/lib/seo";
 import ToolContent from "@/components/global/ToolContent";
+import RelatedTools from "@/components/global/RelatedTools";
 
 export default function TokenGeneratorPage() {
     const tool = getToolByHref("/tools/security/token-generator");
@@ -50,6 +51,7 @@ export default function TokenGeneratorPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <TokenGeneratorClient />
+            <RelatedTools currentHref="/tools/security/token-generator" />
             <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );

@@ -18,6 +18,7 @@ export async function generateMetadata() {
 
 import { getToolSchema } from "@/lib/seo";
 import ToolContent from "@/components/global/ToolContent";
+import RelatedTools from "@/components/global/RelatedTools";
 
 export default function MetadataViewerPage() {
     const tool = getToolByHref("/tools/file/metadata");
@@ -50,6 +51,7 @@ export default function MetadataViewerPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <MetadataViewerClient />
+            <RelatedTools currentHref="/tools/file/metadata" />
             <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );

@@ -18,6 +18,7 @@ export async function generateMetadata() {
 
 import { getToolSchema } from "@/lib/seo";
 import ToolContent from "@/components/global/ToolContent";
+import RelatedTools from "@/components/global/RelatedTools";
 
 export default function ColorConverterPage() {
     const tool = getToolByHref("/tools/design/color-converter");
@@ -50,6 +51,7 @@ export default function ColorConverterPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <ColorConverterClient />
+            <RelatedTools currentHref="/tools/design/color-converter" />
             <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );

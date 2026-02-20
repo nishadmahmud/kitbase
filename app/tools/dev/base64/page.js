@@ -18,6 +18,7 @@ export async function generateMetadata() {
 
 import { getToolSchema } from "@/lib/seo";
 import ToolContent from "@/components/global/ToolContent";
+import RelatedTools from "@/components/global/RelatedTools";
 
 export default function Base64EncoderPage() {
     const tool = getToolByHref("/tools/dev/base64");
@@ -50,6 +51,7 @@ export default function Base64EncoderPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <Base64Client />
+            <RelatedTools currentHref="/tools/dev/base64" />
             <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );

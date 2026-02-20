@@ -18,6 +18,7 @@ export async function generateMetadata() {
 
 import { getToolSchema } from "@/lib/seo";
 import ToolContent from "@/components/global/ToolContent";
+import RelatedTools from "@/components/global/RelatedTools";
 
 export default function JsonCsvConverterPage() {
     const tool = getToolByHref("/tools/dev/json-csv");
@@ -50,6 +51,7 @@ export default function JsonCsvConverterPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <JsonCsvConverterClient />
+            <RelatedTools currentHref="/tools/dev/json-csv" />
             <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );

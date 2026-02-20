@@ -18,6 +18,7 @@ export async function generateMetadata() {
 
 import { getToolSchema } from "@/lib/seo";
 import ToolContent from "@/components/global/ToolContent";
+import RelatedTools from "@/components/global/RelatedTools";
 
 export default function TextCleanerPage() {
     const tool = getToolByHref("/tools/text/cleaner");
@@ -50,6 +51,7 @@ export default function TextCleanerPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <TextCleanerClient />
+            <RelatedTools currentHref="/tools/text/cleaner" />
             <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );

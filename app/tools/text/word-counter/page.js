@@ -18,6 +18,7 @@ export async function generateMetadata() {
 
 import { getToolSchema } from "@/lib/seo";
 import ToolContent from "@/components/global/ToolContent";
+import RelatedTools from "@/components/global/RelatedTools";
 
 export default function WordCounterPage() {
     const tool = getToolByHref("/tools/text/word-counter");
@@ -50,6 +51,7 @@ export default function WordCounterPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <WordCounterClient />
+            <RelatedTools currentHref="/tools/text/word-counter" />
             <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );

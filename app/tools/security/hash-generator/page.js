@@ -18,6 +18,7 @@ export async function generateMetadata() {
 
 import { getToolSchema } from "@/lib/seo";
 import ToolContent from "@/components/global/ToolContent";
+import RelatedTools from "@/components/global/RelatedTools";
 
 export default function HashGeneratorPage() {
     const tool = getToolByHref("/tools/security/hash-generator");
@@ -50,6 +51,7 @@ export default function HashGeneratorPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <HashGeneratorClient />
+            <RelatedTools currentHref="/tools/security/hash-generator" />
             <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );

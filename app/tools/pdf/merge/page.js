@@ -19,6 +19,7 @@ export async function generateMetadata() {
 import { getToolSchema } from "@/lib/seo";
 
 import ToolContent from "@/components/global/ToolContent";
+import RelatedTools from "@/components/global/RelatedTools";
 
 export default function MergePdfPage() {
     const tool = getToolByHref("/tools/pdf/merge");
@@ -49,6 +50,7 @@ export default function MergePdfPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <MergePdfClient />
+            <RelatedTools currentHref="/tools/pdf/merge" />
             <ToolContent {...content} />
         </>
     );

@@ -18,6 +18,7 @@ export async function generateMetadata() {
 
 import { getToolSchema } from "@/lib/seo";
 import ToolContent from "@/components/global/ToolContent";
+import RelatedTools from "@/components/global/RelatedTools";
 
 export default function CompressImagePage() {
     const tool = getToolByHref("/tools/image/compress");
@@ -50,6 +51,7 @@ export default function CompressImagePage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <CompressImageClient />
+            <RelatedTools currentHref="/tools/image/compress" />
             <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );

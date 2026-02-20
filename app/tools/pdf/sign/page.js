@@ -18,6 +18,7 @@ export async function generateMetadata() {
 
 import { getToolSchema } from "@/lib/seo";
 import ToolContent from "@/components/global/ToolContent";
+import RelatedTools from "@/components/global/RelatedTools";
 
 export default function SignPdfPage() {
     const tool = getToolByHref("/tools/pdf/sign");
@@ -50,6 +51,7 @@ export default function SignPdfPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <SignPdfClient />
+            <RelatedTools currentHref="/tools/pdf/sign" />
             <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );

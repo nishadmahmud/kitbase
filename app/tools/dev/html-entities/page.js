@@ -18,6 +18,7 @@ export async function generateMetadata() {
 
 import { getToolSchema } from "@/lib/seo";
 import ToolContent from "@/components/global/ToolContent";
+import RelatedTools from "@/components/global/RelatedTools";
 
 export default function HtmlEntityEncoderPage() {
     const tool = getToolByHref("/tools/dev/html-entities");
@@ -50,6 +51,7 @@ export default function HtmlEntityEncoderPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <HtmlEntityEncoderClient />
+            <RelatedTools currentHref="/tools/dev/html-entities" />
             <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );

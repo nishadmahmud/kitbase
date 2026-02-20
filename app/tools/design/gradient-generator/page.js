@@ -18,6 +18,7 @@ export async function generateMetadata() {
 
 import { getToolSchema } from "@/lib/seo";
 import ToolContent from "@/components/global/ToolContent";
+import RelatedTools from "@/components/global/RelatedTools";
 
 export default function GradientGeneratorPage() {
     const tool = getToolByHref("/tools/design/gradient-generator");
@@ -50,6 +51,7 @@ export default function GradientGeneratorPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <GradientGeneratorClient />
+            <RelatedTools currentHref="/tools/design/gradient-generator" />
             <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );

@@ -18,6 +18,7 @@ export async function generateMetadata() {
 
 import { getToolSchema } from "@/lib/seo";
 import ToolContent from "@/components/global/ToolContent";
+import RelatedTools from "@/components/global/RelatedTools";
 
 export default function GpaCalculatorPage() {
     const tool = getToolByHref("/tools/calculator/gpa");
@@ -50,6 +51,7 @@ export default function GpaCalculatorPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <GpaCalculatorClient />
+            <RelatedTools currentHref="/tools/calculator/gpa" />
             <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );

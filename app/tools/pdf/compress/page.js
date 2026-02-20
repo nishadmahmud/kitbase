@@ -18,6 +18,7 @@ export async function generateMetadata() {
 
 import { getToolSchema } from "@/lib/seo";
 import ToolContent from "@/components/global/ToolContent";
+import RelatedTools from "@/components/global/RelatedTools";
 
 export default function CompressPdfPage() {
     const tool = getToolByHref("/tools/pdf/compress");
@@ -50,6 +51,7 @@ export default function CompressPdfPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <CompressPdfClient />
+            <RelatedTools currentHref="/tools/pdf/compress" />
             <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );

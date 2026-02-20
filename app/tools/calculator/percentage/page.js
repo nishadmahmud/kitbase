@@ -18,6 +18,7 @@ export async function generateMetadata() {
 
 import { getToolSchema } from "@/lib/seo";
 import ToolContent from "@/components/global/ToolContent";
+import RelatedTools from "@/components/global/RelatedTools";
 
 export default function PercentageCalculatorPage() {
     const tool = getToolByHref("/tools/calculator/percentage");
@@ -40,7 +41,7 @@ export default function PercentageCalculatorPage() {
     const faq = [
         { question: "How do I find what % one number is of another?", answer: "Use the 'X is what % of Y?' mode. Divide X by Y and multiply by 100." },
         { question: "How to calculate a discount?", answer: "Use 'Percentage decrease' mode with the original price and discount rate." },
-        { question: "What's the percentage change formula?", answer: "((New Value - Old Value) / Old Value) × 100. Our tool does this automatically." }
+        { question: "What's the percentage change formula?", answer: "((New Value - Old Value) / Old Value) Ã— 100. Our tool does this automatically." }
     ];
 
     return (
@@ -50,6 +51,7 @@ export default function PercentageCalculatorPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <PercentageCalculatorClient />
+            <RelatedTools currentHref="/tools/calculator/percentage" />
             <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
     );

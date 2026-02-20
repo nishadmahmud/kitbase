@@ -19,6 +19,7 @@ export async function generateMetadata() {
 import { getToolSchema } from "@/lib/seo";
 
 import ToolContent from "@/components/global/ToolContent";
+import RelatedTools from "@/components/global/RelatedTools";
 
 export default function PomodoroPage() {
     const tool = getToolByHref("/tools/productivity/pomodoro");
@@ -49,6 +50,7 @@ export default function PomodoroPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <PomodoroClient />
+            <RelatedTools currentHref="/tools/productivity/pomodoro" />
             <ToolContent {...content} />
         </>
     );
