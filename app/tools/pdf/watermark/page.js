@@ -16,6 +16,19 @@ export async function generateMetadata() {
     };
 }
 
+import { getToolSchema } from "@/lib/seo";
+
 export default function WatermarkPdfPage() {
-    return <WatermarkPdfClient />;
+    const tool = getToolByHref("/tools/pdf/watermark");
+    const jsonLd = getToolSchema(tool);
+
+    return (
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <WatermarkPdfClient />
+        </>
+    );
 }

@@ -16,6 +16,19 @@ export async function generateMetadata() {
     };
 }
 
+import { getToolSchema } from "@/lib/seo";
+
 export default function StringTransformPage() {
-    return <StringTransformClient />;
+    const tool = getToolByHref("/tools/text/transform");
+    const jsonLd = getToolSchema(tool);
+
+    return (
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <StringTransformClient />
+        </>
+    );
 }

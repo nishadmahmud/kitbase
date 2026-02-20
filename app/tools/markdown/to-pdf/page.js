@@ -16,6 +16,19 @@ export async function generateMetadata() {
     };
 }
 
+import { getToolSchema } from "@/lib/seo";
+
 export default function MarkdownToPdfPage() {
-    return <MarkdownToPdfClient />;
+    const tool = getToolByHref("/tools/markdown/to-pdf");
+    const jsonLd = getToolSchema(tool);
+
+    return (
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <MarkdownToPdfClient />
+        </>
+    );
 }

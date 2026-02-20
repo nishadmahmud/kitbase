@@ -16,6 +16,19 @@ export async function generateMetadata() {
     };
 }
 
+import { getToolSchema } from "@/lib/seo";
+
 export default function ColorConverterPage() {
-    return <ColorConverterClient />;
+    const tool = getToolByHref("/tools/design/color-converter");
+    const jsonLd = getToolSchema(tool);
+
+    return (
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <ColorConverterClient />
+        </>
+    );
 }

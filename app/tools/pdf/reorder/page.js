@@ -27,6 +27,19 @@ export async function generateMetadata() {
     };
 }
 
+import { getToolSchema } from "@/lib/seo";
+
 export default function ReorderPdfPage() {
-    return <ReorderPdfClient />;
+    const tool = getToolByHref("/tools/pdf/reorder");
+    const jsonLd = getToolSchema(tool);
+
+    return (
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <ReorderPdfClient />
+        </>
+    );
 }

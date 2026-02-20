@@ -16,6 +16,19 @@ export async function generateMetadata() {
     };
 }
 
+import { getToolSchema } from "@/lib/seo";
+
 export default function ProtectPdfPage() {
-    return <ProtectPdfClient />;
+    const tool = getToolByHref("/tools/pdf/protect");
+    const jsonLd = getToolSchema(tool);
+
+    return (
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <ProtectPdfClient />
+        </>
+    );
 }

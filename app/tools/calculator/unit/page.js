@@ -16,6 +16,19 @@ export async function generateMetadata() {
     };
 }
 
+import { getToolSchema } from "@/lib/seo";
+
 export default function UnitConverterPage() {
-    return <UnitConverterClient />;
+    const tool = getToolByHref("/tools/calculator/unit");
+    const jsonLd = getToolSchema(tool);
+
+    return (
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <UnitConverterClient />
+        </>
+    );
 }

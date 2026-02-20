@@ -16,6 +16,19 @@ export async function generateMetadata() {
     };
 }
 
+import { getToolSchema } from "@/lib/seo";
+
 export default function RegexTesterPage() {
-    return <RegexTesterClient />;
+    const tool = getToolByHref("/tools/dev/regex-tester");
+    const jsonLd = getToolSchema(tool);
+
+    return (
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <RegexTesterClient />
+        </>
+    );
 }

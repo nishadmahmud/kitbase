@@ -16,6 +16,19 @@ export async function generateMetadata() {
     };
 }
 
+import { getToolSchema } from "@/lib/seo";
+
 export default function PercentageCalculatorPage() {
-    return <PercentageCalculatorClient />;
+    const tool = getToolByHref("/tools/calculator/percentage");
+    const jsonLd = getToolSchema(tool);
+
+    return (
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <PercentageCalculatorClient />
+        </>
+    );
 }
