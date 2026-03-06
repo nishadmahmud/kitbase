@@ -6,6 +6,7 @@ import Footer from "@/components/layout/Footer";
 import Providers from "@/components/providers";
 
 import MobileBottomNav from "@/components/layout/MobileBottomNav";
+import PWARegister from "@/components/PWARegister";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -71,6 +72,7 @@ export const metadata = {
     google: "FUFdJgc3ly_bHapVPlCnmIoUlsVQtLm6EL723I-rcA8",
   },
   category: "productivity",
+  manifest: "/manifest.webmanifest",
 };
 
 export const viewport = {
@@ -133,6 +135,7 @@ export default function RootLayout({ children }) {
           <Footer />
           <MobileBottomNav />
           <Analytics />
+          <PWARegister />
         </Providers>
       </body>
     </html>
