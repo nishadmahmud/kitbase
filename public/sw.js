@@ -3,6 +3,10 @@ const CACHE_NAME = "kitbase-v2";
 // Precache main shell + all tool routes so the app is broadly usable offline
 const PRECACHE_URLS = [
   "/",
+  "/logo.svg",
+  "/icon.svg",
+  "/globe.svg",
+  "/og-image.png",
   "/about",
   "/privacy",
   "/terms",
