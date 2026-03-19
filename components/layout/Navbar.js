@@ -69,7 +69,7 @@ export default function Navbar() {
     }, []);
 
     // Specific category nav links
-    const categoryNavSlugs = ["pdf", "image", "dev", "text", "visualization"];
+    const categoryNavSlugs = ["pdf", "image", "dev", "text", "visualization", "crypto"];
     const navLinks = [
         { label: "Tools", href: "/all-tools", isToolsDropdown: true },
         ...categories

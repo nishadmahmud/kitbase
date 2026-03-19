@@ -1,17 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { PDFDocument } from "pdf-lib";
 import { saveAs } from "file-saver";
-import { Lock, FileUp, Download, X } from "lucide-react";
+import { Lock, FileUp, Download, X, Eye, EyeOff } from "lucide-react";
 import ToolHeader from "@/components/tool/ToolHeader";
 import ToolDropzone from "@/components/tool/ToolDropzone";
 import { cn } from "@/lib/utils/cn";
+import ToolResult from "@/components/tool/ToolResult";
+import { encryptPdfQpdf } from "@/lib/pdf/qpdf";
 
 export default function ProtectPdfClient() {
     const [file, setFile] = useState(null);
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
     const [isProcessing, setIsProcessing] = useState(false);
+    const [error, setError] = useState("");
+    const [done, setDone] = useState(false);
 
     const handleFileSelect = (files) => {
         if (files?.[0]) {
@@ -24,30 +28,14 @@ export default function ProtectPdfClient() {
 
         try {
             setIsProcessing(true);
-            const arrayBuffer = await file.arrayBuffer();
-            const pdfDoc = await PDFDocument.load(arrayBuffer);
+            setError("");
+            setDone(false);
 
-            // Simple encryption with user password
-            pdfDoc.encrypt({
-                userPassword: password,
-                ownerPassword: password,
-                permissions: {
-                    printing: "highResolution",
-                    modifying: false,
-                    copying: false,
-                    annotating: false,
-                    fillingForms: false,
-                    contentAccessibility: false,
-                    documentAssembly: false,
-                },
-            });
-
-            const pdfBytes = await pdfDoc.save();
-            const blob = new Blob([pdfBytes], { type: "application/pdf" });
+            const blob = await encryptPdfQpdf(file, password);
             saveAs(blob, `protected-${file.name}`);
+            setDone(true);
         } catch (err) {
-            console.error(err);
-            alert("Failed to protect PDF. The file might already be encrypted or corrupted.");
+            setError(err?.message || "Failed to protect PDF.");
         } finally {
             setIsProcessing(false);
         }
@@ -100,17 +88,33 @@ export default function ProtectPdfClient() {
                             </h3>
 
                             <div className="space-y-4">
+                                {error && <ToolResult success={false} message={error} />}
+                                {done && <ToolResult success message="Protected PDF generated successfully." />}
                                 <div>
                                     <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
                                         Enter Password
                                     </label>
-                                    <input
-                                        type="password"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        placeholder="Start typing..."
-                                        className="w-full bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl px-4 py-3 text-gray-900 dark:text-gray-200 outline-none focus:border-red-500/50 transition-colors placeholder:text-gray-400 dark:placeholder:text-gray-700"
-                                    />
+                                    <div className="relative">
+                                        <input
+                                            type={showPassword ? "text" : "password"}
+                                            value={password}
+                                            onChange={(e) => { setPassword(e.target.value); setError(""); setDone(false); }}
+                                            onKeyDown={(e) => {
+                                                if (e.key === "Enter" && !isProcessing && password) handleProtect();
+                                            }}
+                                            placeholder="Start typing..."
+                                            className="w-full bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl pl-4 pr-12 py-3 text-gray-900 dark:text-gray-200 outline-none focus:border-red-500/50 transition-colors placeholder:text-gray-400 dark:placeholder:text-gray-700"
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={() => setShowPassword((v) => !v)}
+                                            className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-md text-gray-500 hover:text-gray-900 dark:text-gray-500 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors"
+                                            aria-label={showPassword ? "Hide password" : "Show password"}
+                                            disabled={isProcessing}
+                                        >
+                                            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                                        </button>
+                                    </div>
                                 </div>
 
                                 <button
