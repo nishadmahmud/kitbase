@@ -3,7 +3,6 @@
 import { useState, useRef } from "react";
 import { Download, Settings, Type, Link as LinkIcon, Wifi, Mail } from "lucide-react";
 import { QRCodeCanvas } from "qrcode.react";
-import ToolHeader from "@/components/tool/ToolHeader";
 import CustomSelect from "@/components/ui/CustomSelect";
 import { ActionButton } from "@/components/tool/ToolActions";
 
@@ -61,15 +60,7 @@ export default function QrCodeClient() {
 
     return (
         <div className="min-h-screen pb-12 transition-colors duration-300">
-            <div className="max-w-7xl mx-auto px-6 pt-10">
-                <ToolHeader
-                    title="QR Code Generator"
-                    description="Create customized QR codes for links, text, Wi-Fi access, and more."
-                    breadcrumbs={[{ label: "Dev Tools", href: "/category/dev" }, { label: "QR Generator" }]}
-                />
-            </div>
-
-            <div className="max-w-7xl mx-auto px-6 -mt-8 relative z-10 flex flex-col lg:flex-row gap-8 items-start">
+            <div className="max-w-7xl mx-auto px-6 pt-2 relative z-10 flex flex-col lg:flex-row gap-8 items-start">
                 <div className="flex-1 min-w-0 w-full flex flex-col gap-6">
                     <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
                         {TABS.map(tab => (

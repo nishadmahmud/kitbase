@@ -23,6 +23,8 @@ export async function generateMetadata() {
 import { getToolSchema, getBreadcrumbSchema, getHowToSchema, getFaqSchema } from "@/lib/seo";
 import ToolContent from "@/components/global/ToolContent";
 import RelatedTools from "@/components/global/RelatedTools";
+import Link from "next/link";
+import { ChevronRight, Shield, Home } from "lucide-react";
 
 export default function QrCodeGeneratorPage() {
     const tool = getToolByHref("/tools/dev/qr-code");
@@ -62,7 +64,44 @@ export default function QrCodeGeneratorPage() {
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-            <QrCodeClient />
+            <div className="min-h-screen bg-slate-50 dark:bg-gray-950 pb-12 transition-colors duration-300">
+                <div className="max-w-7xl mx-auto px-6 pt-10">
+                    <div className="mb-10">
+                        <nav className="flex items-center gap-1.5 text-sm mb-4 text-gray-500 dark:text-gray-500 overflow-x-auto no-scrollbar whitespace-nowrap">
+                            <Link href="/" className="hover:text-gray-900 dark:hover:text-gray-300 transition-colors no-underline flex items-center gap-1">
+                                <Home size={14} />
+                                <span className="hidden sm:inline">Home</span>
+                            </Link>
+                            <span className="flex items-center gap-1.5">
+                                <ChevronRight className="w-3.5 h-3.5 text-gray-400 dark:text-gray-600 block flex-shrink-0" />
+                                <Link href="/all-tools" className="hover:text-gray-900 dark:hover:text-gray-300 transition-colors no-underline">Tools</Link>
+                            </span>
+                            <span className="flex items-center gap-1.5">
+                                <ChevronRight className="w-3.5 h-3.5 text-gray-400 dark:text-gray-600 block flex-shrink-0" />
+                                <Link href="/category/dev" className="hover:text-gray-900 dark:hover:text-gray-300 transition-colors no-underline">Developer Tools</Link>
+                            </span>
+                            <span className="flex items-center gap-1.5">
+                                <ChevronRight className="w-3.5 h-3.5 text-gray-400 dark:text-gray-600 block flex-shrink-0" />
+                                <span className="text-gray-900 dark:text-gray-200 font-medium">QR Code Generator</span>
+                            </span>
+                        </nav>
+
+                        <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 dark:text-gray-100 mb-4 tracking-tight leading-tight">
+                            QR Code Generator
+                        </h1>
+                        <p className="text-lg text-gray-600 dark:text-gray-400 mb-6 leading-relaxed max-w-3xl">
+                            Create customized QR codes for links, text, Wi‑Fi access, and email. This tool runs locally in your browser for speed and privacy.
+                        </p>
+
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 text-emerald-700 dark:text-emerald-400 text-xs font-medium">
+                            <Shield className="w-3.5 h-3.5" />
+                            <span>Client-side only. Data never leaves your device.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <QrCodeClient />
+            </div>
             <RelatedTools currentHref="/tools/dev/qr-code" />
             <ToolContent title={tool.name} steps={steps} features={features} faq={faq} />
         </>
