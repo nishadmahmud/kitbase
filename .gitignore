@@ -14,7 +14,7 @@ KITBASE_MOBILE_VISION.md
 /coverage
 kitbase_analysis.md
 # scripts
-/scripts
+# (We commit build helper scripts used by CI/Vercel.)
 
 # next.js
 /.next/
