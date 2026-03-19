@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Kitbase
+
+Kitbase is a privacy-first collection of free online utilities (PDF, image, developer, text, calculators, and more) built with **Next.js (App Router)** and **Tailwind CSS**.
+
+### Highlights
+
+- **Client-side by default**: many tools run locally in your browser
+- **Installable PWA**: add to home screen / install on desktop
+- **Fast + modern UI**: Next.js App Router + React
 
 ## Getting Started
 
-First, run the development server:
+Install dependencies and start the dev server:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## PWA (offline + installable)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The project includes:
 
-## Learn More
+- `public/manifest.webmanifest`
+- `public/sw.js`
 
-To learn more about Next.js, take a look at the following resources:
+Test installability/offline in a production build:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run build
+npm run start
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Then use Chrome DevTools → **Application** (Service Worker / Cache Storage).
 
-## Deploy on Vercel
+## PDF compression (client-side)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+PDF compression uses **Ghostscript compiled to WebAssembly** for stronger compression while preserving text/vectors.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Important:
+- The Ghostscript WASM dependency is **AGPL-3.0**.
+- If you deploy Kitbase publicly and users access it over the network, **AGPL requires you to provide the complete corresponding source code** to those users (commonly done by linking your public repo from the site footer).
+
+## Environment variables
+
+- `NEXT_PUBLIC_SOURCE_URL` (optional): URL to the public source repository (if you prefer configuring the footer via env instead of hardcoding).
+
+## License
+
+**GNU Affero General Public License v3.0 (AGPL-3.0)**. See [`LICENSE`](./LICENSE).
+

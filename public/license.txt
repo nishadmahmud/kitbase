@@ -1,0 +1,5 @@
+GNU Affero General Public License v3.0
+
+This site is licensed under the GNU Affero General Public License, version 3 (AGPL-3.0).
+See the root `LICENSE` file in the repository for the full license text.
+

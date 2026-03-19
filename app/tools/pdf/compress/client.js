@@ -14,6 +14,7 @@ export default function CompressPdfClient() {
     const [loading, setLoading] = useState(false);
     const [resultBlob, setResultBlob] = useState(null);
     const [error, setError] = useState(null);
+    const [preset, setPreset] = useState("ebook");
 
     const handleFiles = useCallback((files) => {
         setFile(files[0]);
@@ -25,7 +26,7 @@ export default function CompressPdfClient() {
         setLoading(true);
         setError(null);
         try {
-            const blob = await compressPdf(file);
+            const blob = await compressPdf(file, { mode: "ghostscript", preset });
             setResultBlob(blob);
         } catch (e) {
             setError(e.message);
@@ -74,8 +75,27 @@ export default function CompressPdfClient() {
                             </ActionButton>
                         </ToolActions>
 
-                        <div className="mt-4 p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg text-sm text-amber-600 dark:text-amber-500">
-                            <strong>Note:</strong> This tool performs structural optimization. If your PDF contains large images, the size reduction might be minimal as we prioritize document integrity.
+                        <div className="mt-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-5 shadow-sm dark:shadow-2xl dark:shadow-black/20 transition-colors">
+                            <div className="flex items-center justify-between gap-4 flex-wrap">
+                                <div>
+                                    <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 m-0">Compression level</p>
+                                    <p className="text-xs text-gray-500 m-0">Higher compression may reduce image quality. Text stays crisp.</p>
+                                </div>
+                                <select
+                                    value={preset}
+                                    onChange={(e) => setPreset(e.target.value)}
+                                    className="px-3 py-2 rounded-lg bg-slate-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 text-sm text-gray-900 dark:text-gray-100"
+                                    disabled={loading}
+                                >
+                                    <option value="screen">High (smallest)</option>
+                                    <option value="ebook">Medium (recommended)</option>
+                                    <option value="printer">Low (best quality)</option>
+                                    <option value="prepress">Lowest (print-ready)</option>
+                                </select>
+                            </div>
+                            <div className="mt-3 text-xs text-amber-600 dark:text-amber-500 bg-amber-500/10 border border-amber-500/20 rounded-lg p-3">
+                                <strong>Note:</strong> This uses Ghostscript in your browser (WASM). First run downloads ~15MB, then it’s fast and stays local.
+                            </div>
                         </div>
 
                         {error && <ToolResult success={false} message={error} />}
