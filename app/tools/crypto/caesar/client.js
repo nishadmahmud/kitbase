@@ -4,28 +4,7 @@ import { useMemo, useState } from "react";
 import { ArrowLeftRight, Copy, Eraser, RotateCcw } from "lucide-react";
 import ToolHeader from "@/components/tool/ToolHeader";
 import ToolActions, { ActionButton } from "@/components/tool/ToolActions";
-
-function mod(n, m) {
-  return ((n % m) + m) % m;
-}
-
-function caesarTransform(text, shift) {
-  const s = mod(shift, 26);
-  let out = "";
-  for (const ch of text) {
-    const code = ch.charCodeAt(0);
-    const isUpper = code >= 65 && code <= 90;
-    const isLower = code >= 97 && code <= 122;
-    if (!isUpper && !isLower) {
-      out += ch;
-      continue;
-    }
-    const base = isUpper ? 65 : 97;
-    const idx = code - base;
-    out += String.fromCharCode(base + mod(idx + s, 26));
-  }
-  return out;
-}
+import { encrypt, decrypt } from "@/lib/crypto/caesar";
 
 export default function CaesarCipherClient() {
   const [mode, setMode] = useState("encrypt");
@@ -35,7 +14,7 @@ export default function CaesarCipherClient() {
   const output = useMemo(() => {
     const parsed = Number.parseInt(shiftInput, 10);
     const s = Number.isFinite(parsed) ? parsed : 0;
-    return mode === "encrypt" ? caesarTransform(input, s) : caesarTransform(input, -s);
+    return mode === "encrypt" ? encrypt(input, s) : decrypt(input, s);
   }, [input, mode, shiftInput]);
 
   const demoPlaintext = "Attack at dawn!";
@@ -52,7 +31,7 @@ export default function CaesarCipherClient() {
       setInput(demoPlaintext);
       return;
     }
-    setInput(caesarTransform(demoPlaintext, 3));
+    setInput(encrypt(demoPlaintext, 3));
   };
 
   const swapModeAndInput = () => {

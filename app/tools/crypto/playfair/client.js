@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { ArrowLeftRight, Copy, Eraser, RotateCcw } from "lucide-react";
 import ToolHeader from "@/components/tool/ToolHeader";
 import ToolActions, { ActionButton } from "@/components/tool/ToolActions";
+import { encrypt, decrypt } from "@/lib/crypto/playfair";
 
 function normalizeKey(key) {
   const cleaned = (key || "")
@@ -36,71 +37,13 @@ function buildSquare(key) {
   return { square, pos };
 }
 
-function chunkDigraphs(text) {
-  const cleaned = (text || "")
-    .toUpperCase()
-    .replace(/[^A-Z]/g, "")
-    .replace(/J/g, "I");
-  const pairs = [];
-  let i = 0;
-  while (i < cleaned.length) {
-    const a = cleaned[i];
-    const b = cleaned[i + 1];
-    if (!b) {
-      pairs.push([a, "X"]);
-      break;
-    }
-    if (a === b) {
-      pairs.push([a, "X"]);
-      i += 1;
-    } else {
-      pairs.push([a, b]);
-      i += 2;
-    }
-  }
-  return pairs;
-}
-
-function playfairTransform(text, key, decrypt) {
-  const { square, pos } = buildSquare(key);
-  if (!square) return "";
-
-  const pairs = chunkDigraphs(text);
-  const outPairs = pairs.map(([a, b]) => {
-    const ia = pos.get(a);
-    const ib = pos.get(b);
-    if (ia == null || ib == null) return [a, b];
-    const ra = Math.floor(ia / 5), ca = ia % 5;
-    const rb = Math.floor(ib / 5), cb = ib % 5;
-
-    if (ra === rb) {
-      const delta = decrypt ? -1 : 1;
-      const na = square[ra * 5 + ((ca + delta + 5) % 5)];
-      const nb = square[rb * 5 + ((cb + delta + 5) % 5)];
-      return [na, nb];
-    }
-    if (ca === cb) {
-      const delta = decrypt ? -1 : 1;
-      const na = square[((ra + delta + 5) % 5) * 5 + ca];
-      const nb = square[((rb + delta + 5) % 5) * 5 + cb];
-      return [na, nb];
-    }
-    // rectangle swap columns
-    const na = square[ra * 5 + cb];
-    const nb = square[rb * 5 + ca];
-    return [na, nb];
-  });
-
-  return outPairs.map((p) => p.join("")).join("");
-}
-
 export default function PlayfairCipherClient() {
   const [mode, setMode] = useState("encrypt");
   const [key, setKey] = useState("MONARCHY");
   const [input, setInput] = useState("INSTRUMENTS");
 
   const { square } = useMemo(() => buildSquare(key), [key]);
-  const output = useMemo(() => playfairTransform(input, key, mode === "decrypt"), [input, key, mode]);
+  const output = useMemo(() => (mode === "encrypt" ? encrypt(input, key) : decrypt(input, key)), [input, key, mode]);
 
   const demoPlaintext = "INSTRUMENTS";
   const demoKey = "MONARCHY";
@@ -117,7 +60,7 @@ export default function PlayfairCipherClient() {
       setInput(demoPlaintext);
       return;
     }
-    setInput(playfairTransform(demoPlaintext, demoKey, false));
+    setInput(encrypt(demoPlaintext, demoKey));
   };
 
   const swapModeAndInput = () => setModeSmart(mode === "encrypt" ? "decrypt" : "encrypt");

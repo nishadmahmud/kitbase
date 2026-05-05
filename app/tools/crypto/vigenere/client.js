@@ -4,44 +4,7 @@ import { useMemo, useState } from "react";
 import { ArrowLeftRight, Copy, Eraser, RotateCcw } from "lucide-react";
 import ToolHeader from "@/components/tool/ToolHeader";
 import ToolActions, { ActionButton } from "@/components/tool/ToolActions";
-
-function isLetterCode(code) {
-  return (code >= 65 && code <= 90) || (code >= 97 && code <= 122);
-}
-
-function charToA0(code) {
-  const upper = code >= 65 && code <= 90;
-  const base = upper ? 65 : 97;
-  return { upper, base, idx: code - base };
-}
-
-function normalizeKey(key) {
-  return (key || "")
-    .toUpperCase()
-    .replace(/[^A-Z]/g, "");
-}
-
-function vigenereTransform(text, key, decrypt) {
-  const k = normalizeKey(key);
-  if (!k) return "";
-
-  let out = "";
-  let ki = 0;
-  for (const ch of text) {
-    const code = ch.charCodeAt(0);
-    if (!isLetterCode(code)) {
-      out += ch;
-      continue;
-    }
-    const { base, idx } = charToA0(code);
-    const kShift = k.charCodeAt(ki % k.length) - 65;
-    const shift = decrypt ? -kShift : kShift;
-    const next = (idx + shift + 26 * 10) % 26;
-    out += String.fromCharCode(base + next);
-    ki += 1;
-  }
-  return out;
-}
+import { encrypt, decrypt } from "@/lib/crypto/vigenere";
 
 export default function VigenereCipherClient() {
   const [mode, setMode] = useState("encrypt");
@@ -49,7 +12,7 @@ export default function VigenereCipherClient() {
   const [input, setInput] = useState("Attack at dawn!");
 
   const output = useMemo(() => {
-    return vigenereTransform(input, key, mode === "decrypt");
+    return mode === "encrypt" ? encrypt(input, key) : decrypt(input, key);
   }, [input, key, mode]);
 
   const demoPlaintext = "Attack at dawn!";
@@ -67,7 +30,7 @@ export default function VigenereCipherClient() {
       setInput(demoPlaintext);
       return;
     }
-    setInput(vigenereTransform(demoPlaintext, demoKey, false));
+    setInput(encrypt(demoPlaintext, demoKey));
   };
 
   const swapModeAndInput = () => setModeSmart(mode === "encrypt" ? "decrypt" : "encrypt");
